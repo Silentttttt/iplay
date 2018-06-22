@@ -4,10 +4,12 @@ import (
 	"time"
 )
 
-// GameExtFIFA 世界杯赛事
-type GameExtFIFA struct {
+// GameExtFootBall 足球赛事
+type GameExtFootball struct {
 	Id     int
 	GameId int // 赛事ID
+
+	GameType int //比赛类型 常规赛，晋级赛
 
 	RegularResult int // 常规赛事结果 {0 主胜 1 平 2 客胜}
 	FinalResult   int // 最终比赛结果 {0 主胜 1 平 2 客胜}
@@ -20,10 +22,12 @@ type GameExtFIFA struct {
 	HomeScoreSecondHalf  int // 主队下半场得分
 	VisitScoreSecondHalf int // 客队下半场得分
 
+	HasOvertime        bool // 是否需要加时赛
 	IsOvertime         bool // 是否加时
 	HomeScoreOvertime  int  // 加时主队得分
 	VisitScoreOvertime int  // 加时客队得分
 
+	HasPenalty        bool //是否需要进行点球
 	IsPenalty         bool // 是否点球大战
 	HomeScorePenalty  int  // 点球大战主队得分
 	VisitScorePenalty int  // 点球大战客队得分
