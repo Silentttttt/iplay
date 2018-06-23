@@ -3,7 +3,7 @@ package models
 import "github.com/astaxie/beego/orm"
 
 type User struct {
-	Id          int
+	Id          int64
 	Username    string `orm:"size(32)"`
 	Realname    string `orm:"size(32)"`
 	IdCard      string `orm:"size(32)"` // 提现需要通过身份认证

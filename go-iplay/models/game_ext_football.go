@@ -6,8 +6,8 @@ import (
 
 // GameExtFootBall 足球赛事
 type GameExtFootball struct {
-	Id     int
-	GameId int // 赛事ID
+	Id   int
+	Game *Game `orm:"rel(fk)"` // 赛事ID
 
 	GameType int //比赛类型 常规赛，晋级赛
 

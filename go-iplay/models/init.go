@@ -7,7 +7,7 @@ import (
 
 //初始化
 func init() {
-	orm.RegisterModel(new(User), new(Article))
+	orm.RegisterModel(new(User), new(Game))
 }
 
 func TableName(name string) string {
