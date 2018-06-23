@@ -1,0 +1,95 @@
+token名称：ATP
+
+编码规范：
+1、数字0表示未定义
+2、
+
+玩法：
+status
+0：初始状态
+start
+1: 可以下注
+deadline到，公示结果
+2:
+确认结果
+3: 可以兑奖
+兑奖完毕
+
+
+1、压注和庄家放保证金只能押注整数的ATP,领奖保留小数
+2、赔率为两位数小数, 用整型存储
+
+API
+
+主流程API：
+
+createGame(type, deadLine, theme,options, amount)
+创建一个游戏，但是并不开放投注
+type: type = 1表示有赔率的玩法，type = 2表示平分奖池的玩法；
+deadLine: 最后下注时间
+theme: 主题
+options： 盘口和赔率数组
+amount: 保证金
+
+startGame(gamId)
+开放投注
+
+previewResult(gameId, resultIndex)
+公示游戏接结果，由游戏管理员调用
+
+confirmResult(gameId)
+确认游戏结果，由市场管理员调用
+
+
+
+庄家API：
+
+openMarket()
+打开市场后，任何人都以开盘
+
+closeMarket()
+关闭市场后，只有市场管理员才能开盘
+
+delGameBfStart(gameId)
+创建游戏后，在开放之前，删除游戏。
+
+sendDeposit(gameId, amount)
+交保证金，只有游戏的创建者可以调用
+
+createAndStartGame(type, deadLine, options, amount)
+创建游戏并开放投注
+
+changeOdds(gameId, odds, optionVersion)
+修改游戏盘口赔率，只有在deadLine前才能调用
+
+
+
+玩家：
+
+buyToken(gameId, optionNo, optionVersion, amount)
+玩家下注
+gameId：游戏Id
+optionNo： 下注的选项
+optionVersion： 选项版本
+amount： 下注金额
+
+getReward(ticketId) 
+玩家兑奖，只有确认结果后才能兑奖
+
+getRemainDeposit(gameId)
+在所有玩家兑奖后，游戏创建者可以拿走剩余的钱
+
+transferTicket: function(ticketId, to)
+买的注可以交易
+
+
+查询接口：
+getGame(gameId)
+
+getTicket(ticketId)
+
+
+
+所有ERC20的接口
+
+

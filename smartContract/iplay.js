@@ -266,7 +266,7 @@ var Option = function(description, odd) { // 每个game有多个option（投注�
     this.expectReward = 0; //如果这个选项正确，需要返回的奖金，bigNumber
 }
 
-var Game = function(id, owner, deadLine, type) {
+var Game = function(id, owner, deadLine, type, theme) {
     assertPosInteger(id);
     assertPosInteger(deadLine);
     //0->1->2->3->4
@@ -274,6 +274,8 @@ var Game = function(id, owner, deadLine, type) {
     this.deadLine = deadLine;
     this.owner = owner; 
     this.type = type;
+    this.theme = theme;
+    this.payType = payType;
 
     this.status = 0;
     this.nextOptionCount = 1; //number
@@ -290,8 +292,8 @@ var Game = function(id, owner, deadLine, type) {
 }
 
 Game.prototype = {
-    isAdmin: function(address) {
-        return address == this.owner;
+    assertOwner: function(address) {
+        assert(address == this.owner, "not the onwer of this game");
     },
 
     _getOptionKey(index) {
@@ -316,17 +318,13 @@ Game.prototype = {
         this.nextOptionCount += 1;
         this.setOption(index, option);
     },
-
-    setStatus: function(status) {
-        this.status = status;
-    }, 
 }
 
 var Market = function() {
     LocalContractStorage.defineProperties(this, {
         nextGameCount: null,
-        admin: null,
         nextTokenCount: null,
+        admin: null,
         isMarketOpen: null, 
     });
 
@@ -334,7 +332,7 @@ var Market = function() {
     LocalContractStorage.defineMapProperty(this, "Games", {
         parse: function(value) {
             params = JSON.parse(value)
-            var game =  new Game(params.id, params.owner, params.deadLine);
+            var game =  new Game(params.id, params.owner, params.deadLine, params.type, params.theme, params.payType);
             game.status = params.status;
             game.nextOptionCount = params.nextOptionCount; 
             game.optionVersion = params.optionVersion;
@@ -343,6 +341,8 @@ var Market = function() {
             game.ownerDeposit = params.ownerDeposit; 
             game.bets = params.bets; 
             game.deposit = params.deposit;
+            game.depositAtLast = params.depositAtLast;
+            game.betsAtLast = params.betsAtLast;
         },
         stringify: function(obj) {
             return JSON.stringify(obj)
@@ -387,26 +387,29 @@ Market.prototype = {
     },
 
     //for game owmer
-    createGame: function(type, deadLine, options, amount) {//args: {[odd1, describe1], [odd2, descrobe2]...}
+    createGame: function(payType, type, deadLine, theme, options, amount) {//args: {[odd1, describe1], [odd2, descrobe2]...}
+        //先转账，确保amount没有溢出
+        assert(payType === 1 || payType === 2, "invlaid pay type")
+    
+        amount = this._transfer(Blockchain.transaction.from, Blockchain.transaction.to, amount, payType);
+
         //check args
+        assert(typeof(theme) == "string", "theme should be string");
         var creator = Blockchain.transaction.from;
         if (!this.isMarketOpen()) {
             assert(this._isMarketAdmin(creator), "only market admin can create game");
         }
         assert(type === 1 || type === 2, "invalid type");
-
-        var gameId = nextGameCount;
-        nextGameCount = nextGameCount + 1;
-
-        var optionCount = options.length;
         var deadLineTime = Date.parse(deadLine).getTime();
         if (deadLineTime <= Date.now()) {
             throw "deadLineTime shoud after current time";
         }
         
         //create and init Game
-        var newGame = new Game(gameId, creator, deadLine, type);
-
+        var gameId = this._getGameId();
+        var newGame = new Game(gameId, creator, deadLine, type, theme, payType);
+        
+        var optionCount = options.length;
         for (var i = 0; i < optionCount; i++) {
             //"check args"
             var odd = options[i].odd;
@@ -415,20 +418,40 @@ Market.prototype = {
             assert(typeof(description) == "string", "description should be a string");
             assert(typeof(odd) == "number", "odd should be a number");
             assert(odd > 1, "odd should larger than 1");
-            
-            odd = odd * 100;
-            assertPosInteger(odd * 100);
+            assertPosInteger(odd * 100);//只允许两位小数
 
             var option = new Option(description, odd);
             newGame.addOption(option);
         }
         newGame.ownerDeposit = amount;
         newGame.deposit = amount;
-        this._transfer(Blockchain.transaction.from, Blockchain.transaction.to, amount);
-
-        this.Games.set(gameId, newGame);
+        this._setGame(gameId, newGame);
         this._createGameEvent(newGame);
         return {gameId: gameId};
+    },
+
+    delGameBfStart: function(gameId) {
+        var game = this._getGame(gameId);
+        game.assertOwner(Blockchain.transaction.from);
+        assert(game.status === 0, "game has started");
+        this.transfer(Blockchain.transaction.to, Blockchain.transaction.from, game.ownerDeposit);
+        game.ownerDeposit = 0;
+        game.deposit = 0;
+        game.status = 4;
+        game._setGame(gameId, game);
+        this._delGameEvent(game);
+    },
+
+    sendDeposit: function(gameId, amount) {
+        assertPosInteger(amount);
+        this.transfer(Blockchain.transaction.from, Blockchain.transaction.to, amount);
+
+        var game = this._getGame(gameId);
+        game.assertOwner(Blockchain.transaction.from);
+        assert(game.status === 0 || game.status === 1, "game has ended");
+        game.ownerDeposit += amount;
+        game.deposit += amount;
+        this._setGame(gameId, game);
     },
 
     startGame: function(gameId) {
@@ -436,26 +459,24 @@ Market.prototype = {
         var game = this._getGame(gameId);
 
         assert(game.owner == Blockchain.transaction.from, "only owner of the game can start the game");
-        assert(gameId === game.id, "unexpected error, data not consistency")
-
         assert(game.status == 0, "game has started or ended");
         game.status = 1;
         this._setGame(gameId, game);
     },
 
-    createAndStartGame: function(deadLine, options){
-        var gameId = this.createGame(deadLine, options).gameId;
+    createAndStartGame: function(type, deadLine, options, amount){
+        var gameId = this.createGame(type, deadLine, options, amount).gameId;
         this.startGame(gameId);
         return {gameId: gameId};
     },
 
-    changeOdds: function(gameId, odds) {
+    changeOdds: function(gameId, odds, optionVersion) {
         //should keep atomic
         var game = this._getGame(gameId);
 
         assert(game.owner == Blockchain.transaction.from, "only owner of the gane can change odd");
         assert(game.status == 1 || games.status == 0, "game has ended")
-
+        assert(game.optionVersion == optionVersion, "optionVersion has changed");
         assert(typeof(odds) == "object", "Odds should be a array");
 
         
@@ -463,8 +484,7 @@ Market.prototype = {
             var v = odds[i];
             assert(typeof(v.odd) == "number", "odd should be a number");
             assert(v.odd > 1, "odd should larger than 1");
-            odd  = odd * 100;
-            assertPosInteger(odd);
+            assertPosInteger(odd * 100);
 
             var option = game.getOption(i + 1);
             option.odd = odd;
@@ -472,27 +492,24 @@ Market.prototype = {
         }
            
         game.optionVersion += 1;
-
         this._setGame(id, game);
-
     },
 
     previewResult: function(gameId, resultIndex) {
         var game = this._getGame(gameId);
-        assert(game.owner == Blockchain.transaction.from, "only the game of owner can preview result");
+        game.assertOwner(Blockchain.transaction.from);
         assert(game.status == 1 || game.status == 2, "can not preview result in this status");
         assertPosInteger(resultIndex);
 
         var date = Data.now();
         assert(date > game.deadLine, "too early to preview result");
-
         assert(resultIndex < game.nextOptionCount, "invalid result index");
     
         game.result = index;
         game.status = 2;
         game.betsAtLast = game.best;
         game.depositAtLast = game.deposit;
-        this.Games.set(gameId, game);
+        this._setGame(gameId, game);
     },
 
     confirmResult: function(gameId) {
@@ -501,37 +518,37 @@ Market.prototype = {
         assert(game.status == 2, "game is not in status of previewing result");
 
         game.status = 3;
-        this._setGame(gameId, game);
-
+        
         if (game.type === 1) {
             var option = game.getOption(game.result);
             //庄家领回总资金减去赔付额后的资金
             var balance = game.deposit - option.expectReward;
-            this._transfer(Blockchain.transaction.to, game.owner, balance);
-
-            return amount;
+            game.deposit = option.expectReward;
+            game.ownerDeposit -= balance;
+            this._transfer(Blockchain.transaction.to, game.owner, balance, game.payType);
+            
         }
+        this._setGame(gameId, game);
     },
 
     //for users
     buyToken: function(gameId, optionNo, optionVersion, amount) {
-        assertPosInteger(gameId);
-        assertInteger(optionNo);
-        assertPosInteger(optionVersion);
-        assertPosInteger(amount);
         var game = this._getGame(gameId);
         assert(game.status == 1, "No bet in this status of game");
+
+        //扣费
+        amount = this._transfer(Blockchain.transaction.from, Blockchain.transaction.to, amount, game.payType);
+
+        assertInteger(optionNo);
+        assertPosInteger(optionVersion);
         var date = Data.now();
         assert(date <= game.deadLine, "deadline is passed");
 
         var option = game.getOption(optionNo);
         assert(option.optionVersion === optionVersion, "option version has been updated");        
-        var expectReward = amout * odd;
-        assert(expectReward + option.expectReward < this.deposit, "remaining deposit is not enough");
+        var expectReward = amount * option.odd;
+        assert(expectReward + option.expectReward <= this.deposit, "remaining deposit is not enough");
         
-        //扣费
-        this._transfer(Blockchain.transaction.from, Blockchain.transaction.to, amount);
-
         //生成token
         var ticketId = this.nextTokenCount;
         this.nextTokenCount += 1;
@@ -552,7 +569,6 @@ Market.prototype = {
     },
 
     getReward: function(ticketId) { //主动调用， server存储 gameid->tokenIds 的表
-        assertPosInteger(ticketId);
         var ticket = this._getTicket(ticketId);
         var owner = this._getTicketOwner(ticketId);
         var gameId = ticket.gameId;
@@ -565,29 +581,29 @@ Market.prototype = {
         if (game.type == 1) {
             expectReward = ticket.amount * ticket.odd;
         } else if (game.type === 2) {
-            expectReward = ticket / option.betsAtLast * game.depositAtLast;
+            expectReward = ticket.amount / option.betsAtLast * game.depositAtLast;
             expectReward = parseInt(expectReward * 100) / 100;
         } else {
             throw "unexpected error, game type is undifined";
         }
         game.bets = game.bets - ticket.amount;
         if (game.bets == 0) {
-            game.status = 4;
+            game.status = 4; //all tickets have been rewarded
         }
         game.deposit = game.deposit - expectReward;
         ticket.status = 2;
-        this._transfer(Blockchain.transaction.to, owner, expectReward);
+        this._transfer(Blockchain.transaction.to, owner, expectReward, game.payType);
         this._setTicket(ticketId, ticket);
         this._setGame(gameId,game);
     },
 
     getRemainDeposit: function(gameId){
         var game = this._getGame(gameId);
-        assert(Blockchain.transaction.from === game.owner, "only game owner can get remaining deposit");
+        game.assertOwner(Blockchain.transaction.from);
         assert(game.status == 4, "game is not in status to get remaining deposit");
         assert(game.bets == 0, "unexpected error, bets shoud be 0 when status is 4");
 
-        this._transfer(Blockchain.transaction.to, Blockchain.transaction.from, game.deposit);
+        this._transfer(Blockchain.transaction.to, Blockchain.transaction.from, game.deposit, game.payType);
         game.deposit = 0;
     },
 
@@ -599,7 +615,6 @@ Market.prototype = {
 
         assert(Blockchain.transaction.from == owner, "only ticket owner can transfer ticket");
         this._setTokenOwner(ticketId, to);
-
         this._transferTicketEvent(Blockchain.transaction.from, to, ticketId);
     },
 
@@ -641,7 +656,14 @@ Market.prototype = {
         return Admins.get(address) === 1;
     },
 
+    _getGameId: function() {
+        var id = this.nextGameCount;
+        this.nextGameCount++;
+        return id;
+    },
+
     _getGame: function(gameId) {
+        assertPosInteger(gameId);
         var game = this.Games.get(gameId);
         if (game) {
             assert(gameId === game.id, "unexpected error, data not consistency");
@@ -656,6 +678,7 @@ Market.prototype = {
     },
 
     _getTicket: function(ticketId) {
+        assertPosInteger(ticketId);
         var ticket = this.Tickets.get(ticketId);
         if (!ticket) {
             throw "invalid ticketId, failed to get ticket";
@@ -679,11 +702,31 @@ Market.prototype = {
         this.TicketIdToOwner(ticketId, owner);
     },
 
-    _transfer(from, to, amount) {
-        var tokenMgr = this._getTokenMgr();
-        var value = new BigNumber(amout);
-        value = value.mul(1000000000000000000);
-        tokenMgr.transferByContract(from, to, value);
+    _transfer(from, to, amount, payType) {// 兑换bet, 并交易
+        if (payType === 1) {
+            assertPosInteger(amount);
+            var tokenMgr = this._getTokenMgr();
+            var value = new BigNumber(amount);
+            value = value.mul(1000000000000000000);// 10^18
+            tokenMgr.transferByContract(from, to, value);
+            return amount;
+        } else if (payType === 2) {
+            if (to === Blockchain.transaction.to) {
+                amount = Blockchain.transaction.value.div(100000000000000000)// 10^17
+                assert(amount.gt(0), "invalid amount, amount should big than 0");
+                asssert(amount.isInt(), "invalid amount, amount should be a multiple of 0.1 nas");
+                return parseInt(amount.toString());
+            } else if (from === Blockchain.transaction.to) {
+                var value = new BigNumber(100000000000000000)//10^17
+                value = value.mul(amount);
+                Blockchain.transfer(to, value);
+                return amount;
+            } else {
+                throw "unexpected error, form and to are both not contract address";
+            }
+        } else {
+            throw "invalid pay type";
+        }
     },
 
     _getTokenMgr() {
@@ -695,6 +738,13 @@ Market.prototype = {
             creator: game.owner,
             gameId: game.id,
         });
+    },
+
+    _delGameEvent: function(game) {
+        Event.Trigger(this.name() {
+            deletor: game.owner,
+            id: game.Id, 
+        })
     },
 
     _transferTicketEvent: function(from, to, ticketId) {
