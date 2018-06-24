@@ -30,10 +30,10 @@ func GetByUserNameAndPassword(mobile, userpwd string) (*User, error) {
 	return &m, nil
 }
 
-// GetByMobile get user by mobile
-func GetByMobile(mobile string) (*User, error) {
+// GetByUsername get user by username
+func GetByUsername(username string) (*User, error) {
 	m := User{}
-	err := orm.NewOrm().QueryTable(UserTBName()).Filter("mobile", mobile).One(&m)
+	err := orm.NewOrm().QueryTable(UserTBName()).Filter("username", username).One(&m)
 	if err != nil {
 		return nil, err
 	}

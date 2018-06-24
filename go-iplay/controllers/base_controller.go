@@ -11,6 +11,17 @@ import (
 const (
 	Success = "0"
 	Fail    = "1"
+
+	// Error
+	NeedLoginErr = "用户未登陆，请登陆以后再执行操作"
+
+	RegisterUserExistErr = "该用户已注册，请直接登录"
+	RegisterSystemErr    = "系统错误，注册失败"
+
+	LoginParamsErr = "登陆失败，用户名或者密码无效"
+
+	IDCardAuthenticationRepeatErr = "不可以重复实名认证"
+	IDCardAuthenticationErr       = "系统错误，实名认证失败"
 )
 
 type BaseController struct {
