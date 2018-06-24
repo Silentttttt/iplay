@@ -9,3 +9,7 @@ type ChoiceOpt struct {
 	Totoal  int64    //下注总金额
 	Quizzes *Quizzes `orm:"rel(fk)"`
 }
+
+func (c *ChoiceOpt) TableName() string {
+	return ChoiceOptTBName()
+}

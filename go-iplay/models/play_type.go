@@ -14,3 +14,7 @@ type PlayType struct {
 	Parent  int64     // 父类型
 	Created time.Time `orm:"auto_now_add;type(datetime)"`
 }
+
+func (p *PlayType) TableName() string {
+	return PlayTypeTBName()
+}

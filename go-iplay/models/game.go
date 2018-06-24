@@ -14,3 +14,7 @@ type Game struct {
 	Description string    `orm:"size(256)"` // 赛事描述
 	Created     time.Time `orm:"auto_now_add;type(datetime)"`
 }
+
+func (g *Game) TableName() string {
+	return GameTBName()
+}

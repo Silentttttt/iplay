@@ -38,3 +38,7 @@ type GameExtFootball struct {
 	Description string    `orm:"size(32)"` // 赛事描述
 	Created     time.Time `orm:"auto_now_add;type(datetime)"`
 }
+
+func (g *GameExtFootball) TableName() string {
+	return GameExtFootballTBName()
+}

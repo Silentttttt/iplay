@@ -1,6 +1,6 @@
 package sysinit
 
-import "star/utils"
+import "iplay/go-iplay/utils"
 
 func init() {
 	//初始化缓存

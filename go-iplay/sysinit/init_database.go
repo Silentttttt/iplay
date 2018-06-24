@@ -2,6 +2,7 @@ package sysinit
 
 import (
 	"fmt"
+	_ "iplay/go-iplay/models"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"

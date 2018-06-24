@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"star/utils"
+	"iplay/go-iplay/utils"
 	"strings"
 	"time"
 

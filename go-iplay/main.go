@@ -1,9 +1,9 @@
 package main
 
 import (
-	_ "star/routers"
+	_ "iplay/go-iplay/routers"
 
-	_ "star/sysinit"
+	_ "iplay/go-iplay/sysinit"
 
 	"github.com/astaxie/beego"
 )
