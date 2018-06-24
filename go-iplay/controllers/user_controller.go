@@ -29,10 +29,25 @@ type AreateAddressWithPassphraseRequest struct {
 	passphrase string
 }
 
+// LoginParams login params
+type LoginParams struct {
+	username string
+	password string
+}
+
+// IDCardAuthenticationParams IDCardAuthentication params
+type IDCardAuthenticationParams struct {
+	auth_token string
+	name       string
+	id_card    string
+}
+
 // Login for user login
 func (c *UserController) Login() {
-	username := strings.TrimSpace(c.GetString("username"))
-	password := strings.TrimSpace(c.GetString("password"))
+	var params LoginParams
+	json.Unmarshal(c.Ctx.Input.RequestBody, &params)
+	username := strings.TrimSpace(params.username)
+	password := strings.TrimSpace(params.password)
 	if len(username) == 0 || len(password) == 0 {
 		c.json(Fail, LoginParamsErr, nil)
 	}
@@ -50,9 +65,10 @@ func (c *UserController) Login() {
 
 // Register for user register
 func (c *UserController) Register() {
-
-	username := strings.TrimSpace(c.GetString("username"))
-	password := strings.TrimSpace(c.GetString("password"))
+	var params LoginParams
+	json.Unmarshal(c.Ctx.Input.RequestBody, &params)
+	username := strings.TrimSpace(params.username)
+	password := strings.TrimSpace(params.password)
 
 	user, _ := models.GetByUsername(username)
 	if user != nil {
@@ -77,9 +93,11 @@ func (c *UserController) Register() {
 
 // IDCardAuthentication 实名认证
 func (c *UserController) IDCardAuthentication() {
-	authToken := strings.TrimSpace(c.GetString("auth_token"))
-	name := strings.TrimSpace(c.GetString("name"))
-	IDCard := strings.TrimSpace(c.GetString("id_card"))
+	var params IDCardAuthenticationParams
+	json.Unmarshal(c.Ctx.Input.RequestBody, &params)
+	authToken := strings.TrimSpace(params.auth_token)
+	name := strings.TrimSpace(params.name)
+	IDCard := strings.TrimSpace(params.id_card)
 
 	if CheckAuthToken(authToken) {
 		user, _ := models.GetByUsername(utils.Get(authToken).(string))
