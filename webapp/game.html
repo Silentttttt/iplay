@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="css/icons-extra.css" />
     <link rel="stylesheet" type="text/css" href="css/app.css" />
     <link rel="stylesheet" type="text/css" href="css/sports.css" />
-    <title>赛事</title>
+    <title>俄罗斯VS沙特阿拉伯</title>
 </head>
 <style>
     .hide {
@@ -149,72 +149,6 @@
             </div>
         </div>
     </div>
-
-
-    <div style="height:50px"></div>
-    <nav class="mui-bar mui-bar-tab">
-        <div class="t-line">
-            <a href="index.html" class="aui-tab-item ">
-                <span class="mui-icon mui-icon-list"></span>
-                <span class="mui-tab-label">我猜</span>
-            </a>
-            <a href="#" class="aui-tab-item mui-active">
-                <span class="mui-icon mui-icon-location"></span>
-                <span class="mui-tab-label">赛事</span>
-            </a>
-            <a class="aui-tab-item" href="chapion.html">
-                <span class="mui-icon mui-icon-person"></span>
-                <span class="mui-tab-label">猜冠军</span>
-            </a>
-            <a class="aui-tab-item" href="#">
-                <span class="mui-icon mui-icon-paperclip"></span>
-                <span class="mui-tab-label">我的</span>
-            </a>
-        </div>
-
-    </nav>
-    <script src="js/mui.min.js"></script>
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" charset="utf-8">
-        mui.init({
-            swipeBack: true //启用右滑关闭功能
-        });
-        var slider = mui("#slider");
-        document.getElementById("switch").addEventListener('toggle', function (e) {
-            if (e.detail.isActive) {
-                slider.slider({
-                    interval: 5000
-                });
-            } else {
-                slider.slider({
-                    interval: 0
-                });
-            }
-        });
-        mui(document.body).on('tap', '.mui-btn', function (e) {
-            mui(this).button('loading');
-            setTimeout(function () {
-                mui(this).button('reset');
-            }.bind(this), 2000);
-        });
-    </script>
-    <script>
-        mui.init();
-    </script>
-    <script>
-
-        $(function () {
-            /*
-            $("#sport").click(function () {
-                $("#game").removeClass("hide");
-            })
-            */
-        })
-
-
-    </script>
-
-
 </body>
 
 </html>
