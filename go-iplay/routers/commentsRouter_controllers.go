@@ -7,6 +7,14 @@ import (
 
 func init() {
 
+	beego.GlobalControllerRouter["iplay/go-iplay/controllers:GameController"] = append(beego.GlobalControllerRouter["iplay/go-iplay/controllers:GameController"],
+		beego.ControllerComments{
+			Method: "List",
+			Router: `/list`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
+			Params: nil})
+
 	beego.GlobalControllerRouter["iplay/go-iplay/controllers:UserController"] = append(beego.GlobalControllerRouter["iplay/go-iplay/controllers:UserController"],
 		beego.ControllerComments{
 			Method: "Login",

@@ -8,7 +8,14 @@ type LoginResponse struct {
 }
 
 type LoginResponseData struct {
-	AuthToken string
-	Username  string
-	Avatar    string
+	AuthToken string `json:"auth_token"`
+	Username  string `json:"username"`
+	Avatar    string `json:"avatar"`
+}
+
+type GameListResponse struct {
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
+	Data []Game `json:"data"`
+	Ts   int64  `json:"ts"`
 }
