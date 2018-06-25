@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" type="text/css" href="css/icons-extra.css" />
     <link rel="stylesheet" type="text/css" href="css/app.css" />
-    <title>B_FIFA</title>
+    <title>我猜</title>
     <style>
         .style_none {
             list-style: none;
@@ -35,12 +35,17 @@
 
         .time {
             font-size: 13px;
-            */ color: #000000;
         }
 
         .ing {
             display: inherit;
-            font-size: 13px;
+            font-size: 12px;
+        }
+
+        .faqizhe {
+            display: inherit;
+            color: blue;
+            font-size: 12px;
         }
 
         .p0 {
@@ -53,7 +58,6 @@
 
 
         .game_1 {
-            height: 200px;
             padding: 18px;
         }
 
@@ -61,8 +65,39 @@
             width: 88px;
             height: 56px;
             /* border-radius: 50%; */
-            border: 1px solid gray;
+            border-left: 1px solid gray;
             display: inline-block
+        }
+
+        .mt40 {
+            margin-top: 40px;
+        }
+
+        .zhuangtai {
+            width: 50px;
+            display: inline-block;
+            text-align: center;
+            color: #fff;
+        }
+
+        .wait {
+
+            background-color: red;
+        }
+
+        .success {
+            background-color: green;
+        }
+
+        .tittle {
+            line-height: 35px;
+        }
+
+        .win {
+            text-align: center;
+            font-size: 20px;
+            width: 100%;
+            color: red;
         }
     </style>
 </head>
@@ -84,9 +119,9 @@
                 <!--页眉，放置标题-->
                 <div class="mui-card-header">
                     <div class="mui-card-header mui-card-media">
-                        <span class="mui-badge mui-badge-primary">国际赛</span>
+                        <span class="mui-badge mui-badge-primary">世界杯</span>
                         <div class="mui-media-body">
-                            最小下注金额 100.00 qb
+                            A小组第一轮
                         </div>
                     </div>
                 </div>
@@ -95,20 +130,25 @@
                     <!-- <a href="#"><img src="images/thanos.png" alt=""></a> -->
                     <div class="mui-content">
                         <div class="mui-row">
-                            <div class="mui-col-sm-4 mui-col-xs-12">
+                            <div class="mui-col-sm-2 mui-col-xs-3">
+                                <li class="mui-table-view-cell style_none">
+                                    <span class="ing">6月20号</span>
+                                    <span class="faqizhe">我发起的</span>
+                                </li>
+                            </div>
+                            <div class="mui-col-sm-4 mui-col-xs-3">
                                 <li class="mui-table-view-cell style_none">
                                     <span class="contury">
                                         <img src="https://static.abcoin.pro/imgs/logo/football/536.png" alt="">
                                     </span>
                                 </li>
                             </div>
-                            <div class="mui-col-sm-4 mui-col-xs-12">
-                                <li class="mui-table-view-cell style_none p0">
-                                    <span class="time">4月8号23点截止</span>
+                            <div class="mui-col-sm-2 mui-col-xs-3">
+                                <li class="mui-table-view-cell style_none p0 mt40">
                                     <span class="ing">竞猜中</span>
                                 </li>
                             </div>
-                            <div class="mui-col-sm-4 mui-col-xs-12">
+                            <div class="mui-col-sm-4 mui-col-xs-3">
                                 <li class="mui-table-view-cell style_none">
                                     <span class="contury">
                                         <img src="https://static.abcoin.pro/imgs/logo/football/1264.png" alt="">
@@ -116,41 +156,40 @@
                                 </li>
                             </div>
                         </div>
-                        <!-- <button type="button" data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-primary">与好友PK</button>
-                        <button type="button" data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-primary">投注</button> -->
+
                     </div>
                 </div>
 
-                <!-- 盘一 -->
+                <!-- 记录1 -->
                 <div class="mui-card-content  game_1">
                     <div class="mui-content">
                         <div class="tittle">
-                            <span class=" mui-icon mui-icon-videocam result"></span>
+                            <span class="zhuangtai wait">待开奖</span>
                             <span class="result"> 胜 负 平</span>&nbsp;
-                            <i>( 90分钟内的赛果 )</i>
+                            <i style="float:right;">06-12 11:00</i>
                         </div>
                         <div class="mui-row">
                             <div class="mui-col-sm-4 mui-col-xs-12">
                                 <li class="mui-table-view-cell style_none">
                                     <span class="which">
+                                        <p>我猜</p>
                                         <p>德国胜</p>
-                                        <p>50%</p>
                                     </span>
                                 </li>
                             </div>
                             <div class="mui-col-sm-4 mui-col-xs-12">
                                 <li class="mui-table-view-cell style_none">
                                     <span class="which">
-                                        <p>平</p>
-                                        <p>10%</p>
+                                        <p>投注</p>
+                                        <p>100QB</p>
                                     </span>
                                 </li>
                             </div>
                             <div class="mui-col-sm-4 mui-col-xs-12">
                                 <li class="mui-table-view-cell style_none">
                                     <span class="which">
-                                        <p>巴西胜</p>
-                                        <p>40%</p>
+                                        <p>赔率</p>
+                                        <p>1.85</p>
                                     </span>
                                 </li>
                             </div>
@@ -158,63 +197,46 @@
                     </div>
                 </div>
 
-                <!-- 盘二 -->
+                <!-- 记录2 -->
                 <div class="mui-card-content  game_1">
                     <div class="mui-content">
                         <div class="tittle">
-                            <span class=" mui-icon mui-icon-videocam result"></span>
-                            <span class="result"> 球数总和为单/双数</span>&nbsp;
-                            <i>( 90分钟内的赛果 )</i>
+                            <span class="zhuangtai success">猜对</span>
+                            <span class="result"> 胜 负 平</span>&nbsp;
+                            <i style="float:right;">06-12 11:00</i>
                         </div>
                         <div class="mui-row">
-                            <div class="mui-col-sm-6 mui-col-xs-12">
+                            <div class="mui-col-sm-4 mui-col-xs-12">
                                 <li class="mui-table-view-cell style_none">
                                     <span class="which">
-                                        <p>单</p>
-                                        <p>60%</p>
+                                        <p>我猜</p>
+                                        <p>德国胜</p>
                                     </span>
                                 </li>
                             </div>
-                            <div class="mui-col-sm-6 mui-col-xs-12">
+                            <div class="mui-col-sm-4 mui-col-xs-12">
                                 <li class="mui-table-view-cell style_none">
                                     <span class="which">
-                                        <p>双</p>
-                                        <p>40%</p>
+                                        <p>投注</p>
+                                        <p>100QB</p>
                                     </span>
                                 </li>
                             </div>
+                            <div class="mui-col-sm-4 mui-col-xs-12">
+                                <li class="mui-table-view-cell style_none">
+                                    <span class="which">
+                                        <p>赔率</p>
+                                        <p>1.85</p>
+                                    </span>
+                                </li>
+                            </div>
+                        </div>
+                        <div class="win">
+                            获得185QB
                         </div>
                     </div>
                 </div>
 
-                 <!-- 盘三 -->
-                 <div class="mui-card-content  game_1">
-                        <div class="mui-content">
-                            <div class="tittle">
-                                <span class=" mui-icon mui-icon-videocam result"></span>
-                                <span class="result"> 双方进球总数</span>&nbsp;
-                                <i>( 90分钟内的赛果 )</i>
-                            </div>
-                            <div class="mui-row">
-                                <div class="mui-col-sm-6 mui-col-xs-12">
-                                    <li class="mui-table-view-cell style_none">
-                                        <span class="which">
-                                            <p>大于2.5个</p>
-                                            <p>60%</p>
-                                        </span>
-                                    </li>
-                                </div>
-                                <div class="mui-col-sm-6 mui-col-xs-12">
-                                    <li class="mui-table-view-cell style_none">
-                                        <span class="which">
-                                            <p>小于2.5个</p>
-                                            <p>40%</p>
-                                        </span>
-                                    </li>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
             </div>
 
@@ -225,11 +247,11 @@
     <div style="height:50px"></div>
     <nav class="mui-bar mui-bar-tab">
         <div class="t-line">
-            <a href="#" class="aui-tab-item ">
+            <a href="#" class="aui-tab-item mui-active">
                 <span class="mui-icon mui-icon-list"></span>
-                <span class="mui-tab-label">首页</span>
+                <span class="mui-tab-label">我猜</span>
             </a>
-            <a href="index.html" class="aui-tab-item mui-active">
+            <a href="sports.html" class="aui-tab-item ">
                 <span class="mui-icon mui-icon-location"></span>
                 <span class="mui-tab-label">赛事</span>
             </a>
@@ -239,7 +261,7 @@
             </a>
             <a class="aui-tab-item" href="#">
                 <span class="mui-icon mui-icon-paperclip"></span>
-                <span class="mui-tab-label">钱包</span>
+                <span class="mui-tab-label">我的</span>
             </a>
         </div>
 

@@ -13,15 +13,20 @@
     <link rel="stylesheet" type="text/css" href="css/sports.css" />
     <title>赛事</title>
 </head>
+<style>
+    .hide {
+        display: none;
+    }
+</style>
 
 <body>
-    
+
     <header class="mui-bar mui-bar-nav aui-header b-line">
         <!--<a class=" mui-icon mui-icon-search mui-pull-left" href="search.html"></a>-->
         <h1 class="mui-title">赛事</h1>
         <!--<a class=" mui-icon mui-icon-chatbubble mui-pull-right" href="dope.html"></a>-->
     </header>
-    
+
     <div class="mui-content">
 
         <div class="aui-hot t-line sports-line">
@@ -38,9 +43,9 @@
                 <!--内容区-->
                 <div class="mui-card-content">
                     <!-- <a href="#"><img src="images/thanos.png" alt=""></a> -->
-                    <div class="mui-content">
+                    <div class="mui-content" id="sport">
                         <div class="mui-row">
-                            <div class="mui-col-sm-4 mui-col-xs-12">
+                            <div class="mui-col-sm-4 mui-col-xs-4">
                                 <li class="mui-table-view-cell style_none">
                                     <span class="contury">
                                         <img src="./images/536.png" alt="">
@@ -48,13 +53,13 @@
                                     </span>
                                 </li>
                             </div>
-                            <div class="mui-col-sm-4 mui-col-xs-12">
+                            <div class="mui-col-sm-4 mui-col-xs-4">
                                 <li class="mui-table-view-cell style_none p0">
                                     <span class="time">5 : 0</span>
                                     <span class="ing">已结束</span>
                                 </li>
                             </div>
-                            <div class="mui-col-sm-4 mui-col-xs-12">
+                            <div class="mui-col-sm-4 mui-col-xs-4">
                                 <li class="mui-table-view-cell style_none">
                                     <span class="contury">
                                         <img src="./images/1264.png" alt="">
@@ -63,8 +68,81 @@
                                 </li>
                             </div>
                         </div>
-                        <!-- <button type="button" data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-primary">与好友PK</button>
-                        <button type="button" data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-primary">投注</button> -->
+
+                        <!-- 竞猜盘 -->
+                        <div id="game" class="hide">
+                            <!-- 盘一 -->
+                            <div class="mui-card-content  game_1">
+                                <div class="mui-content">
+                                    <div class="tittle">
+                                        <span class=" mui-icon mui-icon-videocam result"></span>
+                                        <span class="result"> 胜 负 平</span>&nbsp;
+                                        <i>( 90分钟内的赛果 )</i>
+                                    </div>
+                                    <div class="mui-row">
+                                        <div class="mui-col-sm-4 mui-col-xs-4">
+                                            <li class="mui-table-view-cell style_none">
+                                                <span class="which">
+                                                    <p>德国胜</p>
+                                                    <p>50%</p>
+                                                </span>
+                                            </li>
+                                        </div>
+                                        <div class="mui-col-sm-4 mui-col-xs-4">
+                                            <li class="mui-table-view-cell style_none">
+                                                <span class="which">
+                                                    <p>平</p>
+                                                    <p>10%</p>
+                                                </span>
+                                            </li>
+                                        </div>
+                                        <div class="mui-col-sm-4 mui-col-xs-4">
+                                            <li class="mui-table-view-cell style_none">
+                                                <span class="which">
+                                                    <p>巴西胜</p>
+                                                    <p>40%</p>
+                                                </span>
+                                            </li>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 盘二 -->
+                            <div class="mui-card-content  game_1">
+                                <div class="mui-content">
+                                    <div class="tittle">
+                                        <span class=" mui-icon mui-icon-videocam result"></span>
+                                        <span class="result"> 球数总和为单/双数</span>&nbsp;
+                                        <i>( 90分钟内的赛果 )</i>
+                                    </div>
+                                    <div class="mui-row">
+                                        <div class="mui-col-sm-6 mui-col-xs-6">
+                                            <li class="mui-table-view-cell style_none">
+                                                <span class="which">
+                                                    <p>单</p>
+                                                    <p>60%</p>
+                                                </span>
+                                            </li>
+                                        </div>
+                                        <div class="mui-col-sm-6 mui-col-xs-6">
+                                            <li class="mui-table-view-cell style_none">
+                                                <span class="which">
+                                                    <p>双</p>
+                                                    <p>40%</p>
+                                                </span>
+                                            </li>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mui-content">
+                                <button type="button" class="mui-btn mui-btn-danger" style="width: 49%;border-radius: 0;">与好友PK</button>
+                                <button type="button" class="mui-btn mui-btn-success " style="width: 49%;">分享给好友</button>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
 
@@ -87,7 +165,7 @@
                     <!-- <a href="#"><img src="images/thanos.png" alt=""></a> -->
                     <div class="mui-content">
                         <div class="mui-row">
-                            <div class="mui-col-sm-4 mui-col-xs-12">
+                            <div class="mui-col-sm-4 mui-col-xs-4">
                                 <li class="mui-table-view-cell style_none">
                                     <span class="contury">
                                         <img src="./images/614.png" alt="">
@@ -95,13 +173,13 @@
                                     </span>
                                 </li>
                             </div>
-                            <div class="mui-col-sm-4 mui-col-xs-12">
+                            <div class="mui-col-sm-4 mui-col-xs-4">
                                 <li class="mui-table-view-cell style_none p0">
                                     <span class="time">4月8号23点截止</span>
                                     <span class="ing">竞猜中</span>
                                 </li>
                             </div>
-                            <div class="mui-col-sm-4 mui-col-xs-12">
+                            <div class="mui-col-sm-4 mui-col-xs-4">
                                 <li class="mui-table-view-cell style_none">
                                     <span class="contury">
                                         <img src="./images/114.png" alt="">
@@ -134,7 +212,7 @@
                     <!-- <a href="#"><img src="images/thanos.png" alt=""></a> -->
                     <div class="mui-content">
                         <div class="mui-row">
-                            <div class="mui-col-sm-4 mui-col-xs-12">
+                            <div class="mui-col-sm-4 mui-col-xs-4">
                                 <li class="mui-table-view-cell style_none">
                                     <span class="contury">
                                         <img src="./images/360.png" alt="">
@@ -142,13 +220,13 @@
                                     </span>
                                 </li>
                             </div>
-                            <div class="mui-col-sm-4 mui-col-xs-12">
+                            <div class="mui-col-sm-4 mui-col-xs-4">
                                 <li class="mui-table-view-cell style_none p0">
                                     <span class="time">4月8号23点截止</span>
                                     <span class="ing">竞猜中</span>
                                 </li>
                             </div>
-                            <div class="mui-col-sm-4 mui-col-xs-12">
+                            <div class="mui-col-sm-4 mui-col-xs-4">
                                 <li class="mui-table-view-cell style_none">
                                     <span class="contury">
                                         <img src="./images/659.png" alt="">
@@ -170,11 +248,11 @@
     <div style="height:50px"></div>
     <nav class="mui-bar mui-bar-tab">
         <div class="t-line">
-            <a href="#" class="aui-tab-item ">
+            <a href="game.html" class="aui-tab-item ">
                 <span class="mui-icon mui-icon-list"></span>
-                <span class="mui-tab-label">首页</span>
+                <span class="mui-tab-label">我猜</span>
             </a>
-            <a href="sports.html" class="aui-tab-item mui-active">
+            <a href="#" class="aui-tab-item mui-active">
                 <span class="mui-icon mui-icon-location"></span>
                 <span class="mui-tab-label">赛事</span>
             </a>
@@ -184,12 +262,13 @@
             </a>
             <a class="aui-tab-item" href="#">
                 <span class="mui-icon mui-icon-paperclip"></span>
-                <span class="mui-tab-label">钱包</span>
+                <span class="mui-tab-label">我的</span>
             </a>
         </div>
 
     </nav>
     <script src="js/mui.min.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" charset="utf-8">
         mui.init({
             swipeBack: true //启用右滑关闭功能
@@ -215,6 +294,17 @@
     </script>
     <script>
         mui.init();
+    </script>
+    <script>
+
+        $(function () {
+            $("#sport").click(function () {
+                $("#game").removeClass("hide");
+            })
+
+        })
+
+
     </script>
 
 
