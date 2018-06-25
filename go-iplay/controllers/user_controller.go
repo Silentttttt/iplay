@@ -1,22 +1,23 @@
 package controllers
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"iplay/go-iplay/models"
 	"iplay/go-iplay/utils"
-	"net/http"
 	"strings"
 
 	"github.com/astaxie/beego/orm"
 	uuid "github.com/satori/go.uuid"
 )
 
-// UserController User info
 type UserController struct {
 	BaseController
+}
+
+func (c *UserController) URLMapping() {
+	c.Mapping("login", c.Login)
+	c.Mapping("reg", c.Register)
 }
 
 // AuthToken auth token
@@ -31,8 +32,8 @@ type AreateAddressWithPassphraseRequest struct {
 
 // LoginParams login params
 type LoginParams struct {
-	username string
-	password string
+	Username string
+	Password string
 }
 
 // IDCardAuthenticationParams IDCardAuthentication params
@@ -42,12 +43,18 @@ type IDCardAuthenticationParams struct {
 	id_card    string
 }
 
-// Login for user login
+// Login user login
+// @Title Login
+// @Description user login
+// @Param   data body controllers.LoginParams true "user login request params"
+// @Success 200 {object} models.LoginResponse
+// @Failure 500
+// @router /login [post]
 func (c *UserController) Login() {
 	var params LoginParams
 	json.Unmarshal(c.Ctx.Input.RequestBody, &params)
-	username := strings.TrimSpace(params.username)
-	password := strings.TrimSpace(params.password)
+	username := strings.TrimSpace(params.Username)
+	password := strings.TrimSpace(params.Password)
 	if len(username) == 0 || len(password) == 0 {
 		c.json(Fail, LoginParamsErr, nil)
 	}
@@ -57,18 +64,25 @@ func (c *UserController) Login() {
 		uuid, _ := uuid.NewV4()
 		authToken := username + ":" + uuid.String()
 		utils.Put(authToken, username, utils.Month)
-		c.json(Success, "", &AuthToken{AuthToken: authToken})
+		c.json(Success, "", &models.LoginResponseData{AuthToken: authToken, Username: user.Username, Avatar: user.Avatar})
 	} else {
 		c.json(Fail, LoginParamsErr, nil)
 	}
 }
 
 // Register for user register
+// @Title Register
+// @Description user register
+// @Param   data body controllers.LoginParams true "user register request params"
+// @Success 200 {object} models.LoginResponse
+// @Failure 500
+// @router /reg [post]
 func (c *UserController) Register() {
 	var params LoginParams
 	json.Unmarshal(c.Ctx.Input.RequestBody, &params)
-	username := strings.TrimSpace(params.username)
-	password := strings.TrimSpace(params.password)
+	fmt.Println(params)
+	username := strings.TrimSpace(params.Username)
+	password := strings.TrimSpace(params.Password)
 
 	user, _ := models.GetByUsername(username)
 	if user != nil {
@@ -88,7 +102,7 @@ func (c *UserController) Register() {
 	uuid, _ := uuid.NewV4()
 	authToken := username + ":" + uuid.String()
 	utils.Put(authToken, username, utils.Month)
-	c.json(Success, "", &AuthToken{AuthToken: authToken})
+	c.json(Success, "", &models.LoginResponseData{AuthToken: authToken, Username: m.Username})
 }
 
 // IDCardAuthentication 实名认证
@@ -118,18 +132,18 @@ func (c *UserController) IDCardAuthentication() {
 }
 
 func createAddressWithPassphrase(passphrase string) string {
-	params := &AreateAddressWithPassphraseRequest{passphrase: passphrase}
-	b, _ := json.Marshal(params)
-	req, err := http.NewRequest("POST", "url", bytes.NewBuffer(b))
-	req.Header.Set("Content-Type", "application/json")
+	// params := &AreateAddressWithPassphraseRequest{passphrase: passphrase}
+	// b, _ := json.Marshal(params)
+	// req, err := http.NewRequest("POST", "url", bytes.NewBuffer(b))
+	// req.Header.Set("Content-Type", "application/json")
 
-	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		panic(err)
-	}
-	defer resp.Body.Close()
-	body, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println("response Body:", string(body))
+	// client := &http.Client{}
+	// resp, err := client.Do(req)
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// defer resp.Body.Close()
+	// body, _ := ioutil.ReadAll(resp.Body)
+	// fmt.Println("response Body:", string(body))
 	return ""
 }

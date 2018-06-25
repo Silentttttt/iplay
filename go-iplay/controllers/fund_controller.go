@@ -6,9 +6,9 @@ type FundController struct {
 }
 
 func (c *FundController) recharge() {
-	c.json("", "", nil)
+	c.json(Success, "", nil)
 }
 
 func (c *FundController) withdraw() {
-	c.json("", "", nil)
+	c.json(Success, "", nil)
 }

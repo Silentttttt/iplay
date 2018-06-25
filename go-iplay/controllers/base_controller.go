@@ -9,8 +9,8 @@ import (
 )
 
 const (
-	Success = "0"
-	Fail    = "1"
+	Success = 200
+	Fail    = 500
 
 	// Error
 	NeedLoginErr = "用户未登陆，请登陆以后再执行操作"
@@ -29,13 +29,13 @@ type BaseController struct {
 }
 
 type JsonResult struct {
-	Code string      `json:"code"`
+	Code int         `json:"code"`
 	Msg  string      `json:"msg"`
 	Data interface{} `json:"data"`
 	Ts   int64       `json:"ts"`
 }
 
-func (c *BaseController) json(code string, msg string, data interface{}) {
+func (c *BaseController) json(code int, msg string, data interface{}) {
 	c.Data["json"] = &JsonResult{code, msg, data, time.Now().Unix()}
 	c.ServeJSON()
 	c.StopRun()
