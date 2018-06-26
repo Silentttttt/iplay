@@ -7,7 +7,7 @@ type ChoiceOpt struct {
 	Percent float32  //下注比例
 	Count   int64    //下注人数
 	Totoal  int64    //下注总金额
-	Quizzes *Quizzes `orm:"rel(fk)"`
+	Quizzes *Quizzes `orm:"rel(fk)" json:"-"`
 }
 
 func (c *ChoiceOpt) TableName() string {

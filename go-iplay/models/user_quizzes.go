@@ -2,6 +2,8 @@ package models
 
 import (
 	"time"
+
+	"github.com/astaxie/beego/orm"
 )
 
 type UserQuizzes struct {
@@ -16,4 +18,13 @@ type UserQuizzes struct {
 
 func (uq *UserQuizzes) TableName() string {
 	return UserQuizzesTBName()
+}
+
+func GetUserQuizzesList(userID int64) (*[]UserQuizzes, error) {
+	quizzes := []UserQuizzes{}
+	_, err := orm.NewOrm().QueryTable(UserQuizzesTBName()).Filter("user_id", userID).RelatedSel().All(&quizzes)
+	if err != nil {
+		return nil, err
+	}
+	return &quizzes, nil
 }

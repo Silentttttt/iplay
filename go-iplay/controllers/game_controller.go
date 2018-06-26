@@ -1,8 +1,15 @@
 package controllers
 
-import "iplay/go-iplay/models"
+import (
+	"encoding/json"
+	"iplay/go-iplay/models"
+)
 
 type GameController struct {
+	BaseController
+}
+
+type QuizzesController struct {
 	BaseController
 }
 
@@ -10,13 +17,35 @@ func (game *GameController) URLMapping() {
 	game.Mapping("list", game.List)
 }
 
+func (q *QuizzesController) URLMapping() {
+	q.Mapping("quizzes", q.QuizzesList)
+}
+
+type QuizzesListParams struct {
+	GameId int64
+}
+
 // List return game list
 // @Title List
 // @Description football game list
 // @Success 200 {object} models.GameListResponse
 // @Failure 500
-// @router /list [post]
+// @router /list [get]
 func (game *GameController) List() {
 	games, _ := models.GetGameListFromNow()
 	game.json(Success, "", games)
+}
+
+// QuizzesList return quizzes list
+// @Title QuizzesList
+// @Description football game Quizzes
+// @Param   data body controllers.QuizzesListParams true "get quizzes by gameID params"
+// @Success 200 {object} models.QuizzesListResponse
+// @Failure 500
+// @router /quizzes [post]
+func (q *QuizzesController) QuizzesList() {
+	var params QuizzesListParams
+	json.Unmarshal(q.Ctx.Input.RequestBody, &params)
+	quizzes, _ := models.GetQuizzesListFromNow(params.GameId)
+	q.json(Success, "", quizzes)
 }

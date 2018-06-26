@@ -11,6 +11,14 @@ func init() {
 		beego.ControllerComments{
 			Method: "List",
 			Router: `/list`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["iplay/go-iplay/controllers:QuizzesController"] = append(beego.GlobalControllerRouter["iplay/go-iplay/controllers:QuizzesController"],
+		beego.ControllerComments{
+			Method: "QuizzesList",
+			Router: `/quizzes`,
 			AllowHTTPMethods: []string{"post"},
 			MethodParams: param.Make(),
 			Params: nil})
@@ -27,6 +35,14 @@ func init() {
 		beego.ControllerComments{
 			Method: "Register",
 			Router: `/reg`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["iplay/go-iplay/controllers:UserQuizzesController"] = append(beego.GlobalControllerRouter["iplay/go-iplay/controllers:UserQuizzesController"],
+		beego.ControllerComments{
+			Method: "UserQuizzesList",
+			Router: `/quizzes`,
 			AllowHTTPMethods: []string{"post"},
 			MethodParams: param.Make(),
 			Params: nil})
