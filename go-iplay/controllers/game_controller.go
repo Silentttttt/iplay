@@ -22,7 +22,7 @@ func (q *QuizzesController) URLMapping() {
 }
 
 type QuizzesListParams struct {
-	GameId int64
+	GameId int64 `json:"game_id"`
 }
 
 // List return game list

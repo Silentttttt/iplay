@@ -8,12 +8,12 @@ import (
 
 type Quizzes struct {
 	Id          int64        `json:"-""`
-	Game        *Game        `orm:"rel(fk)"`   // 赛事ID
-	Instruction string       `orm:"size(512)"` // 竞猜说明
-	Begin       time.Time    // 竞猜开始时间
-	End         time.Time    // 竞猜结束时间
+	Game        *Game        `orm:"rel(fk)" json:"game"`          // 赛事ID
+	Instruction string       `orm:"size(512)" json:"instruction"` // 竞猜说明
+	Begin       time.Time    `json:"begin"`                       // 竞猜开始时间
+	End         time.Time    `json:"end"`                         // 竞猜结束时间
 	Created     time.Time    `orm:"auto_now_add;type(datetime)" json:"-"`
-	ChoiceOpt   []*ChoiceOpt `orm:"reverse(many)"`
+	ChoiceOpt   []*ChoiceOpt `orm:"reverse(many)" json:"choice_opt"`
 }
 
 func (q *Quizzes) TableName() string {

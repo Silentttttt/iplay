@@ -8,12 +8,12 @@ import (
 
 type UserQuizzes struct {
 	Id        int64
-	User      *User      `orm:"rel(fk)"`
-	ChoiceOpt *ChoiceOpt `orm:"rel(fk)"`
-	Result    bool
-	Money     float64   // 下注金额
-	Reward    float64   // 竞猜奖励
-	Created   time.Time `orm:"auto_now_add;type(datetime)"`
+	User      *User      `orm:"rel(fk)" json:"user"`
+	ChoiceOpt *ChoiceOpt `orm:"rel(fk)" json:"choice_opt"`
+	Result    bool       `json:"result"`
+	Money     float64    `json:"money"`  // 下注金额
+	Reward    float64    `json:"reward"` // 竞猜奖励
+	Created   time.Time  `orm:"auto_now_add;type(datetime)" json:"-"`
 }
 
 func (uq *UserQuizzes) TableName() string {

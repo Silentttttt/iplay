@@ -14,7 +14,7 @@ func (uq *UserQuizzesController) URLMapping() {
 }
 
 type UserQuizzesListParams struct {
-	UserId int64
+	UserId int64 `json:"user_id"`
 }
 
 // QuizzesList return user quizzes list

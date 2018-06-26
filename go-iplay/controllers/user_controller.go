@@ -32,8 +32,8 @@ type AreateAddressWithPassphraseRequest struct {
 
 // LoginParams login params
 type LoginParams struct {
-	Username string
-	Password string
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
 // IDCardAuthenticationParams IDCardAuthentication params
