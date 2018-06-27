@@ -20,38 +20,15 @@ func (c *UserController) URLMapping() {
 	c.Mapping("reg", c.Register)
 }
 
-// AuthToken auth token
-type AuthToken struct {
-	AuthToken string
-}
-
-// AreateAddressWithPassphraseRequest ..
-type AreateAddressWithPassphraseRequest struct {
-	passphrase string
-}
-
-// LoginParams login params
-type LoginParams struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
-
-// IDCardAuthenticationParams IDCardAuthentication params
-type IDCardAuthenticationParams struct {
-	auth_token string
-	name       string
-	id_card    string
-}
-
 // Login user login
 // @Title Login
 // @Description user login
-// @Param   data body controllers.LoginParams true "user login request params"
+// @Param   data body models.LoginParams true "user login request params"
 // @Success 200 {object} models.LoginResponse
 // @Failure 500
 // @router /login [post]
 func (c *UserController) Login() {
-	var params LoginParams
+	var params models.LoginParams
 	json.Unmarshal(c.Ctx.Input.RequestBody, &params)
 	username := strings.TrimSpace(params.Username)
 	password := strings.TrimSpace(params.Password)
@@ -73,12 +50,12 @@ func (c *UserController) Login() {
 // Register for user register
 // @Title Register
 // @Description user register
-// @Param   data body controllers.LoginParams true "user register request params"
+// @Param   data body models.LoginParams true "user register request params"
 // @Success 200 {object} models.LoginResponse
 // @Failure 500
 // @router /reg [post]
 func (c *UserController) Register() {
-	var params LoginParams
+	var params models.LoginParams
 	json.Unmarshal(c.Ctx.Input.RequestBody, &params)
 	fmt.Println(params)
 	username := strings.TrimSpace(params.Username)
@@ -107,11 +84,11 @@ func (c *UserController) Register() {
 
 // IDCardAuthentication 实名认证
 func (c *UserController) IDCardAuthentication() {
-	var params IDCardAuthenticationParams
+	var params models.IDCardAuthenticationParams
 	json.Unmarshal(c.Ctx.Input.RequestBody, &params)
-	authToken := strings.TrimSpace(params.auth_token)
-	name := strings.TrimSpace(params.name)
-	IDCard := strings.TrimSpace(params.id_card)
+	authToken := strings.TrimSpace(params.AuthToken)
+	name := strings.TrimSpace(params.Name)
+	IDCard := strings.TrimSpace(params.IdCard)
 
 	if CheckAuthToken(authToken) {
 		user, _ := models.GetByUsername(utils.Get(authToken).(string))

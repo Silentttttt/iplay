@@ -41,8 +41,16 @@ func init() {
 
 	beego.GlobalControllerRouter["iplay/go-iplay/controllers:UserQuizzesController"] = append(beego.GlobalControllerRouter["iplay/go-iplay/controllers:UserQuizzesController"],
 		beego.ControllerComments{
+			Method: "DoQuizzes",
+			Router: `/do_quizzes`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["iplay/go-iplay/controllers:UserQuizzesController"] = append(beego.GlobalControllerRouter["iplay/go-iplay/controllers:UserQuizzesController"],
+		beego.ControllerComments{
 			Method: "UserQuizzesList",
-			Router: `/quizzes`,
+			Router: `/quizzes_list`,
 			AllowHTTPMethods: []string{"post"},
 			MethodParams: param.Make(),
 			Params: nil})

@@ -28,3 +28,7 @@ func GetUserQuizzesList(userID int64) (*[]UserQuizzes, error) {
 	}
 	return &quizzes, nil
 }
+
+func SaveUserQuizzes(UserQuizzes *DoQuizzesParams) error {
+	return nil
+}
