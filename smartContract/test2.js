@@ -13,9 +13,10 @@ var BigNumber = require('bignumber.js');
 // mocha cases/contract/xxx testneb2 -t 2000000
 var args = process.argv.splice(2);
 var env = args[1];
-if (env == null){
+if (env == null) {
     env = "local";
 }
+
 var testNetConfig = new TestNetConfig(env);
 
 var neb = new Neb();
@@ -93,7 +94,7 @@ function checkNonce(accout, nonce, callback) {
 var accounts = new Array();
 var nonces = new Array();
 
-describe('iplay ', function () {
+describe('pay type = 1 and game type = 1 ', function () {
 
     before("0. claim Token", function (done) {
         neb.api.getAccountState(sourceAccount.getAddressString()).then(function(resp){
@@ -108,7 +109,7 @@ describe('iplay ', function () {
                 tx.signTransaction();
                 neb.api.sendRawTransaction(tx.toProtoString());
             }
-            checkNonce(sourceAccount, nonce + 10, function(){
+            checkNonce(sourceAccount, nonce + 10, function() {
                 done();
             });
         });   
@@ -148,6 +149,50 @@ describe('iplay ', function () {
         }
     });
 
+    it('2. claim nrc20 token', function (done) {
+        try {
+            for(var i = 1; i < 10 ; i++) {
+                var args = new Array();
+                args.push(accounts[i].getAddressString());
+                args.push("1000000000000000000000");
+                var contract = {
+                    "function": "transfer",
+                    "args": JSON.stringify(args),
+                };
+            
+                var tx = new Transaction(ChainID, accounts[0], contractAddress, 
+                    Unit.nasToBasic(0), ++nonces[0], 1000000, 20000000, contract);
+                tx.signTransaction();
+                neb.api.sendRawTransaction(tx.toProtoString());
+            }
+            checkNonce(accounts[0], nonces[0], function() {
+                try {
+                    var args = new Array();
+                    args.push(accounts[1].getAddressString());
+                    var contract = {
+                    "function": "balanceOf",
+                    "args": JSON.stringify(args),  
+                    };
+
+                    neb.api.call(accounts[1].getAddressString(),contractAddress, 
+                        Unit.nasToBasic(0), 0, 1000000, 20000000, contract).then(function(resp){
+                            console.log("========", resp);
+                            expect(JSON.parse(resp.result)).equal("1000000000000000000000");
+                            done();
+                        }).catch(function(err) {
+                            console.log(err);
+                            done(err);
+                        });
+                } catch(err) {
+                    console.log(err);
+                    done(err);
+                }
+            });  
+        } catch (err) {
+            console.log("unexpected err: " + err);
+            done(err);
+        }
+    });
 
     var gameId;
     var deadLine;
@@ -178,7 +223,7 @@ describe('iplay ', function () {
         }).then(callback);
     };
 
-    it('1# create game', function (done) {
+    it('create game', function (done) {
         try {
             var banker = accounts[0];
             var options = new Array();
@@ -187,7 +232,7 @@ describe('iplay ', function () {
             options.push({description:"负", odd: 4});
 
 
-            createGame(banker, 2, 1, 200 * 1000, "测试局 德国vs巴西", options, 1000, 10, function(resp) {
+            createGame(banker, 1, 1, 200 * 1000, "测试局 德国vs巴西", options, 100, 0, function(resp) {
                 checkTransaction(resp.txhash, function(resp) {
                     try{
                         console.log(JSON.stringify(resp));
@@ -245,15 +290,15 @@ describe('iplay ', function () {
     it("buy token before game start[buyToken]", function(done){
         var args = new Array();
         args.push(gameId);
-        args.push(2);
         args.push(1);
         args.push(1);
+        args.push(10);
         var contract = {
             "function": "buyTicket",
             "args": JSON.stringify(args),
         };
         var tx = new Transaction(ChainID, accounts[0], contractAddress, 
-                Unit.nasToBasic(1), ++nonces[0], 1000000, 20000000, contract);
+                Unit.nasToBasic(0), ++nonces[0], 1000000, 20000000, contract);
         tx.signTransaction();
         neb.api.sendRawTransaction(tx.toProtoString()).then(function(resp){
             checkTransaction(resp.txhash, function(resp) {
@@ -294,18 +339,18 @@ describe('iplay ', function () {
         })
     });
 
-    it("account 1 buy op[1] for 1 nas[buyToken]", function(done){
+    it("account 1 buy op[1] for 10 [buyToken]", function(done){
         var args = new Array();
         args.push(gameId);
         args.push(1);
         args.push(1);
-        args.push(1);
+        args.push(10);
         var contract = {
             "function": "buyTicket",
             "args": JSON.stringify(args),
         };
         var tx = new Transaction(ChainID, accounts[1], contractAddress, 
-                Unit.nasToBasic(1), ++nonces[1], 1000000, 20000000, contract);
+                Unit.nasToBasic(0), ++nonces[1], 1000000, 20000000, contract);
         tx.signTransaction();
         neb.api.sendRawTransaction(tx.toProtoString()).then(function(resp){
             checkTransaction(resp.txhash, function(resp) {
@@ -334,18 +379,18 @@ describe('iplay ', function () {
         });
     });
 
-    it("account 2 buy op[2] for 4 nas[buyToken]", function(done){
+    it("account 2 buy op[2] for 60[buyToken]", function(done){
         var args = new Array();
         args.push(gameId);
         args.push(2);
         args.push(1);
-        args.push(4);
+        args.push(60);
         var contract = {
             "function": "buyTicket",
             "args": JSON.stringify(args),
         };
         var tx = new Transaction(ChainID, accounts[2], contractAddress, 
-                Unit.nasToBasic(4), ++nonces[2], 1000000, 20000000, contract);
+                Unit.nasToBasic(0), ++nonces[2], 1000000, 20000000, contract);
         tx.signTransaction();
         neb.api.sendRawTransaction(tx.toProtoString()).then(function(resp){
             checkTransaction(resp.txhash, function(resp) {
@@ -368,13 +413,13 @@ describe('iplay ', function () {
     it("sendDeposit", function(done) {
         var args = new Array();
         args.push(gameId);
-        args.push(1);
+        args.push(20);
         var contract = {
             "function": "sendDeposit",
             "args": JSON.stringify(args),
         };
         var tx = new Transaction(ChainID, accounts[0], contractAddress, 
-            Unit.nasToBasic(1), ++nonces[0], 1000000, 20000000, contract);
+            Unit.nasToBasic(0), ++nonces[0], 1000000, 20000000, contract);
         tx.signTransaction();
         neb.api.sendRawTransaction(tx.toProtoString()).then(function(resp){
             checkTransaction(resp.txhash, function(resp) {
@@ -393,18 +438,18 @@ describe('iplay ', function () {
         });
     });
 
-    it("account 2 buy op[2] for 4 nas[buyToken]", function(done){
+    it("account 2 buy op[2] for 60[buyToken]", function(done){
         var args = new Array();
         args.push(gameId);
         args.push(2);
         args.push(1);
-        args.push(1);
+        args.push(60);
         var contract = {
             "function": "buyTicket",
             "args": JSON.stringify(args),
         };
         var tx = new Transaction(ChainID, accounts[2], contractAddress, 
-                Unit.nasToBasic(4), ++nonces[2], 1000000, 20000000, contract);
+                Unit.nasToBasic(0), ++nonces[2], 1000000, 20000000, contract);
         tx.signTransaction();
         neb.api.sendRawTransaction(tx.toProtoString()).then(function(resp){
             checkTransaction(resp.txhash, function(resp) {
@@ -466,18 +511,18 @@ describe('iplay ', function () {
         });
     });
 
-    it("account 3 buy op[2] for 3 nas[buyTicket]", function(done){
+    it("account 3 buy op[2] for 20[buyTicket]", function(done){
         var args = new Array();
         args.push(gameId);
         args.push(2);
         args.push(2);
-        args.push(3);
+        args.push(20);
         var contract = {
             "function": "buyTicket",
             "args": JSON.stringify(args),
         };
         var tx = new Transaction(ChainID, accounts[3], contractAddress, 
-                Unit.nasToBasic(3), ++nonces[3], 1000000, 20000000, contract);
+                Unit.nasToBasic(0), ++nonces[3], 1000000, 20000000, contract);
         tx.signTransaction();
         neb.api.sendRawTransaction(tx.toProtoString()).then(function(resp){
             checkTransaction(resp.txhash, function(resp) {
@@ -497,18 +542,18 @@ describe('iplay ', function () {
         });
     });
 
-    it("account 3 buy op[2] for 2 nas[buyToken]", function(done){
+    it("account 3 buy op[2] for 10[buyToken]", function(done){
         var args = new Array();
         args.push(gameId);
         args.push(2);
         args.push(2);
-        args.push(2);
+        args.push(10);
         var contract = {
             "function": "buyTicket",
             "args": JSON.stringify(args),
         };
         var tx = new Transaction(ChainID, accounts[3], contractAddress, 
-                Unit.nasToBasic(2), ++nonces[3], 1000000, 20000000, contract);
+                Unit.nasToBasic(0), ++nonces[3], 1000000, 20000000, contract);
         tx.signTransaction();
         neb.api.sendRawTransaction(tx.toProtoString()).then(function(resp){
             checkTransaction(resp.txhash, function(resp) {
@@ -632,45 +677,21 @@ describe('iplay ', function () {
     });
 
     it("get reward[getReward]", function(done) {
-        neb.api.getAccountState(accounts[1].getAddressString()).then(function(resp){
-            console.log(resp);
-            var state1 = resp;
-            neb.api.getAccountState(accounts[2].getAddressString()).then(function(resp) {
-                console.log(resp);
-                var state2 = resp;
-                neb.api.getAccountState(accounts[3].getAddressString()).then(function(resp){
-                    console.log(resp);
-                    var state3 = resp;
-                    for(var i = 1; i<=3; i++) {
-                        var args = new Array();
-                        args.push(i);
-                        var contract = {
-                            "function": "getReward",
-                            "args": JSON.stringify(args),
-                        };
-                    
-                        var tx = new Transaction(ChainID, accounts[0], contractAddress, 
-                            Unit.nasToBasic(0), ++nonces[0], 1000000, 20000000, contract);
-                        tx.signTransaction();
-                        neb.api.sendRawTransaction(tx.toProtoString());
-                    }
-                    checkNonce(accounts[0], nonces[0], function(){
-                        neb.api.getAccountState(accounts[1].getAddressString()).then(function(resp){
-                            console.log(resp);
-                            expect((new BigNumber(resp.balance)).sub(new BigNumber(state1.balance)).toString(10)).equal("0");
-                            neb.api.getAccountState(accounts[2].getAddressString()).then(function(resp) {
-                                console.log(resp);
-                                expect((new BigNumber(resp.balance)).sub(new BigNumber(state2.balance)).toString(10)).equal("12000000000000000000");
-                                neb.api.getAccountState(accounts[3].getAddressString()).then(function(resp){
-                                    console.log(resp);
-                                    expect((new BigNumber(resp.balance)).sub(new BigNumber(state3.balance)).toString(10)).equal("4000000000000000000");
-                                    done();
-                                });
-                            });
-                        });
-                    });
-                });
-            });
+        for(var i = 1; i<=3; i++) {
+            var args = new Array();
+            args.push(i);
+            var contract = {
+                "function": "getReward",
+                "args": JSON.stringify(args),
+            };
+        
+            var tx = new Transaction(ChainID, accounts[0], contractAddress, 
+                Unit.nasToBasic(0), ++nonces[0], 1000000, 20000000, contract);
+            tx.signTransaction();
+            neb.api.sendRawTransaction(tx.toProtoString());
+        }
+        checkNonce(accounts[0], nonces[0], function(){
+            done();
         });
     }); 
 
@@ -745,6 +766,82 @@ describe('iplay ', function () {
             console.log(err);
             done(err);
         });
-    })
+    });
+
+    it("check balance account 0", function(done) {
+        var args = new Array();
+        args.push(accounts[0].getAddressString());
+        var contract = {
+            "function": "balanceOf",
+            "args": JSON.stringify(args),  
+        };
+
+        neb.api.call(accounts[0].getAddressString(),contractAddress, 
+            Unit.nasToBasic(0), 0, 1000000, 20000000, contract).then(function(resp){
+                console.log("========", resp);
+                expect(JSON.parse(resp.result)).equal("999990880000000000000000000");
+                done();
+            }).catch(function(err) {
+                console.log(err);
+                done(err);
+            });
+    });
+
+    it("check balance account 1", function(done) {
+        var args = new Array();
+        args.push(accounts[1].getAddressString());
+        var contract = {
+            "function": "balanceOf",
+            "args": JSON.stringify(args),  
+        };
+
+        neb.api.call(accounts[0].getAddressString(),contractAddress, 
+            Unit.nasToBasic(0), 0, 1000000, 20000000, contract).then(function(resp){
+                console.log("========", resp);
+                expect(JSON.parse(resp.result)).equal("990000000000000000000");
+                done();
+            }).catch(function(err) {
+                console.log(err);
+                done(err);
+            });
+    });
+
+    it("check balance account 2", function(done) {
+        var args = new Array();
+        args.push(accounts[2].getAddressString());
+        var contract = {
+            "function": "balanceOf",
+            "args": JSON.stringify(args),  
+        };
+
+        neb.api.call(accounts[0].getAddressString(),contractAddress, 
+            Unit.nasToBasic(0), 0, 1000000, 20000000, contract).then(function(resp){
+                console.log("========", resp);
+                expect(JSON.parse(resp.result)).equal("1120000000000000000000");
+                done();
+            }).catch(function(err) {
+                console.log(err);
+                done(err);
+            });
+    });
+
+    it("check balance account 3", function(done) {
+        var args = new Array();
+        args.push(accounts[3].getAddressString());
+        var contract = {
+            "function": "balanceOf",
+            "args": JSON.stringify(args),  
+        };
+
+        neb.api.call(accounts[0].getAddressString(),contractAddress, 
+            Unit.nasToBasic(0), 0, 1000000, 20000000, contract).then(function(resp){
+                console.log("========", resp);
+                expect(JSON.parse(resp.result)).equal("1010000000000000000000");
+                done();
+            }).catch(function(err) {
+                console.log(err);
+                done(err);
+            });
+    });
 
 });

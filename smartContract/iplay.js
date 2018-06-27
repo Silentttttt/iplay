@@ -127,13 +127,18 @@ StandardToken.prototype = {
 
     /*can be only use by this contract*/
     transferByContract: function (from, to, value) {
+        //TODO:debug
+        console.log(from);
+        console.log(to);
+        console.log(value);
+
         value = new BigNumber(value);
         if (value.lt(0)) {
             throw new Error("invalid value.");
         }
 
         var balance = this.balances.get(from) || new BigNumber(0);
-
+        console.log(balance);
         if (balance.lt(value)) {
             throw new Error("transfer failed.");
         }
@@ -558,7 +563,7 @@ Market.prototype = {
         console.log(option.expectReward);
         console.log(game.deposit);
 
-        assert(expectReward + option.expectReward <= game.deposit, "remaining deposit is not enough");
+        assert(expectReward + option.expectReward <= game.deposit + amount, "remaining deposit is not enough");
         
         //生成token
         var ticketId = this.nextTicketCount;
@@ -720,7 +725,8 @@ Market.prototype = {
     _transfer: function(from, to, amount, payType) {// 兑换bet, 并交易
         if (payType === 1) {
             assert(!Blockchain.transaction.value.gt(0), "this game is not support for nas");
-            assertPosInteger(amount);
+            assertInteger(amount);
+            assert(amount >= 0, "amount shoud large or equal than 0");
             var tokenMgr = this._getTokenMgr();
             var value = new BigNumber(amount);
             value = value.mul(1000000000000000000);// 10^18
@@ -815,3 +821,4 @@ Market.prototype = {
 };
 
 module.exports = Market;
+
