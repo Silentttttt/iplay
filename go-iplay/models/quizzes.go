@@ -33,7 +33,7 @@ func GetQuizzesById(id int64) (*Quizzes, error) {
 func GetQuizzesListFromNow(gameID int64) (*Quizzes, error) {
 	quizzes := Quizzes{}
 	choiceOpts := []ChoiceOpt{}
-	err := orm.NewOrm().QueryTable(QuizzesTBName()).Filter("game_id", gameID).Filter("begin__lt", time.Now()).Filter("end__gt", time.Now()).RelatedSel().One(&quizzes)
+	err := orm.NewOrm().QueryTable(QuizzesTBName()).Filter("game_id", gameID).Filter("end__gt", time.Now()).RelatedSel().One(&quizzes)
 	if err != nil {
 		return nil, err
 	}
@@ -47,8 +47,8 @@ func GetQuizzesListFromNow(gameID int64) (*Quizzes, error) {
 
 func (q *Quizzes) SetChoiceOpt(choiceOpts []ChoiceOpt) {
 	var choices []*ChoiceOpt
-	for _, v := range choiceOpts {
-		choices = append(choices, &v)
+	for k := range choiceOpts {
+		choices = append(choices, &choiceOpts[k])
 	}
 	q.ChoiceOpt = choices
 }
