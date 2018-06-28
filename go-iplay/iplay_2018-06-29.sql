@@ -264,7 +264,7 @@ INSERT INTO `tb_user` (`id`, `username`, `realname`, `id_card`, `pwd`, `status`,
 VALUES
 	(1,'','','','d41d8cd98f00b204e9800998ecf8427e',0,'','Q4ylQQz9rg','','',''),
 	(2,'yangshun','','','e10adc3949ba59abbe56e057f20f883e',0,'','1QYNhyHE3z','','',''),
-	(3,'leon','','','e10adc3949ba59abbe56e057f20f883e',0,'','qEqq8aejE4','','',''),
+	(3,'leon','','','e10adc3949ba59abbe56e057f20f883e',0,'','qEqq8aejE4','','','');
 
 /*!40000 ALTER TABLE `tb_user` ENABLE KEYS */;
 UNLOCK TABLES;
