@@ -467,8 +467,8 @@ Market.prototype = {
         this._setGame(gameId, game);
     },
 
-    createAndStartGame: function(type, deadLine, options, amount){
-        var gameId = this.createGame(type, deadLine, options, amount).gameId;
+    createAndStartGame: function(payType, type, deadLine, theme, options, amount){
+        var gameId = this.createGame(payType, type, deadLine, theme, options, amount).gameId;
         this.startGame(gameId);
         return {gameId: gameId};
     },
