@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"iplay/go-iplay/models"
 	"iplay/go-iplay/utils"
 	"strings"
 	"time"
@@ -28,15 +29,8 @@ type BaseController struct {
 	beego.Controller
 }
 
-type JsonResult struct {
-	Code int         `json:"code"`
-	Msg  string      `json:"msg"`
-	Data interface{} `json:"data"`
-	Ts   int64       `json:"ts"`
-}
-
 func (c *BaseController) json(code int, msg string, data interface{}) {
-	c.Data["json"] = &JsonResult{code, msg, data, time.Now().Unix()}
+	c.Data["json"] = &models.Response{code, msg, data, time.Now().Unix()}
 	c.ServeJSON()
 	c.StopRun()
 }

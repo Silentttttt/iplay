@@ -1,5 +1,11 @@
 package models
 
+type Response struct {
+	Code int         `json:"code"`
+	Msg  string      `json:"msg"`
+	Data interface{} `json:"data"`
+	Ts   int64       `json:"ts"`
+}
 type LoginResponse struct {
 	Code int               `json:"code"`
 	Msg  string            `json:"msg"`
@@ -18,4 +24,18 @@ type GameListResponse struct {
 	Msg  string `json:"msg"`
 	Data []Game `json:"data"`
 	Ts   int64  `json:"ts"`
+}
+
+type QuizzesListResponse struct {
+	Code int     `json:"code"`
+	Msg  string  `json:"msg"`
+	Data Quizzes `json:"data"`
+	Ts   int64   `json:"ts"`
+}
+
+type UserQuizzesListResponse struct {
+	Code int           `json:"code"`
+	Msg  string        `json:"msg"`
+	Data []UserQuizzes `json:"data"`
+	Ts   int64         `json:"ts"`
 }

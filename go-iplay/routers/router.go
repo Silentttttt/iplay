@@ -21,11 +21,13 @@ func init() {
 			beego.NSNamespace("/user",
 				beego.NSInclude(
 					&controllers.UserController{},
+					&controllers.UserQuizzesController{},
 				),
 			),
 			beego.NSNamespace("/game",
 				beego.NSInclude(
 					&controllers.GameController{},
+					&controllers.QuizzesController{},
 				),
 			),
 		)
