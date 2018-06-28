@@ -20,6 +20,16 @@ func (q *Quizzes) TableName() string {
 	return QuizzesTBName()
 }
 
+func GetQuizzesById(id int64) (*Quizzes, error) {
+	o := orm.NewOrm()
+	m := Quizzes{Id: id}
+	err := o.Read(&m)
+	if err != nil {
+		return nil, err
+	}
+	return &m, nil
+}
+
 func GetQuizzesListFromNow(gameID int64) (*Quizzes, error) {
 	quizzes := Quizzes{}
 	choiceOpts := []ChoiceOpt{}

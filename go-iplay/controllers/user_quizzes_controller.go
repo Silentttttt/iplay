@@ -3,6 +3,8 @@ package controllers
 import (
 	"encoding/json"
 	"iplay/go-iplay/models"
+
+	"github.com/astaxie/beego/orm"
 )
 
 type UserQuizzesController struct {
@@ -44,11 +46,33 @@ func (uq *UserQuizzesController) DoQuizzes() {
 	var params models.DoQuizzesParams
 	json.Unmarshal(uq.Ctx.Input.RequestBody, &params)
 	if CheckAuthToken(params.AuthToken) {
-		if err := models.SaveUserQuizzes(&params); err != nil {
+		m := models.UserQuizzes{}
+		o := orm.NewOrm()
+		user, err := models.GetUserById(params.UserId)
+		if err != nil || user == nil {
 			uq.json(Fail, "", nil)
-		} else {
-			uq.json(Success, "", nil)
+			return
 		}
+		choiceOpt, err := models.GetChoiceOptById(params.ChoiceOptId)
+		if err != nil || choiceOpt == nil {
+			uq.json(Fail, "", nil)
+			return
+		}
+		quizzes, err := models.GetQuizzesById(params.QuizzesId)
+		if err != nil || quizzes == nil {
+			uq.json(Fail, "", nil)
+			return
+		}
+		m.User = user
+		m.ChoiceOpt = choiceOpt
+		m.Quizzes = quizzes
+		m.Money = params.BetAmount
+
+		if _, err := o.Insert(&m); err != nil {
+			uq.json(Fail, "", nil)
+			return
+		}
+		uq.json(Success, "", nil)
 	} else {
 		uq.json(Fail, NeedLoginErr, nil)
 	}

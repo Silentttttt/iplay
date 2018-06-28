@@ -40,6 +40,16 @@ func GetByUsername(username string) (*User, error) {
 	return &m, nil
 }
 
+func GetUserById(id int64) (*User, error) {
+	o := orm.NewOrm()
+	m := User{Id: id}
+	err := o.Read(&m)
+	if err != nil {
+		return nil, err
+	}
+	return &m, nil
+}
+
 // GetByIDCard get user by id_card
 func GetByIDCard(IDCard string) (*User, error) {
 	m := User{}

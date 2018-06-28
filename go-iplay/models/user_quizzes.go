@@ -10,6 +10,7 @@ type UserQuizzes struct {
 	Id        int64
 	User      *User      `orm:"rel(fk)" json:"user"`
 	ChoiceOpt *ChoiceOpt `orm:"rel(fk)" json:"choice_opt"`
+	Quizzes   *Quizzes   `orm:"rel(fk)" json:"quizzes"`
 	Result    bool       `json:"result"`
 	Money     float64    `json:"money"`  // 下注金额
 	Reward    float64    `json:"reward"` // 竞猜奖励
@@ -27,8 +28,4 @@ func GetUserQuizzesList(userID int64) (*[]UserQuizzes, error) {
 		return nil, err
 	}
 	return &quizzes, nil
-}
-
-func SaveUserQuizzes(UserQuizzes *DoQuizzesParams) error {
-	return nil
 }

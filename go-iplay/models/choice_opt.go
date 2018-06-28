@@ -1,5 +1,7 @@
 package models
 
+import "github.com/astaxie/beego/orm"
+
 type ChoiceOpt struct {
 	Id      int64    `json:"-"`
 	Name    string   `orm:"size(512)" json:"name"` // 竞猜说明
@@ -12,4 +14,14 @@ type ChoiceOpt struct {
 
 func (c *ChoiceOpt) TableName() string {
 	return ChoiceOptTBName()
+}
+
+func GetChoiceOptById(id int64) (*ChoiceOpt, error) {
+	o := orm.NewOrm()
+	m := ChoiceOpt{Id: id}
+	err := o.Read(&m)
+	if err != nil {
+		return nil, err
+	}
+	return &m, nil
 }
