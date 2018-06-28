@@ -1,0 +1,232 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+        <link href="css/mui.min.css" rel="stylesheet" />
+        <script src="js/mui.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    </head>
+    <body>
+        <header class="mui-bar mui-bar-nav bg-color">
+            <h1 class="mui-title">登录/注册</h1>
+        </header>
+        <div class="mui-content">
+            <div class="login-a">
+                
+            </div>
+            <div class="login-b">
+                <div class="login-b-b">
+                    <div class="login-b-b-l">账号</div>
+                    <div class="login-b-b-r">
+                        <input type="text" placeholder="请输入你的手机号">
+                    </div>
+                </div>
+                <div class="login-b-b">
+                    <div class="login-b-b-l">密码</div>
+                    <div class="login-b-b-r">
+                        <input type="password" placeholder="请输入你的密码">
+                    </div>
+                </div>
+            </div>
+            <div class="btn">
+                <button id="btn">登录</button>
+                <button id="btn">注册</button>
+                <p><a href="#" class="mui-pull-right click_a">找回密码</a></p>
+            </div>
+        </div>
+        <script type="text/javascript">
+            mui.init();
+            
+            var click_a = document.getElementsByClassName('click_a');
+            //登录
+            click_a[0].addEventListener('tap',function(){
+                mui.back();
+            });
+            
+            //找回密码
+            click_a[1].addEventListener('tap',function(){
+                mui.openWindow({
+                    url:'password.html',
+                    id:'password'
+                });
+            });
+            
+            
+            var code = '';
+            var phone_data = '';
+            
+            
+            //核心注册
+            //1,在验证验证码通过的同时
+            //2,获得手机号码和密码
+            //3,点击注册
+            //4,将手机号码和密码传递给服务器端
+            //5,并且保存到数据库内
+            //6,最后返回相应的结果
+            
+            //发送验证码相关
+            var input = document.getElementsByTagName('input');
+            var send_code = document.getElementById('send_code');
+            send_code.addEventListener('tap',function(){
+                //判断是否在发送期
+                if(this.innerHTML != '获取验证码'){
+                    return;
+                }
+//              获取验证码
+//              60-0
+                
+                
+                
+                //1.获得手机号码
+                var phone = input[0].value;
+                phone_data = phone;
+                
+                //2,判断手机
+                if(phone == ''){
+                    mui.toast('手机号码不能为空');
+                    return;
+                }
+                if(phone.length != 11){
+                    mui.toast('手机号码位数不正确');
+                    return;
+                }
+                // 可以判断是不是数字 ... 等等判断
+                
+                //3,生成一个验证码
+                code = get_code(4);
+                alert(code);
+                
+                //4,发送，同时倒计时
+                mui.toast('发送成功');
+                var num = 10;
+                var timer = setInterval(function(){
+                    num--;
+                    
+                    if(num == 0){
+                        
+                        clearInterval(timer);
+                        
+                        send_code.innerHTML = '获取验证码';
+                    }else{
+                        send_code.innerHTML = num + 'S';        
+                    }
+    
+                    
+                },1000);
+                
+                
+            });
+            
+            
+            
+            function get_code(length){
+                if(length == undefined){
+                    length = 4;
+                }
+                var pow = Math.pow(10,length);  
+                var code = Math.floor(Math.random() * pow + pow / 10).toString();
+                return code.substr(0, length);
+            }
+            
+            
+            //注册
+            var btn = document.getElementById('btn');
+            btn.addEventListener('tap',function(){
+                var phone = input[0].value;
+                var input_code = input[1].value;
+                var password = input[2].value;
+                
+                
+                
+                //等等判断
+                if(phone == ''){
+                    mui.toast('手机号码不能为空');
+                    return;
+                }
+                
+                if(phone_data != phone){
+                    mui.toast('手机号码不正确');
+                    return;
+                }
+                
+                if(input_code == ''){
+                    mui.toast('验证码不能为空');
+                    return;
+                }
+        
+                if(input_code != code){
+                    mui.toast('验证码错误');
+                    return;
+                }
+                if(password == ''){
+                    mui.toast('密码不能为空');
+                    return;
+                }
+                
+                
+                //发送请求到我们的后台接口并且保存到数据库内
+                //第一个参数是请求的接口地址
+                //第二个参数是传递的参数是个json
+                //第三个参数是个回调
+                //第四个参数是返回回来的数据类型
+                // ajax - get post 
+                // get
+                // post 
+                // 什么接口，就是能够通过地址栏访问可以获得数据的这个网址
+                // 收不到数据，点击了没有，后台不执行，写不到数据库里
+                // 前台 -> 后台接口 ->数据库
+                // 小伙-> 红娘 -> 小姑娘
+                // 注意本地服务器不能使用127.0.0.1来请求 ,  软件->工具->选项->搜索web->找到内置服务器 (选择你wifi下的ip地址，把端口改成80,保存以后重新启动软件)
+                // 如何来测试wifi下ip的地址
+                //http://127.0.0.1/www/vip1/index.php/User/register 
+                
+                //http://192.168.199.164/www/vip1/index.php/User/register
+                                //localStorage.setItem('request_url','http://jzhxwl.com/vip1/index.php/');这个写在主页面没用来保存路径
+                var request_url = localStorage.getItem('request_url');
+                mui.get(request_url+'User/register',{
+                    phone_data:phone,
+                    password_data:password
+                },function(data){
+//                  alert(data);
+                    
+                    if(data > 0){
+                        mui.toast('注册成功');
+                        
+                        //保存一下登录信息
+                        localStorage.setItem('login_phone',phone);
+                        
+                        //显示出来来的界面,注意不是跳转
+                        mui.plusReady(function(){
+                            
+                            //先通知  getTargetInterface 要具体到某个界面
+                            //重点 mui的底部导航界面的id 就是url d.html
+                            var target = plus.webview.getWebviewById('d.html');
+                            mui.fire(target,'update_user_info',{});
+                            
+                            // getLaunchWebview  首页， index.html 他是包含abdc这4个界面的主界面
+                            var indexView = plus.webview.getLaunchWebview();//获得我们起始界面的对象
+                            indexView.show(); //把这个对象显示出来
+                        });
+                        
+                        
+                    }else if(data == -1){
+                        mui.toast('手机号码已经存在');
+                    }else{
+                        mui.toast('注册失败,请重试');
+                    }
+                    
+                    
+                    
+                },'json');
+                
+
+            });
+            
+            
+            
+            
+        </script>
+    </body>
+</html>
