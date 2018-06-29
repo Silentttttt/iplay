@@ -61,9 +61,7 @@
                 <!--页眉，放置标题-->
                 <div class="mui-card-header">
                     <div class="mui-card-header mui-card-media">
-                        {{if}}
                         <span class="mui-badge mui-badge-primary">${type.Name}</span>
-                        {{/if}}
                         <div class="mui-media-body">
                             ${description}
                         </div>
@@ -122,7 +120,7 @@
         mui.init({
             swipeBack: true //启用右滑关闭功能
         });
-     /*   
+     
         var slider = mui("#slider");
         document.getElementById("switch").addEventListener('toggle', function (e) {
             if (e.detail.isActive) {
@@ -135,7 +133,7 @@
                 });
             }
         });
-        */
+        
         mui(document.body).on('tap', '.mui-btn', function (e) {
             mui(this).button('loading');
             setTimeout(function () {
