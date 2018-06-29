@@ -180,7 +180,7 @@ func CallContract(
 	value string,
 	nonce uint64,
 	function string,
-	args string,
+	params []interface{},
 	passwd string) (string, error) {
 
 	if nonce == 0 {
@@ -196,9 +196,14 @@ func CallContract(
 		nonce++
 	}
 
+	args, err := json.Marshal(params)
+	if err != nil {
+		return "", err
+	}
+
 	contract := &ContractRequest{
 		Function: function,
-		Args:     args,
+		Args:     string(args),
 	}
 
 	tx := &TransactionRequest{

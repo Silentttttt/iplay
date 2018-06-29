@@ -31,12 +31,7 @@ func createQuizze(
 	params = append(params, smartContractOpt)
 	params = append(params, amount)
 
-	args, err := json.Marshal(params)
-	if err != nil {
-		return "", err
-	}
-
-	txHash, err := wallet.CallContract(adminAddress, contractAddress, "0", 0, "createAndStartGame", string(args), adminPasswd)
+	txHash, err := wallet.CallContract(adminAddress, contractAddress, "0", 0, "createAndStartGame", params, adminPasswd)
 	if err != nil {
 		return "", err
 	}
@@ -50,11 +45,7 @@ func Transfer(to string, amount uint64) (string, error) {
 	params = append(params, to)
 	params = append(params, amount)
 
-	args, err := json.Marshal(params)
-	if err != nil {
-		return "", err
-	}
-	txHash, err := wallet.CallContract(adminAddress, contractAddress, "0", 0, "transfer", string(args), adminPasswd)
+	txHash, err := wallet.CallContract(adminAddress, contractAddress, "0", 0, "transfer", params, adminPasswd)
 	if err != nil {
 		return "", err
 	}
@@ -70,11 +61,7 @@ func BuyTicket(buyer string, passwd string, gameID uint64, optionNo uint8, optio
 	params = append(params, optionVersion)
 	params = append(params, amount)
 
-	args, err := json.Marshal(params)
-	if err != nil {
-		return "", err
-	}
-	txHash, err := wallet.CallContract(buyer, contractAddress, "0", 0, "buyTicket", string(args), passwd)
+	txHash, err := wallet.CallContract(buyer, contractAddress, "0", 0, "buyTicket", params, passwd)
 	if err != nil {
 		return "", err
 	}
