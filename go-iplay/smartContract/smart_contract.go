@@ -3,18 +3,18 @@ package smartcontract
 import (
 	"encoding/json"
 	"fmt"
-	"time"
 
 	"github.com/Silentttttt/iplay/go-iplay/models"
+	"github.com/Silentttttt/iplay/go-iplay/wallet"
 )
 
 func createQuizze(
 	payType uint32,
 	gameType uint32,
-	deadLine time.Time,
+	deadLine int64,
 	amount uint64,
 	theme string,
-	opts []models.ChoiceOpt) (uint64, error) {
+	opts []models.ChoiceOpt) (string, error) {
 	smartContractOpt := make([]*option, 0)
 
 	opt1 := option{1, "fs"}
@@ -26,23 +26,57 @@ func createQuizze(
 	params := make([]interface{}, 0)
 	params = append(params, payType)
 	params = append(params, gameType)
-	params = append(params, deadLine.Unix()*1000)
-	params = append(params, amount)
+	params = append(params, deadLine)
 	params = append(params, theme)
 	params = append(params, smartContractOpt)
+	params = append(params, amount)
 
-	b, _ := json.Marshal(params)
-	fmt.Println(string(b))
-	// req, err := http.NewRequest("POST", "url", bytes.NewBuffer(b))
-	// req.Header.Set("Content-Type", "application/json")
+	args, err := json.Marshal(params)
+	if err != nil {
+		return "", err
+	}
 
-	// client := &http.Client{}
-	// resp, err := client.Do(req)
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// defer resp.Body.Close()
-	// body, _ := ioutil.ReadAll(resp.Body)
-	// fmt.Println("response Body:", string(body))
-	return 1, nil
+	txHash, err := wallet.CallContract(adminAddress, contractAddress, "0", 0, "createAndStartGame", string(args), adminPasswd)
+	if err != nil {
+		return "", err
+	}
+	return txHash, nil
+}
+
+//TODO: 将参数打包的逻辑封装到callContract中
+// Transfer claim token
+func Transfer(to string, amount uint64) (string, error) {
+	params := make([]interface{}, 0)
+	params = append(params, to)
+	params = append(params, amount)
+
+	args, err := json.Marshal(params)
+	if err != nil {
+		return "", err
+	}
+	txHash, err := wallet.CallContract(adminAddress, contractAddress, "0", 0, "transfer", string(args), adminPasswd)
+	if err != nil {
+		return "", err
+	}
+	return txHash, nil
+}
+
+// buyTicket: function(gameId, optionNo, optionVersion, amount)
+//BuyTicket buy ticket
+func BuyTicket(buyer string, passwd string, gameID uint64, optionNo uint8, optionVersion uint8, amount uint64) (string, error) {
+	params := make([]interface{}, 0)
+	params = append(params, gameID)
+	params = append(params, optionNo)
+	params = append(params, optionVersion)
+	params = append(params, amount)
+
+	args, err := json.Marshal(params)
+	if err != nil {
+		return "", err
+	}
+	txHash, err := wallet.CallContract(buyer, contractAddress, "0", 0, "buyTicket", string(args), passwd)
+	if err != nil {
+		return "", err
+	}
+	return txHash, nil
 }

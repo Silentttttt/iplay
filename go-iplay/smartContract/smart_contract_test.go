@@ -1,20 +1,25 @@
 package smartcontract
 
 import (
+	"fmt"
 	"testing"
 	"time"
 
 	"github.com/Silentttttt/iplay/go-iplay/models"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestCreateQuizze(t *testing.T) {
 	theme := "巴西 vs 德国"
 
 	opts := []models.ChoiceOpt{
-		{1, "德国胜", 1.8, 0.5, 1, 2, nil},
-		{2, "巴西胜", 1.5, 0.5, 1, 2, nil},
+		{1, "德国胜", 2, 0.5, 1, 2, nil},
+		{2, "巴西胜", 3, 0.5, 1, 2, nil},
 	}
-	createQuizze(1, 1, time.Now(), 1, theme, opts)
+	txHash, err := createQuizze(1, 1, time.Now().Unix()*1000+3600*1000, 1, theme, opts)
+
+	assert.Nil(t, err)
+	fmt.Println(txHash)
 
 	// tests := []struct {
 	// 	filepath       string

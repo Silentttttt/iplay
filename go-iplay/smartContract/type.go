@@ -1,5 +1,11 @@
 package smartcontract
 
+const (
+	contractAddress = "n1vRY4NHBDyQ8hKTXQbbWfPEK5odtRnqRNm"
+	adminAddress    = "n1GskdDtrSAaLoR9Beg5sakKfXwyqgPDbft"
+	adminPasswd     = "123456"
+)
+
 // createGame(payType,type, deadLine, theme, options, amount)
 type option struct {
 	Odd         float32 `json:"odd"`
@@ -13,17 +19,4 @@ type createGameArgs struct {
 	theme    string    `json:"theme"`
 	amount   uint64    `json: "amount"`
 	options  []*option `json:"options"`
-}
-
-// buyTicket: function(gameId, optionNo, optionVersion, amount) {
-type buyTicketArgs struct {
-	gameId        uint64 `json:"gameId"`
-	optionNo      uint32 `json:"optionNo"`
-	optionVersion uint32 `json:"optionVersion"`
-	amount        uint64 `json:"amount"`
-}
-
-type createGameParams struct {
-	functionName string `json:"function"`
-	args         string `json:"args"`
 }

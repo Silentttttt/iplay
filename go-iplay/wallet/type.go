@@ -1,11 +1,20 @@
 package wallet
 
-const hostname = "https://mainnet.nebulas.io"
+const (
+	remoteNebHost = "https://mainnet.nebulas.io"
+	localNebHost  = "http://localhost:8685"
+)
+
+const (
+	gasPrice = "1000000"
+	gasLimit = "2000000"
+)
 
 //RPCResponse get account state response
 type RPCResponse struct {
 	// Result *AccountState `json:"result"`
 	Result interface{} `json:"result"`
+	Err    string      `json:"error"`
 }
 
 //GetAccountStateRequest get account state request
@@ -54,4 +63,20 @@ type TransactionRequest struct {
 	Binary []byte `json:"binary"`
 	// transaction payload type, enum:binary, deploy, call
 	Type string `json:"type"`
+}
+
+type rawData struct {
+	Data string `json:"data"`
+}
+
+type addressResponse struct {
+	Address string `json:"address"`
+}
+
+//SendTxResponse reponse of send tx
+type SendTxResponse struct {
+	// TxHash tx hash
+	TxHash string `json:"txhash"`
+	// ContractHash contract hash
+	ContractHash string `json:"contract_address"`
 }

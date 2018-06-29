@@ -243,17 +243,17 @@ var assert = function(expression, info) {
 };
 
 var assertNumber = function(n) {
-    assert(typeof(n) == "number", "param is not a number");
+    assert(typeof(n) == "number", "param is not a number: " + n);
 };
 
 var assertInteger = function(n) {
     assertNumber(n);
-    assert(parseInt(n) == n, "param is not a integer");
+    assert(parseInt(n) == n, "param is not a integer: " + n);
 };
 
 var assertPosInteger = function(n) {
     assertInteger(n);
-    assert(n > 0, "param is not a positive integer"); 
+    assert(n > 0, "param is not a positive integer: " + n); 
 };
 
 var Ticket = function(ticketId, amount, gameId, optionNo, odd) { // 票据
