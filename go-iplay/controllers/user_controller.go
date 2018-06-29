@@ -41,6 +41,7 @@ func (c *UserController) Login() {
 		uuid, _ := uuid.NewV4()
 		authToken := username + ":" + uuid.String()
 		utils.Put(authToken, username, utils.Month)
+		//TODO: 每天第一次登陆成功会自动领取token
 		c.json(Success, "", &models.LoginResponseData{AuthToken: authToken, Username: user.Username, Avatar: user.Avatar})
 	} else {
 		c.json(Fail, LoginParamsErr, nil)
