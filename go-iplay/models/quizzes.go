@@ -7,8 +7,8 @@ import (
 )
 
 type Quizzes struct {
-	Id          int64        `json:"-""`
-	Game        *Game        `orm:"rel(fk)" json:"game"`          // 赛事ID
+	Id          int64        `json:"-"`
+	Game        *Game        `orm:"rel(fk)" json:"-"`             // 赛事ID
 	Instruction string       `orm:"size(512)" json:"instruction"` // 竞猜说明
 	Begin       time.Time    `json:"begin"`                       // 竞猜开始时间
 	End         time.Time    `json:"end"`                         // 竞猜结束时间
@@ -30,18 +30,23 @@ func GetQuizzesById(id int64) (*Quizzes, error) {
 	return &m, nil
 }
 
-func GetQuizzesListFromNow(gameID int64) (*Quizzes, error) {
-	quizzes := Quizzes{}
+func GetQuizzesListFromNow(gameID int64) (*[]Quizzes, error) {
+
+	quizzes := []Quizzes{}
 	choiceOpts := []ChoiceOpt{}
-	err := orm.NewOrm().QueryTable(QuizzesTBName()).Filter("game_id", gameID).Filter("end__gt", time.Now()).RelatedSel().One(&quizzes)
+	_, err := orm.NewOrm().QueryTable(QuizzesTBName()).Filter("game_id", gameID).Filter("end__gt", time.Now()).RelatedSel().All(&quizzes)
 	if err != nil {
 		return nil, err
 	}
-	_, err = orm.NewOrm().QueryTable(ChoiceOptTBName()).Filter("quizzes_id", quizzes.Id).All(&choiceOpts)
-	if err != nil {
-		return nil, err
+
+	for k := range quizzes {
+		_, err = orm.NewOrm().QueryTable(ChoiceOptTBName()).Filter("quizzes_id", quizzes[k].Id).All(&choiceOpts)
+		if err != nil {
+			return nil, err
+		}
+		quizzes[k].SetChoiceOpt(choiceOpts)
 	}
-	quizzes.SetChoiceOpt(choiceOpts)
+
 	return &quizzes, nil
 }
 

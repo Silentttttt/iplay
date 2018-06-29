@@ -21,6 +21,15 @@ func (g *Game) TableName() string {
 	return GameTBName()
 }
 
+func GetGameById(id int64) (*Game, error) {
+	m := Game{}
+	err := orm.NewOrm().QueryTable(GameTBName()).Filter("id", id).RelatedSel().One(&m)
+	if err != nil {
+		return nil, err
+	}
+	return &m, nil
+}
+
 func GetGameListFromNow() (*[]Game, error) {
 	games := []Game{}
 	_, err := orm.NewOrm().QueryTable(GameTBName()).Filter("begin__gt", time.Now()).RelatedSel().All(&games)

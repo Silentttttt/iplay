@@ -36,12 +36,15 @@ func (game *GameController) List() {
 // @Title QuizzesList
 // @Description football game Quizzes
 // @Param   data body models.QuizzesListParams true "get quizzes by gameID params"
-// @Success 200 {object} models.QuizzesListResponse
+// @Success 200
 // @Failure 500
 // @router /quizzes [post]
 func (q *QuizzesController) QuizzesList() {
 	var params models.QuizzesListParams
 	json.Unmarshal(q.Ctx.Input.RequestBody, &params)
+	game, _ := models.GetGameById(params.GameId)
 	quizzes, _ := models.GetQuizzesListFromNow(params.GameId)
-	q.json(Success, "", quizzes)
+	gameQuizzesList := &models.GameQuizzesList{Game: game, Quizzes: quizzes}
+
+	q.json(Success, "", gameQuizzesList)
 }
