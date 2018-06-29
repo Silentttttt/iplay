@@ -23,16 +23,19 @@
         text-align: center;
     }
 
-    .mt100{
+    .mt100 {
         margin-top: 100px;
     }
-    .mt20{
+
+    .mt20 {
         margin-top: 20px;
     }
-    .fr{
+
+    .fr {
         float: right
     }
-    .err_msg{
+
+    .err_msg {
         color: red;
     }
 </style>
@@ -45,7 +48,7 @@
             <div class="container">
                 <form action="#" method="post">
                     <div class="from-group" style=" margin-top: 20px;   text-align: center;">
-                        <h1>登录</h1>
+                        <h1>注册</h1>
                     </div>
                     <div class="form-group mt100">
                         <label for="exampleInputEmail1">账号</label>
@@ -60,12 +63,18 @@
                         <br>
                         <span class='err_msg' id="password_errmsg"></span>
                     </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">确认密码</label>
+                        <input type="password" class="required form-control" id="rePassword" style="width: 72%;">
+                        <br>
+                        <span class='err_msg' id="password_errmsg"></span>
+                    </div>
                     <div class="form-group mt100">
-                        <button type="button" id="button" class="btn" >Log In</button>
+                        <button type="button" id="button" class="btn">注册</button>
                     </div>
                     <div class="form-group get_account mt20">
-                        <span>Not registered yet?
-                            <a href="signup.html"> Sign Up </a> for Free
+                        <span>
+                            <a href="login.html">登录 </a>
                         </span>
                     </div>
                 </form>
@@ -76,40 +85,79 @@
 
 
     <script src="lib/jquery-3.3.1.min.js"></script>
-    <script src="lib/jquery.cookie.js"></script>
     <script src="lib/bootstrap.min.js"></script>
     <script src="js/mui.js"></script>
     <script type="text/javascript"> 
-        
 
 
-        //用户登录
+        // 前端表单验证
+        $(":input.required").each(function () {
+                var $required = $(" ");
+                $(this).parent().append($required);
+            });
+            $(":input.required").blur(function () {
+                
+                if ($(this).is("#password")) {
+                    $(".err_msg").remove();
+                    var $email = $("#password").val();
+                    if (this.value.length < 6 || this.value.length > 20) {
+                        var errMsg = "<span class='err_msg'>密码的长度应是6-20字符</span>";
+                        $(this).parent().append(errMsg);
+                    }
+                    else {
+                        var Msg = "<span></span>";
+                        $(this).parent().append(Msg);
+                    }
+                }
+                if ($(this).is("#rePassword")) {
+                    $(".err_msg").remove();
+                    var a = $("#password").val();
+                    var b = $("#rePassword").val();
+                    if (a != b) {
+                        var errMsg = "<span class='err_msg'>两次密码不一致，请再次尝试.</span>";
+                        $(this).parent().append(errMsg);
+                    }
+                    else {
+                        var Msg = "<span></span>";
+                        $(this).parent().append(Msg);
+                        $("#button").removeClass("disabled");
+                    }
+                }
+            })
+
+
+        //用户注册
         $('#button').on('click', function (e) {
             var loginData = {
-                "password": $('#password').val(),
                 "username": $('#email').val(),
+                "password": $('#password').val(),
             }
             loginData = JSON.stringify(loginData);
 
             $.ajax({
-                type: "POST",
-                url: 'http://35.180.103.230:8080/v1/user/login',
+                type: 'POST',
+                url: 'http://35.180.103.230:8080/v1/user/reg',
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8',
                 data: loginData,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function(data){
-
-                    var userInfo = data.data;
-                    
-                    $.cookie('username', userInfo.emausernameil);
-                    
-                    window.location.href = 'user.html';
-
+                xhrFields: {
+                    withCredentials: true
                 },
-                    error: function (err) {
-                        alert(err.msg);
-                    }
-                })
+                crossDomain: true,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("x-neb-language", "EN");
+                    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+                },
+                success: function (data) {
+
+                    window.location.href = 'login.html';
+                },
+                error: function (err) {
+                    alert(err.msg);
+
+
+                }
+            })
         })
 
 
