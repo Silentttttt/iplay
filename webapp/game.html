@@ -128,40 +128,16 @@
             <div class="mui-card mt16">
                 <!--页眉，放置标题-->
                 <div class="mui-card-header" href="game.html">
-                    <div class="mui-card-header mui-card-media">
-                        <span class="mui-badge mui-badge-primary">世界杯</span>
-                        <div class="mui-media-body">
-                            A小组第一轮
-                        </div>
+                    <div class="mui-card-header mui-card-media game-header">
+                       
                     </div>
                 </div>
                 <!--内容区-->
                 <div class="mui-card-content">
                     <!-- <a href="#"><img src="images/thanos.png" alt=""></a> -->
-                    <div class="mui-content" id="sport">
-                        <div class="mui-row">
-                            <div class="mui-col-sm-4 mui-col-xs-4">
-                                <li class="mui-table-view-cell style_none">
-                                    <span class="contury">
-                                        <img src="./images/536.png" alt="">
-                                        <span class="ing">俄罗斯</span>
-                                    </span>
-                                </li>
-                            </div>
-                            <div class="mui-col-sm-4 mui-col-xs-4">
-                                <li class="mui-table-view-cell style_none p0">
-                                    <span class="time">5 : 0</span>
-                                    <span class="ing">已结束</span>
-                                </li>
-                            </div>
-                            <div class="mui-col-sm-4 mui-col-xs-4">
-                                <li class="mui-table-view-cell style_none">
-                                    <span class="contury">
-                                        <img src="./images/1264.png" alt="">
-                                        <span class="ing">沙特阿拉伯</span>
-                                    </span>
-                                </li>
-                            </div>
+                    <div class="mui-content " id="sport">
+                        <div class="mui-row game-body">
+
                         </div>
 
 
@@ -170,7 +146,7 @@
                         <ul id="myTab" class="nav nav-tabs">
                             <li class="active">
                                 <span class="mui-icon mui-icon-weixin"></span>
-                                <a href="#game" data-toggle="tab">竞猜</a>
+                                <a href="#game-quizz" data-toggle="tab" class="active show">竞猜</a>
                             </li>
 
                             <li>
@@ -185,8 +161,8 @@
 
                         <!-- 每个tab页对应的内容 -->
                         <div id="myTabContent" class="tab-content">
-                            <div class="tab-pane fade in active" id="game">
-                                <!-- 盘一 -->
+                            <div class="tab-pane fade in active show" id="game-quizz">
+                                <!-- 盘一
                                 <div class="mui-card-content  game_1">
                                     <div class="mui-content">
                                         <div class="tittle">
@@ -221,9 +197,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
 
-                                <!-- 盘二 -->
+                                <!-- 盘二 
                                 <div class="mui-card-content  game_1">
                                     <div class="mui-content">
                                         <div class="tittle">
@@ -250,11 +226,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="mui-content">
-                                    <button type="button" class="mui-btn mui-btn-danger" style="width: 49%;border-radius: 0;">与好友PK</button>
-                                    <button type="button" class="mui-btn mui-btn-success " style="width: 49%;">分享给好友</button>
-                                </div>
+                                </div>-->
                             </div>
                             <div class="tab-pane fade" id="myself">
                                 <!-- 记录1 -->
@@ -410,6 +382,11 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="mui-content">
+                                <button type="button" class="mui-btn mui-btn-danger" style="width: 49%;border-radius: 0;">与好友PK</button>
+                                <button type="button" class="mui-btn mui-btn-success " style="width: 49%;">分享给好友</button>
+                            </div>
                         </div>
 
                     </div>
@@ -495,6 +472,64 @@
 
     <script src="lib/jquery-3.3.1.min.js"></script>
     <script src="lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+
+
+    <script id="game-header-tpl" type="text/x-jQuery-tmpl">
+        <span class="mui-badge mui-badge-primary">${type}</span>
+        <div class="mui-media-body">
+            ${description}
+        </div>
+    </script>
+    <script id="game-body-tpl" type="text/x-jQuery-tmpl">
+        <div class="mui-col-sm-4 mui-col-xs-4">
+            <li class="mui-table-view-cell style_none">
+                <span class="contury">
+                    <img src="${home_team.logo}" alt="">
+                    <span class="ing">${home_team.name}</span>
+                </span>
+            </li>
+        </div>
+        <div class="mui-col-sm-4 mui-col-xs-4">
+            <li class="mui-table-view-cell style_none p0">
+                <span class="time">${begin}</span>
+                <span class="ing">竞猜中</span>
+            </li>
+        </div>
+        <div class="mui-col-sm-4 mui-col-xs-4">
+            <li class="mui-table-view-cell style_none">
+                <span class="contury">
+                    <img src="${visit_team.logo}" alt="">
+                    <span class="ing">${visit_team.name}</span>
+                </span>
+            </li>
+        </div>
+    </script>
+    <script id="game-quizz-tpl" type="text/x-jQuery-tmpl">
+        <div class="mui-card-content  game_1">
+            <div class="mui-content">
+                <div class="tittle">
+                    <span class=" mui-icon mui-icon-videocam result"></span>
+                    <span class="result">${instruction}</span>&nbsp;
+                    <i>( 90分钟内的赛果 )</i>
+                </div>
+                <div class="mui-row">
+                   
+                    {{each choice_opt}} 
+                    <div class="mui-col-sm-4 mui-col-xs-4">
+                        <li class="mui-table-view-cell style_none">
+                            <span class="which" id="which">
+                                <p>${name}</p>
+                                <p>${odds}</p>
+                            </span>
+                        </li>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </script>
+
     <script>
         jQuery(document).ready(function ($) {
             $('#which').click(function () {
@@ -507,6 +542,57 @@
             })
 
         })
+
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        };
+
+
+
+        var url = "http://35.180.103.230:8080/v1/game/quizzes";
+
+        var game_id  = getUrlParameter("game_id");
+        var params = {
+            game_id : game_id?parseInt(game_id):1
+        };
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: JSON.stringify(params),
+            contentType: "application/json; charset=utf-8",
+	        dataType: "json",
+            success: function(res){
+                console.log(res)
+                showGame(res.data.game)
+
+                showQuizzes(res.data.quizzes)
+            }
+        });
+
+
+        function showGame(game){
+            
+            document.title = game.home_team.name+'VS'+game.visit_team.name;
+
+            $("#game-header-tpl").tmpl(game).appendTo(".game-header");
+            $("#game-body-tpl").tmpl(game).appendTo(".game-body");
+
+        }
+
+        function showQuizzes(quizzes){
+            $("#game-quizz-tpl").tmpl(quizzes).appendTo("#game-quizz");
+        }
     </script>
 </body>
 
