@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"iplay/go-iplay/models"
+	smartcontract "iplay/go-iplay/smartContract"
 	"iplay/go-iplay/utils"
+	"iplay/go-iplay/wallet"
 	"strings"
 
 	"github.com/astaxie/beego/orm"
@@ -41,8 +43,7 @@ func (c *UserController) Login() {
 		uuid, _ := uuid.NewV4()
 		authToken := username + ":" + uuid.String()
 		utils.Put(authToken, username, utils.Month)
-		//TODO: 每天第一次登陆成功会自动领取token
-		c.json(Success, "", &models.LoginResponseData{AuthToken: authToken, Username: user.Username, Avatar: user.Avatar})
+		c.json(Success, "", &models.LoginResponseData{AuthToken: authToken, Username: user.Username, Avatar: user.Avatar, HashAddress: user.HashAddress, Balance: user.Balance})
 	} else {
 		c.json(Fail, LoginParamsErr, nil)
 	}
@@ -57,6 +58,7 @@ func (c *UserController) Login() {
 // @router /reg [post]
 func (c *UserController) Register() {
 	var params models.LoginParams
+	var err error
 	json.Unmarshal(c.Ctx.Input.RequestBody, &params)
 	fmt.Println(params)
 	username := strings.TrimSpace(params.Username)
@@ -65,22 +67,39 @@ func (c *UserController) Register() {
 	user, _ := models.GetByUsername(username)
 	if user != nil {
 		c.json(Fail, RegisterUserExistErr, nil)
+		return
 	}
 
 	m := &models.User{}
 	m.Username = username
 	m.Pwd = utils.Md5(password)
 	m.Passphrase = utils.RandomString(10)
-	m.HashAddress = createAddressWithPassphrase(m.Passphrase)
+	// m.HashAddress = createAddressWithPassphrase(m.Passphrase)
+	m.HashAddress, err = wallet.CreateAccount(m.Passphrase)
+	if err != nil {
+		c.json(Fail, RegisterCreateHashAddressErr, nil)
+		return
+	}
 
 	o := orm.NewOrm()
-	if _, err := o.Insert(m); err != nil {
+	o.Begin()
+	if _, err = o.Insert(m); err != nil {
 		c.json(Fail, RegisterSystemErr, nil)
+		return
 	}
+	// 注册成功 送用户2018*1000NAS
+	_, err = smartcontract.Transfer(m.HashAddress, 2018*1000)
+	if err != nil {
+		o.Rollback()
+		c.json(Fail, RegisterCreateHashAddressErr, nil)
+		return
+	}
+	o.Commit()
 	uuid, _ := uuid.NewV4()
 	authToken := username + ":" + uuid.String()
 	utils.Put(authToken, username, utils.Month)
-	c.json(Success, "", &models.LoginResponseData{AuthToken: authToken, Username: m.Username})
+
+	c.json(Success, "", &models.LoginResponseData{AuthToken: authToken, Username: m.Username, HashAddress: user.HashAddress, Balance: user.Balance})
 }
 
 // IDCardAuthentication 实名认证

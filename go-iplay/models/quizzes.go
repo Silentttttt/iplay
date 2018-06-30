@@ -10,8 +10,8 @@ type Quizzes struct {
 	Id          int64        `json:"-"`
 	Game        *Game        `orm:"rel(fk)" json:"-"`             // 赛事ID
 	Instruction string       `orm:"size(512)" json:"instruction"` // 竞猜说明
-	Begin       time.Time    `json:"begin"`                       // 竞猜开始时间
-	End         time.Time    `json:"end"`                         // 竞猜结束时间
+	Begin       string       `json:"begin"`                       // 竞猜开始时间
+	End         string       `json:"end"`                         // 竞猜结束时间
 	Created     time.Time    `orm:"auto_now_add;type(datetime)" json:"-"`
 	ChoiceOpt   []*ChoiceOpt `orm:"reverse(many)" json:"choice_opt"`
 }
