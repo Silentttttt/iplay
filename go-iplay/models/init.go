@@ -8,7 +8,8 @@ import (
 //初始化
 func init() {
 	// orm.RegisterModel(new(User), new(Game), new(Player), new(PlayType), new(GameExtFootball), new(Quizzes), new(ChoiceOpt))
-	orm.RegisterModel(new(User), new(PlayType), new(Player), new(Game), new(GameExtFootball), new(Quizzes), new(ChoiceOpt), new(UserQuizzes))
+	orm.RegisterModel(new(User), new(PlayType), new(Player), new(Game),
+		new(GameExtFootball), new(Quizzes), new(ChoiceOpt), new(UserQuizzes), new(ContractTransaction))
 }
 
 func TableName(name string) string {
@@ -46,4 +47,8 @@ func ChoiceOptTBName() string {
 
 func UserQuizzesTBName() string {
 	return TableName("user_quizzes")
+}
+
+func ContractTransactionTBName() string {
+	return TableName("contract_transaction")
 }

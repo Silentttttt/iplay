@@ -6,8 +6,12 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"iplay/go-iplay/models"
 	"net/http"
 	"strconv"
+	"time"
+
+	"github.com/astaxie/beego/orm"
 )
 
 func sendRPC(method string, url string, buf []byte) ([]byte, error) {
@@ -175,6 +179,7 @@ func SendTransactionWithPasswd(tx *TransactionRequest, passwd string) (*SendTxRe
 
 //CallContract call contract, if nonce == 0, use get state to get online nonce
 func CallContract(
+	o orm.Ormer,
 	from string,
 	to string,
 	value string,
@@ -220,5 +225,17 @@ func CallContract(
 		return "", err
 	}
 	fmt.Println(sendTxResp)
+
+	record := models.ContractTransaction{
+		From:     from,
+		To:       to,
+		Value:    value,
+		Function: function,
+		Args:     string(args),
+		Hash:     sendTxResp.TxHash,
+		Status:   2, //appending
+		Updated:  time.Now(),
+	}
+	o.Insert(record) //TODO: to do before sendTx
 	return sendTxResp.TxHash, nil
 }

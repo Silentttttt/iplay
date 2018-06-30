@@ -163,17 +163,20 @@
                 dataType: 'json',
                 contentType: 'application/json;charset=utf-8',
                 data: loginData,
+                /*
                 xhrFields: {
                     withCredentials: true
                 },
                 crossDomain: true,
+                
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("x-neb-language", "EN");
                     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
                 },
+                */
                 success: function (data) {
-
-                    window.location.href = 'login.html';
+                    console.log(data)
+                    //window.location.href = 'login.html';
                 },
                 error: function (err) {
                     alert(err.msg);
