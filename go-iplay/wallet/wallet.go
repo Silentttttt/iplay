@@ -6,12 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"iplay/go-iplay/models"
 	"net/http"
-	"strconv"
-	"time"
-
-	"github.com/astaxie/beego/orm"
 )
 
 func sendRPC(method string, url string, buf []byte) ([]byte, error) {
@@ -143,17 +138,13 @@ func CreateAccount(passwd string) (string, error) {
 	return rpcResponse.Result.(*addressResponse).Address, nil
 }
 
-//SendTransactionWithPasswd send tx with passwd
-func SendTransactionWithPasswd(tx *TransactionRequest, passwd string) (*SendTxResponse, error) {
-	data, err := SignTxWithPasswd(tx, passwd)
-	if err != nil {
-		return nil, err
-	}
+//SendRawTransaction send raw transaction
+func SendRawTransaction(host string, tx *TransactionRequest, data string) (*SendTxResponse, error) {
 	params := &rawData{
 		data,
 	}
 
-	url := remoteNebHost + "/v1/user/rawtransaction"
+	url := host + "/v1/user/rawtransaction"
 	paramsBuf, err := json.Marshal(params)
 	if err != nil {
 		//TODO:
@@ -175,67 +166,4 @@ func SendTransactionWithPasswd(tx *TransactionRequest, passwd string) (*SendTxRe
 	}
 
 	return rpcResponse.Result.(*SendTxResponse), nil
-}
-
-//CallContract call contract, if nonce == 0, use get state to get online nonce
-func CallContract(
-	o orm.Ormer,
-	from string,
-	to string,
-	value string,
-	nonce uint64,
-	function string,
-	params []interface{},
-	passwd string) (string, error) {
-
-	if nonce == 0 {
-		state, err := GetAccountState(from)
-		if err != nil {
-			return "", err
-		}
-		v, err := strconv.Atoi(state.Nonce)
-		if err != nil || v < 0 {
-			return "", errors.New("failed to get nonce")
-		}
-		nonce = uint64(v)
-		nonce++
-	}
-
-	args, err := json.Marshal(params)
-	if err != nil {
-		return "", err
-	}
-
-	contract := &ContractRequest{
-		Function: function,
-		Args:     string(args),
-	}
-
-	tx := &TransactionRequest{
-		From:     from,
-		To:       to,
-		Value:    value,
-		Nonce:    nonce,
-		GasPrice: gasPrice,
-		GasLimit: gasLimit,
-		Contract: contract,
-	}
-	sendTxResp, err := SendTransactionWithPasswd(tx, passwd)
-	if err != nil {
-		return "", err
-	}
-	fmt.Println(sendTxResp)
-
-	record := models.ContractTransaction{
-		From:     from,
-		To:       to,
-		Value:    value,
-		Function: function,
-		Args:     string(args),
-		Hash:     sendTxResp.TxHash,
-		Status:   2, //appending
-		Updated:  time.Now(),
-	}
-	o.Insert(record) //TODO: to do before sendTx
-	return sendTxResp.TxHash, nil
 }
