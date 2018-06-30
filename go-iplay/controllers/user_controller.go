@@ -44,7 +44,7 @@ func (c *UserController) Login() {
 		uuid, _ := uuid.NewV4()
 		authToken := username + ":" + uuid.String()
 		utils.Put(authToken, username, utils.Month)
-		c.json(Success, "", &models.LoginResponseData{AuthToken: authToken, Username: user.Username, Avatar: user.Avatar, HashAddress: user.HashAddress, Balance: user.Balance})
+		c.json(Success, "", &models.LoginResponseData{AuthToken: authToken, User: user})
 	} else {
 		c.json(Fail, LoginParamsErr, nil)
 	}
@@ -85,10 +85,12 @@ func (c *UserController) Register() {
 
 	o := orm.NewOrm()
 	o.Begin()
-	if _, err = o.Insert(m); err != nil {
+	var userID int64
+	if userID, err = o.Insert(m); err != nil {
 		c.json(Fail, RegisterSystemErr, nil)
 		return
 	}
+	m.Id = userID
 	// 注册成功 送用户2018*1000NAS
 	_, err = smartcontract.Transfer(o, m.HashAddress, FreeToken)
 	if err != nil {
@@ -106,7 +108,7 @@ func (c *UserController) Register() {
 	authToken := username + ":" + uuid.String()
 	utils.Put(authToken, username, utils.Month)
 
-	c.json(Success, "", &models.LoginResponseData{AuthToken: authToken, Username: m.Username, HashAddress: m.HashAddress, Balance: m.Balance})
+	c.json(Success, "", &models.LoginResponseData{AuthToken: authToken, User: m})
 }
 
 // IDCardAuthentication 实名认证
