@@ -18,6 +18,7 @@ func sendRPC(method string, url string, buf []byte) ([]byte, error) {
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
+	// fmt.Println(resp.StatusCode)
 	if err != nil {
 		//TODO:
 		return nil, err
@@ -52,10 +53,6 @@ func GetAccountState(address string) (*AccountState, error) {
 		//TODO:
 		fmt.Println(err)
 		return nil, err
-	}
-	if rpcResponse.Err == "" {
-
-		fmt.Println("=============")
 	}
 
 	if rpcResponse.Err != "" {
@@ -158,6 +155,8 @@ func SendRawTransaction(host string, tx *TransactionRequest, data string) (*Send
 
 	rpcResponse := RPCResponse{Result: &SendTxResponse{}}
 	if err = json.Unmarshal(dataBuf, &rpcResponse); err != nil {
+		fmt.Println(string(dataBuf))
+		fmt.Println("=====3=====", err)
 		return nil, err
 	}
 
