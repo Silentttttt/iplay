@@ -78,7 +78,7 @@ func (c *UserController) Register() {
 	// m.HashAddress = createAddressWithPassphrase(m.Passphrase)
 	m.HashAddress, err = wallet.CreateAccount(m.Passphrase)
 	if err != nil {
-		logs.Error("[Register]Create hash address fail,", err)
+		logs.Error("[Register]Failed to Create hash address,", err)
 		c.json(Fail, RegisterCreateHashAddressErr, nil)
 		return
 	}
@@ -90,14 +90,18 @@ func (c *UserController) Register() {
 		return
 	}
 	// 注册成功 送用户2018*1000NAS
-	_, err = smartcontract.Transfer(o, m.HashAddress, 2018*1000)
+	_, err = smartcontract.Transfer(o, m.HashAddress, FreeToken)
 	if err != nil {
 		o.Rollback()
-		logs.Error("[Register]Transfer free token fail,", err)
+		logs.Error("[Register]Failed to Transfer free token,", err)
 		c.json(Fail, RegisterTransferFreeTokenErr, nil)
 		return
 	}
 	o.Commit()
+	m.Balance = FreeToken
+	if _, err = o.Update(m); err != nil {
+		logs.Error("[Register]Failed to update balance,", err)
+	}
 	uuid, _ := uuid.NewV4()
 	authToken := username + ":" + uuid.String()
 	utils.Put(authToken, username, utils.Month)

@@ -13,6 +13,8 @@ const (
 	Success = 200
 	Fail    = 500
 
+	FreeToken = 2018 * 1000
+
 	// Error
 	NeedLoginErr = "用户未登陆，请登陆以后再执行操作"
 
