@@ -61,11 +61,11 @@
                         <span class='err_msg' id="password_errmsg"></span>
                     </div>
                     <div class="form-group mt100">
-                        <button type="button" id="button" class="btn" >Log In</button>
+                        <button type="button" id="button" class="btn" >登录</button>
                     </div>
                     <div class="form-group get_account mt20">
-                        <span>Not registered yet?
-                            <a href="signup.html"> Sign Up </a> for Free
+                        <span>还没有注册?
+                            <a href="signup.html"> 免费注册  </a>
                         </span>
                     </div>
                 </form>
@@ -123,22 +123,19 @@
                         return
                     }
 
-                    var userInfo = res.data;
+                    var data = res.data;
                     
 
-                    $.cookie('auth_token', userInfo.auth_token);
-                    $.cookie('username', userInfo.username);
-                    $.cookie('balance', userInfo.balance);
-                    $.cookie('hash_address', userInfo.hash_address);
+                    $.cookie('auth_token', data.auth_token);
+                    $.cookie('username', data.user.username);
+                    $.cookie('balance', data.user.balance);
+                    $.cookie('hash_address', data.user.hash_address);
 
-                    $.cookie('user_id', userInfo.id)
+                    $.cookie('user_id', data.user.Id)
 
-                    console.log("##cookie", $.cookie('username'));
-                    //console.log(userInfo.username);
-                    //console.log(userInfo.balance);
-                    //console.log(userInfo.hash_address);
+                    console.log("##cookie", $.cookie('username'), $.cookie('user_id'), data);
                     
-                   // window.location.href = 'user.html';
+                    window.location.href = 'user.html';
 
                 },
                     error: function (err) {

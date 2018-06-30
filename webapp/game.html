@@ -555,13 +555,19 @@
 
             $("#game-quizz-bet").click(function(){
 
+                var user_id = $.cookie('user_id')
+                if (!user_id){
+                    alert("请登录");
+                    window.location.href = "login.html";
+                    return ;
+                }
                 var params = {
                     game_id: game_id ? parseInt(game_id) : 1,
                     "auth_token": $.cookie('auth_token'),
                     "bet_amount": choice_opt.bet,
                     "choice_opt_id": choice_opt.choice_id,
                     "quizzes_id": choice_opt.quizzes_id,
-                    "user_id": $.cookie('user_id')
+                    "user_id": user_id
                 };
                 var url = "http://35.180.103.230:8080/v1/user/do_quizzes";
 
@@ -574,6 +580,15 @@
                     dataType: "json",
                     success: function (res) {
                         console.log(res)
+
+                        if(res.code == 200){
+                            alert('下注成功'); 
+                            $('.theme-popover-mask').fadeOut(100);
+                            $('.theme-popover').slideUp(200);
+                        }else{
+                            alert(res.msg);
+                            //window.location.href = "login.html"
+                        }
                     }
                 });
             })
