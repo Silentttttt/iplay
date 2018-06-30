@@ -1682,7 +1682,7 @@ p {
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
-	background-color: #c8c7cc
+	/* background-color: #c8c7cc */
 }
 
 .mui-card-header {
