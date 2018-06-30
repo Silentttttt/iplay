@@ -362,27 +362,27 @@
             <div class="theme-popover">
                 <div class="theme-poptit">
                     <a href="javascript:void(0);" title="关闭" class="close">×</a>
-                    <h5>投注 ：德国胜</h5>
+                    <h5 id="game-quizz-item-name"></h5>
                     <!-- <span style="float: right">投注规则 > </span> -->
                 </div>
                 <div class="theme-popbod dform">
                     <div class="mui-row">
                         <div class="mui-col-sm-4 mui-col-xs-4">
-                            <li class="mui-table-view-cell style_none p0">
+                            <li class="mui-table-view-cell style_none p0 mui-active" quizzes-choice-item-bet="100">
                                 <span class="money">
                                     <p>100QB</p>
                                 </span>
                             </li>
                         </div>
                         <div class="mui-col-sm-4 mui-col-xs-4">
-                            <li class="mui-table-view-cell style_none p0">
+                            <li class="mui-table-view-cell style_none p0" quizzes-choice-item-bet="200">
                                 <span class="money">
                                     <p>200QB</p>
                                 </span>
                             </li>
                         </div>
                         <div class="mui-col-sm-4 mui-col-xs-4">
-                            <li class="mui-table-view-cell style_none p0">
+                            <li class="mui-table-view-cell style_none p0" quizzes-choice-item-bet="300">
                                 <span class="money">
                                     <p>300QB</p>
                                 </span>
@@ -390,50 +390,34 @@
                         </div>
 
                         <div class="mui-col-sm-4 mui-col-xs-4">
-                            <li class="mui-table-view-cell style_none p0">
+                            <li class="mui-table-view-cell style_none p0" quizzes-choice-item-bet="500">
                                 <span class="money">
-                                    <p>100QB</p>
+                                    <p>500QB</p>
                                 </span>
                             </li>
                         </div>
                         <div class="mui-col-sm-4 mui-col-xs-4">
-                            <li class="mui-table-view-cell style_none p0">
+                            <li class="mui-table-view-cell style_none p0" quizzes-choice-item-bet="1000">
                                 <span class="money">
-                                    <p>200QB</p>
+                                    <p>1000QB</p>
                                 </span>
                             </li>
                         </div>
                         <div class="mui-col-sm-4 mui-col-xs-4">
-                            <li class="mui-table-view-cell style_none p0">
+                            <li class="mui-table-view-cell style_none p0" quizzes-choice-item-bet="2000">
                                 <span class="money">
-                                    <p>300QB</p>
+                                    <p>2000QB</p>
                                 </span>
                             </li>
                         </div>
                     </div>
-                    <h5>赔率 ：
-                        <span>1.55</span>
+                    <h5>赔率：
+                        <span id="game-quizz-item-odds"></span>
                     </h5>
-                    <h5>获得 ：
-                        <span>155QB</span>
+                    <h5>猜对获得：
+                        <span id="game-quizz-item-reward"></span>
                     </h5>
-                    <button type="button" class="mui-btn mui-btn-danger" style="width: 100%;border-radius: 0;">立刻投注</button>
-                    <!-- <form class="theme-signin" name="loginform" action="" method="post">
-                        <ol>
-                            <li>
-                                <h5>德国胜</h5>
-                            </li>
-                            <li>
-                               100QB
-                            </li>
-                            <li>
-                                200QB
-                            </li>
-                            <li>
-                                300QB
-                            </li>
-                        </ol>
-                    </form> -->
+                    <button type="button" class="mui-btn mui-btn-danger" style="width: 100%;border-radius: 0;" id="game-quizz-bet">立刻投注</button>
                 </div>
             </div>
             <div class="theme-popover-mask"></div>
@@ -441,6 +425,7 @@
     </div>
 
     <script src="lib/jquery-3.3.1.min.js"></script>
+    <script src="lib/jquery.cookie.js"></script>
     <script src="lib/bootstrap.min.js"></script>
     <script src="js/mui.js"></script>
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
@@ -484,12 +469,13 @@
                     <span class="result">${instruction}</span>&nbsp;
                     <i>( 90分钟内的赛果 )</i>
                 </div>
-                <div class="mui-row" id="quizzes-choice-items">
+                <div class="mui-row quizzes-choice-items" quizzes-id="${id}">
                    
                     {{each choice_opt}} 
                     <div class="mui-col-sm-4 mui-col-xs-4">
                         <li class="mui-table-view-cell style_none">
-                            <span class="quizzes-choice-item">
+                            <span class="quizzes-choice-item" quizzes-choice-item-name="${name}" 
+                            quizzes-choice-item-odds="${odds}" quizzes-choice-item-id="${id}">
                                 <p>${name}</p>
                                 <p>${odds}</p>
                             </span>
@@ -503,39 +489,6 @@
 
     <script>
 
-        jQuery(document).ready(function ($) {
-            
-            /*
-            $(".quizzes-choice-items").on("click",".quizzes-choice-item", function () {
-                //var game_id = $(this).attr("game_id");
-                //console.log(game_id)
-
-                //$(location).attr('href', 'game.html?game_id='+game_id);
-                console.log(1111)
-                $('.theme-popover-mask').fadeIn(100);
-                $('.theme-popover').slideDown(200);
-            })
-            */
-
-            $('.theme-poptit .close').click(function () {
-                $('.theme-popover-mask').fadeOut(100);
-                $('.theme-popover').slideUp(200);
-            })
-
-
-
-
-        $(function () {
-            $("#game-quizz").on("click", ".quizzes-choice-item", function () {
-                //var game_id = $(this).attr("game_id");
-                //console.log(game_id)
-
-                //$(location).attr('href', 'game.html?game_id='+game_id);
-                console.log(1111)
-                $('.theme-popover-mask').fadeIn(100);
-                $('.theme-popover').slideDown(200);
-            })
-        })
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = decodeURIComponent(window.location.search.substring(1)),
                 sURLVariables = sPageURL.split('&'),
@@ -551,50 +504,125 @@
             }
         };
 
+        jQuery(document).ready(function ($) {
+            
+            $('.theme-poptit .close').click(function () {
+                $('.theme-popover-mask').fadeOut(100);
+                $('.theme-popover').slideUp(200);
+            })
 
+        
 
-        var url = "http://35.180.103.230:8080/v1/game/quizzes";
+            var game_id = getUrlParameter("game_id");
 
-        var game_id = getUrlParameter("game_id");
-        var params = {
-            game_id: game_id ? parseInt(game_id) : 1
-        };
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: JSON.stringify(params),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (res) {
-                console.log(res)
-                showGame(res.data.game)
-
-                showQuizzes(res.data.quizzes)
+            var choice_opt = {
+                choice_id: 0,
+                quizzes_id: 0,
+                odds:1,
+                name:"",
+                bet:0,
             }
-        });
+
+            var odds = 1;
+            var name = "";
+            $("#game-quizz").on("click", ".quizzes-choice-item", function () {
+                choice_opt.name = $(this).attr("quizzes-choice-item-name");
+                choice_opt.odds = $(this).attr("quizzes-choice-item-odds");
+                choice_opt.choice_id = $(this).attr("quizzes-choice-item-id");
+
+                choice_opt.quizzes_id = $(this).parents(".quizzes-choice-items").attr("quizzes-id");
 
 
-        function showGame(game) {
+                console.log($(this).parents(".quizzes-choice-items"))
+                choice_opt.bet = 100;
+                console.log(name, odds, choice_opt)
 
-            document.title = game.home_team.name + 'VS' + game.visit_team.name;
+                $('#game-quizz-item-name').html("投注: "+choice_opt.name);
+                $('#game-quizz-item-odds').html(choice_opt.odds);
+                $('#game-quizz-item-reward').html(choice_opt.odds * choice_opt.bet + 'QB');
 
-            $("#game-header-tpl").tmpl(game).appendTo(".game-header");
-            $("#game-body-tpl").tmpl(game).appendTo(".game-body");
+                $('.theme-popover-mask').fadeIn(100);
+                $('.theme-popover').slideDown(200);
+            })
 
-        }
+            $(".mui-table-view-cell").click(function(){
 
-        function showQuizzes(quizzes) {
-            $("#game-quizz-tpl").tmpl(quizzes).appendTo("#game-quizz");
-        }
+                choice_opt.bet = $(this).attr("quizzes-choice-item-bet");
 
-        $('#which').click(function () {
-            $('.theme-popover-mask').fadeIn(100);
-            $('.theme-popover').slideDown(200);
-        })
-        $('.theme-poptit .close').click(function () {
-            $('.theme-popover-mask').fadeOut(100);
-            $('.theme-popover').slideUp(200);
-        })
+                $('#game-quizz-item-reward').html(choice_opt.odds * choice_opt.bet +'QB');
+            })
+
+
+            $("#game-quizz-bet").click(function(){
+
+                var params = {
+                    game_id: game_id ? parseInt(game_id) : 1,
+                    "auth_token": $.cookie('auth_token'),
+                    "bet_amount": choice_opt.bet,
+                    "choice_opt_id": choice_opt.choice_id,
+                    "quizzes_id": choice_opt.quizzes_id,
+                    "user_id": $.cookie('user_id')
+                };
+                var url = "http://35.180.103.230:8080/v1/user/do_quizzes";
+
+                console.log(params)
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: JSON.stringify(params),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (res) {
+                        console.log(res)
+                    }
+                });
+            })
+
+            function load(){
+                var params = {
+                    game_id: game_id ? parseInt(game_id) : 1
+                };
+                var url = "http://35.180.103.230:8080/v1/game/quizzes";
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: JSON.stringify(params),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (res) {
+                        console.log(res)
+                        showGame(res.data.game)
+
+                        showQuizzes(res.data.quizzes)
+                    }
+                });
+            }
+
+
+            function showGame(game) {
+
+                document.title = game.home_team.name + 'VS' + game.visit_team.name;
+
+                $("#game-header-tpl").tmpl(game).appendTo(".game-header");
+                $("#game-body-tpl").tmpl(game).appendTo(".game-body");
+
+            }
+
+            function showQuizzes(quizzes) {
+                $("#game-quizz-tpl").tmpl(quizzes).appendTo("#game-quizz");
+            }
+
+            $('#which').click(function () {
+                $('.theme-popover-mask').fadeIn(100);
+                $('.theme-popover').slideDown(200);
+            })
+            $('.theme-poptit .close').click(function () {
+                $('.theme-popover-mask').fadeOut(100);
+                $('.theme-popover').slideUp(200);
+            })
+
+            load()
         })
 
 

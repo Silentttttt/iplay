@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>登录</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <link rel="stylesheet" href="css/mui.min.css">
     <link rel="stylesheet" href="css/home.css">
@@ -103,8 +103,6 @@
     <script src="js/mui.js"></script>
     <script type="text/javascript"> 
         
-
-
         //用户登录
         $('#button').on('click', function (e) {
             var loginData = {
@@ -119,20 +117,28 @@
                 data: loginData,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function(data){
+                success: function(res){
+                    if(res.code != 200 ){
+                        alert(res.msg)
+                        return
+                    }
 
-                    var userInfo = data.data;
+                    var userInfo = res.data;
                     
 
+                    $.cookie('auth_token', userInfo.auth_token);
                     $.cookie('username', userInfo.username);
                     $.cookie('balance', userInfo.balance);
                     $.cookie('hash_address', userInfo.hash_address);
 
-                    console.log(userInfo.username);
-                    console.log(userInfo.balance);
-                    console.log(userInfo.hash_address);
+                    $.cookie('user_id', userInfo.id)
+
+                    console.log("##cookie", $.cookie('username'));
+                    //console.log(userInfo.username);
+                    //console.log(userInfo.balance);
+                    //console.log(userInfo.hash_address);
                     
-                    window.location.href = 'user.html';
+                   // window.location.href = 'user.html';
 
                 },
                     error: function (err) {
