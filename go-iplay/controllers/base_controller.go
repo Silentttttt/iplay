@@ -19,6 +19,7 @@ const (
 	RegisterUserExistErr         = "该用户已注册，请直接登录"
 	RegisterSystemErr            = "系统错误，注册失败"
 	RegisterCreateHashAddressErr = "注册失败，创建用户钱包地址出错"
+	RegisterTransferFreeTokenErr = "注册失败，发放免费token出错"
 
 	LoginParamsErr = "登陆失败，用户名或者密码无效"
 

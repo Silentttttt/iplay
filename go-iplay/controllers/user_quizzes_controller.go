@@ -67,7 +67,6 @@ func (uq *UserQuizzesController) DoQuizzes() {
 		m.ChoiceOpt = choiceOpt
 		m.Quizzes = quizzes
 		m.Money = params.BetAmount
-
 		if _, err := o.Insert(&m); err != nil {
 			uq.json(Fail, "", nil)
 			return

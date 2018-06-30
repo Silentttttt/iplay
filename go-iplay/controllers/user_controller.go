@@ -9,6 +9,7 @@ import (
 	"iplay/go-iplay/wallet"
 	"strings"
 
+	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego/orm"
 	uuid "github.com/satori/go.uuid"
 )
@@ -77,6 +78,7 @@ func (c *UserController) Register() {
 	// m.HashAddress = createAddressWithPassphrase(m.Passphrase)
 	m.HashAddress, err = wallet.CreateAccount(m.Passphrase)
 	if err != nil {
+		logs.Error("[Register]Create hash address fail,", err)
 		c.json(Fail, RegisterCreateHashAddressErr, nil)
 		return
 	}
@@ -91,7 +93,8 @@ func (c *UserController) Register() {
 	_, err = smartcontract.Transfer(o, m.HashAddress, 2018*1000)
 	if err != nil {
 		o.Rollback()
-		c.json(Fail, RegisterCreateHashAddressErr, nil)
+		logs.Error("Register]Transfer free token fail,", err)
+		c.json(Fail, RegisterTransferFreeTokenErr, nil)
 		return
 	}
 	o.Commit()
@@ -122,25 +125,9 @@ func (c *UserController) IDCardAuthentication() {
 		o := orm.NewOrm()
 		if _, err := o.Update(user); err != nil {
 			c.json(Fail, IDCardAuthenticationErr, nil)
+			return
 		}
 	}
 	c.json(Fail, NeedLoginErr, nil)
 
-}
-
-func createAddressWithPassphrase(passphrase string) string {
-	// params := &AreateAddressWithPassphraseRequest{passphrase: passphrase}
-	// b, _ := json.Marshal(params)
-	// req, err := http.NewRequest("POST", "url", bytes.NewBuffer(b))
-	// req.Header.Set("Content-Type", "application/json")
-
-	// client := &http.Client{}
-	// resp, err := client.Do(req)
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// defer resp.Body.Close()
-	// body, _ := ioutil.ReadAll(resp.Body)
-	// fmt.Println("response Body:", string(body))
-	return ""
 }
