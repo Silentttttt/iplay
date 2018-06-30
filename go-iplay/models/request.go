@@ -23,9 +23,9 @@ type UserQuizzesListParams struct {
 }
 
 type DoQuizzesParams struct {
-	AuthToken   string  `json:"auth_token"`
-	UserId      int64   `json:"user_id"`
-	QuizzesId   int64   `json:"quizzes_id"`
-	ChoiceOptId int64   `json:"choice_opt_id"`
-	BetAmount   float64 `json:"bet_amount"`
+	AuthToken   string `json:"auth_token"`
+	UserId      int64  `json:"user_id"`
+	QuizzesId   int64  `json:"quizzes_id"`
+	ChoiceOptId int64  `json:"choice_opt_id"`
+	BetAmount   int64  `json:"bet_amount"`
 }

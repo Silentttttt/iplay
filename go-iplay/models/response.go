@@ -14,9 +14,11 @@ type LoginResponse struct {
 }
 
 type LoginResponseData struct {
-	AuthToken string `json:"auth_token"`
-	Username  string `json:"username"`
-	Avatar    string `json:"avatar"`
+	AuthToken   string `json:"auth_token"`
+	Username    string `json:"username"`
+	Avatar      string `json:"avatar"`
+	HashAddress string `json:"hash_address"`
+	Balance     int64  `json:"balance"`
 }
 
 type GameListResponse struct {

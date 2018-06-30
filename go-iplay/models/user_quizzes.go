@@ -12,8 +12,8 @@ type UserQuizzes struct {
 	ChoiceOpt *ChoiceOpt `orm:"rel(fk)" json:"choice_opt"`
 	Quizzes   *Quizzes   `orm:"rel(fk)" json:"quizzes"`
 	Result    bool       `json:"result"`
-	Money     float64    `json:"money"`  // 下注金额
-	Reward    float64    `json:"reward"` // 竞猜奖励
+	Money     int64      `json:"money"`  // 下注金额
+	Reward    int64      `json:"reward"` // 竞猜奖励
 	Created   time.Time  `orm:"auto_now_add;type(datetime)" json:"-"`
 }
 

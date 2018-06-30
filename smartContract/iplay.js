@@ -1,9 +1,11 @@
 'use strict';
 //NRC20
+'use strict';
+
 var Allowed = function (obj) {
     this.allowed = {};
     this.parse(obj);
-};
+}
 
 Allowed.prototype = {
     toString: function () {
@@ -26,7 +28,7 @@ Allowed.prototype = {
     set: function (key, value) {
         this.allowed[key] = new BigNumber(value);
     }
-};
+}
 
 var StandardToken = function () {
     LocalContractStorage.defineProperties(this, {
@@ -73,20 +75,19 @@ StandardToken.prototype = {
         var from = Blockchain.transaction.from;
         this.balances.set(from, this._totalSupply);
         this._transferEvent(true, from, from, this._totalSupply);
-      	console.log(Blockchain.transaction.value);
     },
 
-    // Returns the name of the ticket
+    // Returns the name of the token
     name: function () {
         return this._name;
     },
 
-    // Returns the symbol of the ticket
+    // Returns the symbol of the token
     symbol: function () {
         return this._symbol;
     },
 
-    // Returns the number of decimals the ticket uses
+    // Returns the number of decimals the token uses
     decimals: function () {
         return this._decimals;
     },
@@ -114,31 +115,6 @@ StandardToken.prototype = {
         var from = Blockchain.transaction.from;
         var balance = this.balances.get(from) || new BigNumber(0);
 
-        if (balance.lt(value)) {
-            throw new Error("transfer failed.");
-        }
-
-        this.balances.set(from, balance.sub(value));
-        var toBalance = this.balances.get(to) || new BigNumber(0);
-        this.balances.set(to, toBalance.add(value));
-
-        this._transferEvent(true, from, to, value);
-    },
-
-    /*can be only use by this contract*/
-    transferByContract: function (from, to, value) {
-        //TODO:debug
-        console.log(from);
-        console.log(to);
-        console.log(value);
-
-        value = new BigNumber(value);
-        if (value.lt(0)) {
-            throw new Error("invalid value.");
-        }
-
-        var balance = this.balances.get(from) || new BigNumber(0);
-        console.log(balance);
         if (balance.lt(value)) {
             throw new Error("transfer failed.");
         }

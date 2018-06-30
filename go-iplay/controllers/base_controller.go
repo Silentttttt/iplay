@@ -16,8 +16,9 @@ const (
 	// Error
 	NeedLoginErr = "用户未登陆，请登陆以后再执行操作"
 
-	RegisterUserExistErr = "该用户已注册，请直接登录"
-	RegisterSystemErr    = "系统错误，注册失败"
+	RegisterUserExistErr         = "该用户已注册，请直接登录"
+	RegisterSystemErr            = "系统错误，注册失败"
+	RegisterCreateHashAddressErr = "注册失败，创建用户钱包地址出错"
 
 	LoginParamsErr = "登陆失败，用户名或者密码无效"
 

@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/Silentttttt/iplay/go-iplay/models"
-	"github.com/Silentttttt/iplay/go-iplay/wallet"
+	"iplay/go-iplay/models"
+	"iplay/go-iplay/wallet"
 )
 
 func createQuizze(
