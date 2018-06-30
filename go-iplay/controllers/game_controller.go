@@ -6,6 +6,7 @@ import (
 	"iplay/go-iplay/models"
 	smartcontract "iplay/go-iplay/smartContract"
 	"time"
+	t "time"
 )
 
 type GameController struct {
@@ -61,10 +62,10 @@ func (q *QuizzesController) QuizzesList() {
 func (q *QuizzesController) CreateQuizzes() {
 	quizzes, _ := models.GetAllQuizzes()
 	for k := range *quizzes {
-		time, _ := time.Parse("2006-01-02 15:04:05", (*quizzes)[k].End)
-		txHash, _ := smartcontract.CreateQuizze(nil, 1, 1, time.Unix()*1000, 1, "1/8决赛", (*quizzes)[k].ChoiceOpt)
+		end, _ := time.Parse("2006-01-02 15:04:05", (*quizzes)[k].End)
+		txHash, _ := smartcontract.CreateQuizze(nil, 1, 1, end.Unix()*1000, 1, "1/8决赛", (*quizzes)[k].ChoiceOpt)
 		fmt.Println("txhash:", txHash)
-		time.Sleep(2 * time.Second)
+		t.Sleep(2 * time.Second)
 	}
 	q.json(Success, "", quizzes)
 }
