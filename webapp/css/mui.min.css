@@ -1711,7 +1711,7 @@ p {
 .mui-card-content {
 	font-size: 14px;
 	position: relative;
-	border-bottom: 2px gray solid;
+	/* border-bottom: 2px gray solid; */
 }
 
 .mui-card-content-inner {

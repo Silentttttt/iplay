@@ -118,9 +118,10 @@
 
     <header class="mui-bar mui-bar-nav aui-header b-line">
         <!--<a class=" mui-icon mui-icon-search mui-pull-left" href="search.html"></a>-->
-        <a href="sports.html" class="a"> < </a>
-        <h1 class="mui-title">赛事</h1>
-        <!--<a class=" mui-icon mui-icon-chatbubble mui-pull-right" href="dope.html"></a>-->
+        <a href="sports.html" class="a">
+            < </a>
+                <h1 class="mui-title">赛事</h1>
+                <!--<a class=" mui-icon mui-icon-chatbubble mui-pull-right" href="dope.html"></a>-->
     </header>
 
     <div class="mui-content">
@@ -130,7 +131,7 @@
                 <!--页眉，放置标题-->
                 <div class="mui-card-header" href="game.html">
                     <div class="mui-card-header mui-card-media game-header">
-                       
+
                     </div>
                 </div>
                 <!--内容区-->
@@ -444,8 +445,12 @@
                                 </li>
                             </div>
                         </div>
-                        <h5>赔率 ： <span>1.55</span></h5>
-                        <h5>获得 ： <span>155QB</span></h5>
+                        <h5>赔率 ：
+                            <span>1.55</span>
+                        </h5>
+                        <h5>获得 ：
+                            <span>155QB</span>
+                        </h5>
                         <button type="button" class="mui-btn mui-btn-danger" style="    width: 100%;border-radius: 0;">立刻投注</button>
                         <!-- <form class="theme-signin" name="loginform" action="" method="post">
                             <ol>
@@ -534,17 +539,7 @@
 
     <script>
 
-        jQuery(document).ready(function ($) {
-            $('#which').click(function () {
-                $('.theme-popover-mask').fadeIn(100);
-                $('.theme-popover').slideDown(200);
-            })
-            $('.theme-poptit .close').click(function () {
-                $('.theme-popover-mask').fadeOut(100);
-                $('.theme-popover').slideUp(200);
-            })
 
-        })
 
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -565,17 +560,17 @@
 
         var url = "http://35.180.103.230:8080/v1/game/quizzes";
 
-        var game_id  = getUrlParameter("game_id");
+        var game_id = getUrlParameter("game_id");
         var params = {
-            game_id : game_id?parseInt(game_id):1
+            game_id: game_id ? parseInt(game_id) : 1
         };
         $.ajax({
             type: "POST",
             url: url,
             data: JSON.stringify(params),
             contentType: "application/json; charset=utf-8",
-	        dataType: "json",
-            success: function(res){
+            dataType: "json",
+            success: function (res) {
                 console.log(res)
                 showGame(res.data.game)
 
@@ -584,18 +579,29 @@
         });
 
 
-        function showGame(game){
-            
-            document.title = game.home_team.name+'VS'+game.visit_team.name;
+        function showGame(game) {
+
+            document.title = game.home_team.name + 'VS' + game.visit_team.name;
 
             $("#game-header-tpl").tmpl(game).appendTo(".game-header");
             $("#game-body-tpl").tmpl(game).appendTo(".game-body");
 
         }
 
-        function showQuizzes(quizzes){
+        function showQuizzes(quizzes) {
             $("#game-quizz-tpl").tmpl(quizzes).appendTo("#game-quizz");
         }
+
+        $('#which').click(function () {
+            $('.theme-popover-mask').fadeIn(100);
+            $('.theme-popover').slideDown(200);
+        })
+        $('.theme-poptit .close').click(function () {
+            $('.theme-popover-mask').fadeOut(100);
+            $('.theme-popover').slideUp(200);
+        })
+
+
     </script>
 </body>
 
