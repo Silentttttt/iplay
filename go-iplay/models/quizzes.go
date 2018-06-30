@@ -7,7 +7,7 @@ import (
 )
 
 type Quizzes struct {
-	Id          int64        `json:"-"`
+	Id          int64        `json:"id"`
 	Game        *Game        `orm:"rel(fk)" json:"-"`             // 赛事ID
 	Instruction string       `orm:"size(512)" json:"instruction"` // 竞猜说明
 	Begin       string       `json:"begin"`                       // 竞猜开始时间

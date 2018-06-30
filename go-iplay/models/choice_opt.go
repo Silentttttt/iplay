@@ -3,7 +3,7 @@ package models
 import "github.com/astaxie/beego/orm"
 
 type ChoiceOpt struct {
-	Id      int64    `json:"-"`
+	Id      int64    `json:"id"`
 	Name    string   `orm:"size(512)" json:"name"` // 竞猜说明
 	Odds    float32  `json:"odds"`                 //赔率
 	Percent float32  `json:"-"`                    //下注比例
