@@ -10,14 +10,14 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-func createQuizze(
+func CreateQuizze(
 	o orm.Ormer,
 	payType uint32,
 	gameType uint32,
 	deadLine int64,
 	amount uint64,
 	theme string,
-	opts []models.ChoiceOpt) (string, error) {
+	opts []*models.ChoiceOpt) (string, error) {
 	smartContractOpt := make([]*option, 0)
 
 	opt1 := option{1, "fs"}

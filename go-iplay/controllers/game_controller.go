@@ -2,7 +2,10 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"iplay/go-iplay/models"
+	smartcontract "iplay/go-iplay/smartContract"
+	"time"
 )
 
 type GameController struct {
@@ -19,6 +22,7 @@ func (game *GameController) URLMapping() {
 
 func (q *QuizzesController) URLMapping() {
 	q.Mapping("quizzes", q.QuizzesList)
+	q.Mapping("create_quizzes", q.CreateQuizzes)
 }
 
 // List return game list
@@ -47,4 +51,19 @@ func (q *QuizzesController) QuizzesList() {
 	gameQuizzesList := &models.GameQuizzesList{Game: game, Quizzes: quizzes}
 
 	q.json(Success, "", gameQuizzesList)
+}
+
+// @Title CreateQuizzes
+// @Description
+// @Success 200
+// @Failure 500
+// @router /create_quizzes [get]
+func (q *QuizzesController) CreateQuizzes() {
+	quizzes, _ := models.GetAllQuizzes()
+	for k := range *quizzes {
+		time, _ := time.Parse("2006-01-02 15:04:05", (*quizzes)[k].End)
+		txHash, _ := smartcontract.CreateQuizze(nil, 1, 1, time.Unix()*1000, 1, "1/8决赛", (*quizzes)[k].ChoiceOpt)
+		fmt.Println("txhash:", txHash)
+	}
+	q.json(Success, "", quizzes)
 }

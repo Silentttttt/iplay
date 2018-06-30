@@ -50,6 +50,25 @@ func GetQuizzesListFromNow(gameID int64) (*[]Quizzes, error) {
 	return &quizzes, nil
 }
 
+func GetAllQuizzes() (*[]Quizzes, error) {
+	quizzes := []Quizzes{}
+	choiceOpts := []ChoiceOpt{}
+	_, err := orm.NewOrm().QueryTable(QuizzesTBName()).RelatedSel().All(&quizzes)
+	if err != nil {
+		return nil, err
+	}
+
+	for k := range quizzes {
+		_, err = orm.NewOrm().QueryTable(ChoiceOptTBName()).Filter("quizzes_id", quizzes[k].Id).All(&choiceOpts)
+		if err != nil {
+			return nil, err
+		}
+		quizzes[k].SetChoiceOpt(choiceOpts)
+	}
+
+	return &quizzes, nil
+}
+
 func (q *Quizzes) SetChoiceOpt(choiceOpts []ChoiceOpt) {
 	var choices []*ChoiceOpt
 	for k := range choiceOpts {
