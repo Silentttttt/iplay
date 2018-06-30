@@ -71,7 +71,7 @@ func CallContract(
 
 	//5. 写数据库记录本次合约调用
 	if o != nil {
-		record := models.ContractTransaction{
+		record := &models.ContractTransaction{
 			From:     from,
 			To:       to,
 			Value:    value,

@@ -14,3 +14,7 @@ type ContractTransaction struct {
 	Created  time.Time `orm:"auto_now_add;type(datetime)"`
 	Updated  time.Time
 }
+
+func (c *ContractTransaction) TableName() string {
+	return ContractTransactionTBName()
+}
