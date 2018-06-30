@@ -126,6 +126,31 @@ StandardToken.prototype = {
         this._transferEvent(true, from, to, value);
     },
 
+    /*can be only use by this contract*/
+    transferByContract: function(from, to, value) {
+        //TODO:debug
+        console.log(from);
+        console.log(to);
+        console.log(value);
+
+        value = new BigNumber(value);
+        if (value.lt(0)) {
+            throw new Error("invalid value.");
+        }
+
+        var balance = this.balances.get(from) || new BigNumber(0);
+        console.log(balance);
+        if (balance.lt(value)) {
+            throw new Error("transfer failed.");
+        }
+
+        this.balances.set(from, balance.sub(value));
+        var toBalance = this.balances.get(to) || new BigNumber(0);
+        this.balances.set(to, toBalance.add(value));
+
+        this._transferEvent(true, from, to, value);
+    },
+
     transferFrom: function (from, to, value) {
         var spender = Blockchain.transaction.from;
         var balance = this.balances.get(from) || new BigNumber(0);
@@ -396,8 +421,9 @@ Market.prototype = {
             
             assert(typeof(description) == "string", "description should be a string");
             assert(typeof(odd) == "number", "odd should be a number");
+            console.log("===========", odd)
+            console.log("===========", odd * 100)
             assert(odd > 1, "odd should larger than 1");
-            assertPosInteger(odd * 100);//只允许两位小数
 
             var option = new Option(description, odd);
             newGame.addOption(option);
@@ -463,7 +489,6 @@ Market.prototype = {
             var odd = odds[i];
             assert(typeof(odd) == "number", "odd should be a number");
             assert(odd > 1, "odd should larger than 1");
-            assertPosInteger(odd * 100);
 
             var option = game.getOption(i + 1);
             option.odd = odd;
@@ -705,7 +730,7 @@ Market.prototype = {
             assert(amount >= 0, "amount shoud large or equal than 0");
             var tokenMgr = this._getTokenMgr();
             var value = new BigNumber(amount);
-            value = value.mul(1000000000000000000);// 10^18
+            value = value.mul(1000);// 10^18
             tokenMgr.transferByContract(from, to, value);
             return amount;
         } else if (payType === 2) {
