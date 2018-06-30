@@ -88,7 +88,7 @@ func (c *UserController) Register() {
 		return
 	}
 	// 注册成功 送用户2018*1000NAS
-	_, err = smartcontract.Transfer(m.HashAddress, 2018*1000)
+	_, err = smartcontract.Transfer(o, m.HashAddress, 2018*1000)
 	if err != nil {
 		o.Rollback()
 		c.json(Fail, RegisterCreateHashAddressErr, nil)

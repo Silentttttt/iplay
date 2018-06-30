@@ -6,9 +6,12 @@ import (
 
 	"iplay/go-iplay/models"
 	"iplay/go-iplay/wallet"
+
+	"github.com/astaxie/beego/orm"
 )
 
 func createQuizze(
+	o orm.Ormer,
 	payType uint32,
 	gameType uint32,
 	deadLine int64,
@@ -31,7 +34,7 @@ func createQuizze(
 	params = append(params, smartContractOpt)
 	params = append(params, amount)
 
-	txHash, err := wallet.CallContract(adminAddress, contractAddress, "0", 0, "createAndStartGame", params, adminPasswd)
+	txHash, err := wallet.CallContract(o, adminAddress, contractAddress, "0", 0, "createAndStartGame", params, adminPasswd)
 	if err != nil {
 		return "", err
 	}
@@ -40,12 +43,12 @@ func createQuizze(
 
 //TODO: 将参数打包的逻辑封装到callContract中
 // Transfer claim token
-func Transfer(to string, amount uint64) (string, error) {
+func Transfer(o orm.Ormer, to string, amount uint64) (string, error) {
 	params := make([]interface{}, 0)
 	params = append(params, to)
 	params = append(params, amount)
 
-	txHash, err := wallet.CallContract(adminAddress, contractAddress, "0", 0, "transfer", params, adminPasswd)
+	txHash, err := wallet.CallContract(o, adminAddress, contractAddress, "0", 0, "transfer", params, adminPasswd)
 	if err != nil {
 		return "", err
 	}
@@ -54,14 +57,15 @@ func Transfer(to string, amount uint64) (string, error) {
 
 // buyTicket: function(gameId, optionNo, optionVersion, amount)
 //BuyTicket buy ticket
-func BuyTicket(buyer string, passwd string, gameID uint64, optionNo uint8, optionVersion uint8, amount uint64) (string, error) {
+func BuyTicket(o orm.Ormer, buyer string, passwd string,
+	gameID uint64, optionNo uint8, optionVersion uint8, amount uint64) (string, error) {
 	params := make([]interface{}, 0)
 	params = append(params, gameID)
 	params = append(params, optionNo)
 	params = append(params, optionVersion)
 	params = append(params, amount)
 
-	txHash, err := wallet.CallContract(buyer, contractAddress, "0", 0, "buyTicket", params, passwd)
+	txHash, err := wallet.CallContract(o, buyer, contractAddress, "0", 0, "buyTicket", params, passwd)
 	if err != nil {
 		return "", err
 	}
