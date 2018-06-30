@@ -35,7 +35,7 @@ func GetGameById(id int64) (*Game, error) {
 
 func GetGameListFromNow() (*[]Game, error) {
 	games := []Game{}
-	_, err := orm.NewOrm().QueryTable(GameTBName()).Filter("begin__gt", time.Now()).RelatedSel().All(&games)
+	_, err := orm.NewOrm().QueryTable(GameTBName()).Filter("begin__gt", time.Now()).OrderBy("begin").RelatedSel().All(&games)
 	if err != nil {
 		return nil, err
 	}
