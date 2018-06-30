@@ -101,10 +101,14 @@ func CallContract(
 	//6. 发送到远程节点
 	go func() {
 		var remoteResp *SendTxResponse
-		if remoteResp, err = SendRawTransaction(remoteNebHost, tx, data); err != nil {
-			//TODO: use logging
-			fmt.Println("faild to send raw tx to remote neb, err", err)
-			return
+		for retry := 3; retry > 0; retry-- {
+			if remoteResp, err = SendRawTransaction(remoteNebHost, tx, data); err != nil {
+				//TODO: use logging
+				fmt.Println("faild to send raw tx to remote neb, err", err)
+				time.Sleep(time.Millisecond * 100)
+			} else {
+				break
+			}
 		}
 		if remoteResp.TxHash != localResp.TxHash {
 			fmt.Println("Unexpected error: tx different between local and remote")
