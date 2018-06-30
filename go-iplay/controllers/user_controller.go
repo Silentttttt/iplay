@@ -93,7 +93,7 @@ func (c *UserController) Register() {
 	_, err = smartcontract.Transfer(o, m.HashAddress, 2018*1000)
 	if err != nil {
 		o.Rollback()
-		logs.Error("Register]Transfer free token fail,", err)
+		logs.Error("[Register]Transfer free token fail,", err)
 		c.json(Fail, RegisterTransferFreeTokenErr, nil)
 		return
 	}

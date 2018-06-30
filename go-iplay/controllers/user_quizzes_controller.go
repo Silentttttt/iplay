@@ -3,6 +3,9 @@ package controllers
 import (
 	"encoding/json"
 	"iplay/go-iplay/models"
+	"iplay/go-iplay/smartContract"
+
+	"github.com/astaxie/beego/logs"
 
 	"github.com/astaxie/beego/orm"
 )
@@ -67,10 +70,19 @@ func (uq *UserQuizzesController) DoQuizzes() {
 		m.ChoiceOpt = choiceOpt
 		m.Quizzes = quizzes
 		m.Money = params.BetAmount
+		o.Begin()
 		if _, err := o.Insert(&m); err != nil {
 			uq.json(Fail, "", nil)
 			return
 		}
+		_, err = smartcontract.BuyTicket(o, user.HashAddress, user.Passphrase, uint64(quizzes.Game.Id), uint8(choiceOpt.Id), 1, uint64(m.Money))
+		if err != nil {
+			logs.Error("[DoQuizzes] Failed to do quizzes on chain, ", err)
+			o.Rollback()
+			uq.json(Fail, "", nil)
+			return
+		}
+		o.Commit()
 		uq.json(Success, "", nil)
 	} else {
 		uq.json(Fail, NeedLoginErr, nil)
