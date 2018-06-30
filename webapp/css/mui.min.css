@@ -1083,8 +1083,8 @@ p {
 
 .mui-btn-green,.mui-btn-positive,.mui-btn-success {
 	color: #fff;
-	border: 1px solid #4cd964;
-	background-color: #4cd964
+	/* border: 1px solid #4cd964; */
+	background-color: #f5a258
 }
 
 .mui-btn-green.mui-active:enabled,.mui-btn-green:enabled:active,.mui-btn-positive.mui-active:enabled,.mui-btn-positive:enabled:active,.mui-btn-success.mui-active:enabled,.mui-btn-success:enabled:active {
@@ -1107,8 +1107,8 @@ p {
 
 .mui-btn-danger,.mui-btn-negative,.mui-btn-red {
 	color: #fff;
-	border: 1px solid #dd524d;
-	background-color: #dd524d;
+	/* border: 1px solid #dd524d; */
+	background-color: #9cd168;
 	border-radius: 18px;
 }
 
