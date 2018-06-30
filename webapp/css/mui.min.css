@@ -1261,7 +1261,7 @@ p {
 	padding-right: 10px;
 	padding-left: 10px;
 	border-bottom: 0;
-	background-color: #f7f7f7;
+	background: #4a90e2;
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden
 }
@@ -1273,7 +1273,8 @@ p {
 	overflow: hidden;
 	width: auto;
 	margin: 0;
-	text-overflow: ellipsis
+	text-overflow: ellipsis;
+	color:#fff;
 }
 
 .mui-bar .mui-backdrop {
