@@ -17,6 +17,12 @@ func TestGetAccountState(t *testing.T) {
 	assert.Equal(t, errors.New("address: invalid address format"), err)
 }
 
+func TestCreateAccount(t *testing.T) {
+	address, err := CreateAccount("123456")
+	assert.Nil(t, err)
+	fmt.Println(address)
+}
+
 func TestSignTxWithPasswd(t *testing.T) {
 	passwd := "123456"
 	address, err := CreateAccount(passwd)
@@ -39,21 +45,21 @@ func TestSignTxWithPasswd(t *testing.T) {
 	fmt.Println(data)
 }
 
-func TestSendTx(t *testing.T) {
-	passwd := "123456"
-	address := "n1GskdDtrSAaLoR9Beg5sakKfXwyqgPDbft"
-	tx := &TransactionRequest{
-		From:     address,
-		To:       address,
-		Value:    "1000000",
-		Nonce:    1,
-		GasPrice: "1000000",
-		GasLimit: "2000000",
-		Contract: nil,
-		Binary:   nil,
-		Type:     "",
-	}
-	sendTxResp, err := SendTransactionWithPasswd(tx, passwd)
-	assert.Nil(t, err)
-	fmt.Println(sendTxResp)
-}
+// func TestSendTx(t *testing.T) {
+// 	passwd := "123456"
+// 	address := "n1GskdDtrSAaLoR9Beg5sakKfXwyqgPDbft"
+// 	tx := &TransactionRequest{
+// 		From:     address,
+// 		To:       address,
+// 		Value:    "1000000",
+// 		Nonce:    1,
+// 		GasPrice: "1000000",
+// 		GasLimit: "2000000",
+// 		Contract: nil,
+// 		Binary:   nil,
+// 		Type:     "",
+// 	}
+// 	sendTxResp, err := SendTransactionWithPasswd(tx, passwd)
+// 	assert.Nil(t, err)
+// 	fmt.Println(sendTxResp)
+// }
