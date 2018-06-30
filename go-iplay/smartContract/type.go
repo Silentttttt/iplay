@@ -1,9 +1,11 @@
 package smartcontract
 
 const (
-	contractAddress = "n1vRY4NHBDyQ8hKTXQbbWfPEK5odtRnqRNm"
-	adminAddress    = "n1GskdDtrSAaLoR9Beg5sakKfXwyqgPDbft"
-	adminPasswd     = "123456"
+	contractAddress = "n1tGZiX9AxaMQLU72QYQKTK1feVedLNnMTE"
+	//new contract: n1hU5vq1mro7YtvwxemyFxUuLxZNJXbR8bN
+	// old:n1vRY4NHBDyQ8hKTXQbbWfPEK5odtRnqRNm
+	adminAddress = "n1GskdDtrSAaLoR9Beg5sakKfXwyqgPDbft"
+	adminPasswd  = "123456"
 )
 
 // createGame(payType,type, deadLine, theme, options, amount)

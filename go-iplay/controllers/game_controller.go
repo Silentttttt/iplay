@@ -64,6 +64,7 @@ func (q *QuizzesController) CreateQuizzes() {
 		time, _ := time.Parse("2006-01-02 15:04:05", (*quizzes)[k].End)
 		txHash, _ := smartcontract.CreateQuizze(nil, 1, 1, time.Unix()*1000, 1, "1/8决赛", (*quizzes)[k].ChoiceOpt)
 		fmt.Println("txhash:", txHash)
+		time.Sleep(2 * time.Second)
 	}
 	q.json(Success, "", quizzes)
 }
