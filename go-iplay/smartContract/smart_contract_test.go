@@ -17,7 +17,13 @@ func TestCreateQuizze(t *testing.T) {
 		{2, "巴西胜", 3, 0.5, 1, 2, nil},
 	}
 	txHash, err := createQuizze(nil, 1, 1, time.Now().Unix()*1000+3600*1000, 1, theme, opts)
-
+	go func() {
+		createQuizze(nil, 1, 1, time.Now().Unix()*1000+3600*1000, 1, theme, opts)
+	}()
+	go func() {
+		createQuizze(nil, 1, 1, time.Now().Unix()*1000+3600*1000, 1, theme, opts)
+	}()
+	time.Sleep(2 * time.Second)
 	assert.Nil(t, err)
 	fmt.Println(txHash)
 }

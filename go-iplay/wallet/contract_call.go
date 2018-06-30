@@ -22,7 +22,17 @@ func CallContract(
 	params []interface{},
 	passwd string) (string, error) {
 	//1.get nonce TODO: to use a cache
-	if nonce == 0 {
+
+	result, ok := nonceMgr.Load(from)
+	if !ok {
+		newGuard := &nonceGuard{}
+		result, _ = nonceMgr.LoadOrStore(from, newGuard)
+	}
+	guard := result.(*nonceGuard)
+
+	guard.lock.Lock()
+
+	if guard.nonce == 0 {
 		state, err := GetAccountState(from)
 		if err != nil {
 			return "", err
@@ -31,9 +41,11 @@ func CallContract(
 		if err != nil || v < 0 {
 			return "", errors.New("failed to get nonce")
 		}
-		nonce = uint64(v)
-		nonce++
+		guard.nonce = uint64(v)
 	}
+	guard.nonce++
+	nonce = guard.nonce
+	guard.lock.Unlock()
 
 	//2.组装tx
 	args, err := json.Marshal(params)
