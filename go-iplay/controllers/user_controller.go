@@ -102,7 +102,7 @@ func (c *UserController) Register() {
 	authToken := username + ":" + uuid.String()
 	utils.Put(authToken, username, utils.Month)
 
-	c.json(Success, "", &models.LoginResponseData{AuthToken: authToken, Username: m.Username, HashAddress: user.HashAddress, Balance: user.Balance})
+	c.json(Success, "", &models.LoginResponseData{AuthToken: authToken, Username: m.Username, HashAddress: m.HashAddress, Balance: m.Balance})
 }
 
 // IDCardAuthentication 实名认证
