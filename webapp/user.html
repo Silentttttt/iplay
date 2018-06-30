@@ -83,8 +83,18 @@
 
 
     <script src="lib/jquery-3.3.1.min.js"></script>
+    <script src="lib/jquery.cookie.js"></script>
     <script src="lib/bootstrap.min.js"></script>
     <script src="js/mui.js"></script>
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+
+    <script>
+        var username = $.cookie('username');
+        var balance = $.cookie('balance');
+        var hash_address = $.cookie('hash_address');
+        console.log(username);
+        console.log(balance);
+        console.log(hash_address);
+    </script>
 
     </body>

@@ -122,10 +122,17 @@
                 success: function(data){
 
                     var userInfo = data.data;
-
-                    $.cookie('username', userInfo.emausernameil);
                     
-                    window.location.href = 'user.html';
+
+                    $.cookie('username', userInfo.username);
+                    $.cookie('balance', userInfo.balance);
+                    $.cookie('hash_address', userInfo.hash_address);
+
+                    console.log(userInfo.username);
+                    console.log(userInfo.balance);
+                    console.log(userInfo.hash_address);
+                    
+                    // window.location.href = 'user.html';
 
                 },
                     error: function (err) {

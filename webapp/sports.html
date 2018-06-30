@@ -61,8 +61,8 @@
                 <!--页眉，放置标题-->
                 <div class="mui-card-header">
                     <div class="mui-card-header mui-card-media">
-                        <span class="mui-badge mui-badge-primary">${type.Name}</span>
-                        <div class="mui-media-body">
+                        <span class="mui-badge mui-badge-primary" style="width: 78px;height: 50px;padding:0px;"> <img src="images/icon/67@2x.png"></img> </span>
+                        <div class="mui-media-body" style="line-height: 50px;">
                             ${description}
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                             <div class="mui-col-sm-4 mui-col-xs-4">
                                 <li class="mui-table-view-cell style_none p0">
                                     {{if status == 0}}
-                                    <span class="time">${begin}</span>
+                                    <span class="time"  style="display: inline-block;">${begin}</span>
                                     <span class="ing">竞猜中</span>
                                     {{/if}}
                                     {{if status == 1}}

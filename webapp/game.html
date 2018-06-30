@@ -20,10 +20,11 @@
     }
 
     #myTab li {
-        width: 30%;
+        /* width: 30%; */
         font-size: 18px;
         list-style: none;
-        text-align: center;
+        /* text-align: center; */
+        margin: auto;
     }
 
     #myTab li a {
@@ -63,7 +64,7 @@
     }
 
     .tittle {
-        line-height: 35px;
+        line-height: 20px;
     }
 
     .win {
@@ -145,18 +146,18 @@
 
 
                         <!-- tab标签 -->
-                        <ul id="myTab" class="nav nav-tabs">
+                        <ul id="myTab" class="nav nav-tabs" style="line-height: 20px;">
                             <li class="active">
-                                <span class="mui-icon mui-icon-weixin"></span>
-                                <a href="#game-quizz" data-toggle="tab" class="active show">竞猜</a>
+                                    <span class="mui-badge mui-badge-primary" style="width: 19px;height: 21px;padding:0px;"> <img src="images/button/quiz_press@2x.png"></img> </span>
+                                    <a href="#game-quizz" data-toggle="tab" class="active show">竞猜</a>
                             </li>
 
                             <li>
-                                <span class="mui-icon mui-icon-weixin"></span>
+                                <span class="mui-badge mui-badge-primary" style="width: 19px;height: 21px;padding:0px;"> <img src="images/button/mine_press@2x.png"></img> </span>
                                 <a href="#myself" data-toggle="tab">我的</a>
                             </li>
                             <li class="dropdown">
-                                <span class="mui-icon mui-icon-weixin"></span>
+                                    <span class="mui-badge mui-badge-primary" style="width: 19px;height: 21px;padding:0px;"> <img src="images/button/friends@2x.png"></img> </span>
                                 <a href="#friends" data-toggle="tab">好友的</a>
                             </li>
                         </ul>
@@ -344,45 +345,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- 记录2 -->
-                                <div class="mui-card-content  game_1">
-                                    <div class="mui-content">
-                                        <div class="tittle">
-                                            <span class="zhuangtai success">猜对</span>
-                                            <span class="result"> 胜 负 平</span>&nbsp;
-                                            <i style="float:right;">06-12 11:00</i>
-                                        </div>
-                                        <div class="mui-row">
-                                            <div class="mui-col-sm-4 mui-col-xs-4">
-                                                <li class="mui-table-view-cell style_none">
-                                                    <span class="quizzes-choice-item">
-                                                        <p>我猜</p>
-                                                        <p>德国胜</p>
-                                                    </span>
-                                                </li>
-                                            </div>
-                                            <div class="mui-col-sm-4 mui-col-xs-4">
-                                                <li class="mui-table-view-cell style_none">
-                                                    <span class="quizzes-choice-item">
-                                                        <p>投注</p>
-                                                        <p>100QB</p>
-                                                    </span>
-                                                </li>
-                                            </div>
-                                            <div class="mui-col-sm-4 mui-col-xs-4">
-                                                <li class="mui-table-view-cell style_none">
-                                                    <span class="quizzes-choice-item">
-                                                        <p>赔率</p>
-                                                        <p>1.85</p>
-                                                    </span>
-                                                </li>
-                                            </div>
-                                        </div>
-                                        <div class="win">
-                                            获得185QB
-                                        </div>
-                                    </div>
-                                </div>
+                                
                             </div>
 
                             <div class="mui-content">
@@ -499,7 +462,7 @@
         </div>
         <div class="mui-col-sm-4 mui-col-xs-4">
             <li class="mui-table-view-cell style_none p0">
-                <span class="time">${begin}</span>
+                <span class="time" style="display: inline-block;">${begin}</span>
                 <span class="ing">竞猜中</span>
             </li>
         </div>
@@ -516,7 +479,7 @@
         <div class="mui-card-content  game_1">
             <div class="mui-content">
                 <div class="tittle">
-                    <span class=" mui-icon mui-icon-videocam result"></span>
+                    <span class="mui-badge mui-badge-primary" style="width: 19px;height: 21px;padding:0px;"> <img src="images/icon/ranking@2x.png"></img> </span>
                     <span class="result">${instruction}</span>&nbsp;
                     <i>( 90分钟内的赛果 )</i>
                 </div>
@@ -630,6 +593,7 @@
         $('.theme-poptit .close').click(function () {
             $('.theme-popover-mask').fadeOut(100);
             $('.theme-popover').slideUp(200);
+        })
         })
 
 

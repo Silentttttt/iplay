@@ -1525,7 +1525,7 @@ p {
 	padding: 8px 10px;
 	color: #333;
 	border-radius: 100px;
-	background-color: rgba(0,0,0,.15)
+	/* background-color: rgba(0,0,0,.15) */
 }
 
 .mui-badge.mui-badge-inverted {
@@ -1536,7 +1536,7 @@ p {
 
 .mui-badge-blue,.mui-badge-primary {
 	color: #fff;
-	background-color: #FF3366;
+	/* background-color: #FF3366; */
 	float: left;
 }
 
