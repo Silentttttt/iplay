@@ -1,8 +1,6 @@
 package models
 
 import (
-	"time"
-
 	"github.com/astaxie/beego/orm"
 )
 
@@ -12,10 +10,10 @@ type UserQuizzes struct {
 	ChoiceOpt *ChoiceOpt `orm:"rel(fk)" json:"choice_opt"`
 	Quizzes   *Quizzes   `orm:"rel(fk)" json:"quizzes"`
 	Game      *Game      `orm:"rel(fk)" json:"-"`
-	Result    bool       `json:"result"`
-	Money     int64      `json:"money"`  // 下注金额
-	Reward    int64      `json:"reward"` // 竞猜奖励
-	Created   time.Time  `orm:"auto_now_add;type(datetime)" json:"-"`
+	Result    int        `json:"result"`  // 投注结果{0 待开奖 1 猜对 2 猜错}
+	Money     int64      `json:"money"`   // 下注金额
+	Reward    int64      `json:"reward"`  // 竞猜奖励
+	Created   string     `json:"created"` //下注时间
 }
 
 type GameUserQuizzes struct {

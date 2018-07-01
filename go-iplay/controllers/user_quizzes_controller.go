@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"iplay/go-iplay/models"
 	"iplay/go-iplay/smartContract"
+	"time"
 
 	"github.com/astaxie/beego/logs"
 
@@ -87,7 +88,9 @@ func (uq *UserQuizzesController) DoQuizzes() {
 		m.ChoiceOpt = choiceOpt
 		m.Quizzes = quizzes
 		m.Money = params.BetAmount
+		m.Result = 0
 		m.Game = game
+		m.Created = time.Now().Format("2006-01-02 15:04:05")
 		o.Begin()
 		if _, err := o.Insert(&m); err != nil {
 			uq.json(Fail, "", nil)
