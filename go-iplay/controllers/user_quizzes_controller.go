@@ -94,7 +94,7 @@ func (uq *UserQuizzesController) DoQuizzes() {
 			return
 		}
 		user.Balance -= params.BetAmount
-		if _, err := o.Update(&user); err != nil {
+		if _, err := o.Update(user); err != nil {
 			o.Rollback()
 			logs.Error("[DoQuizzes] Failed to update user balance, ", err)
 			uq.json(Fail, "", nil)
