@@ -89,6 +89,7 @@ func (uq *UserQuizzesController) DoQuizzes() {
 		m.Quizzes = quizzes
 		m.Money = params.BetAmount
 		m.Result = 0
+		m.Reward = int64(float32(params.BetAmount) * choiceOpt.Odds)
 		m.Game = game
 		m.Created = time.Now().Format("2006-01-02 15:04:05")
 		o.Begin()
