@@ -38,8 +38,13 @@ type GameQuizzesList struct {
 }
 
 type UserQuizzesListResponse struct {
-	Code int           `json:"code"`
-	Msg  string        `json:"msg"`
-	Data []UserQuizzes `json:"data"`
-	Ts   int64         `json:"ts"`
+	Code int               `json:"code"`
+	Msg  string            `json:"msg"`
+	Data []UserQuizzesData `json:"data"`
+	Ts   int64             `json:"ts"`
+}
+
+type UserQuizzesData struct {
+	Game        *Game          `json:"game"`
+	UserQuizzes *[]UserQuizzes `json:"quizzes"`
 }

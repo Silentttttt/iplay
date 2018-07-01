@@ -20,11 +20,13 @@ type QuizzesListParams struct {
 type UserQuizzesListParams struct {
 	AuthToken string `json:"auth_token"`
 	UserId    int64  `json:"user_id"`
+	GameId    int64  `json:"game_id"`
 }
 
 type DoQuizzesParams struct {
 	AuthToken   string `json:"auth_token"`
 	UserId      int64  `json:"user_id"`
+	GameId      int64  `json:"game_id"`
 	QuizzesId   int64  `json:"quizzes_id"`
 	ChoiceOptId int64  `json:"choice_opt_id"`
 	BetAmount   int64  `json:"bet_amount"`

@@ -23,15 +23,27 @@ func (uq *UserQuizzesController) URLMapping() {
 // @Title UserQuizzesList
 // @Description football game user quizzes
 // @Param   data body models.UserQuizzesListParams true "get user quizzes request params"
-// @Success 200 {object} models.UserQuizzesListResponse
+// @Success 200
 // @Failure 500
 // @router /quizzes_list [post]
 func (uq *UserQuizzesController) UserQuizzesList() {
 	var params models.UserQuizzesListParams
 	json.Unmarshal(uq.Ctx.Input.RequestBody, &params)
 	if CheckAuthToken(params.AuthToken) {
-		userQuizzes, _ := models.GetUserQuizzesList(params.UserId)
-		uq.json(Success, "", userQuizzes)
+
+		// userQuizzes, _ := models.GetUserQuizzesList(params.UserId)
+
+		// uq.json(Success, "", userQuizzes)
+		var userQuizzesDataList []*models.UserQuizzesData
+		games, _ := models.GetUserQuizzesGroupByGame(params.UserId, params.GameId)
+		for k := range *games {
+			game, _ := models.GetGameById((*games)[k].GameId)
+			userQuizzes, _ := models.GetUserQuizzesListByGame(params.UserId, (*games)[k].GameId)
+			userQuizzesData := &models.UserQuizzesData{Game: game, UserQuizzes: userQuizzes}
+			userQuizzesDataList = append(userQuizzesDataList, userQuizzesData)
+		}
+		uq.json(Success, "", userQuizzesDataList)
+
 	} else {
 		uq.json(Fail, NeedLoginErr, nil)
 	}
@@ -61,6 +73,11 @@ func (uq *UserQuizzesController) DoQuizzes() {
 			uq.json(Fail, "", nil)
 			return
 		}
+		game, err := models.GetGameById(params.GameId)
+		if err != nil || game == nil {
+			uq.json(Fail, "", nil)
+			return
+		}
 		quizzes, err := models.GetQuizzesById(params.QuizzesId)
 		if err != nil || quizzes == nil {
 			uq.json(Fail, "", nil)
@@ -70,12 +87,20 @@ func (uq *UserQuizzesController) DoQuizzes() {
 		m.ChoiceOpt = choiceOpt
 		m.Quizzes = quizzes
 		m.Money = params.BetAmount
+		m.Game = game
 		o.Begin()
 		if _, err := o.Insert(&m); err != nil {
 			uq.json(Fail, "", nil)
 			return
 		}
-		_, err = smartcontract.BuyTicket(o, user.HashAddress, user.Passphrase, uint64(quizzes.Game.Id), uint8(choiceOpt.Id), 1, uint64(m.Money))
+		user.Balance -= params.BetAmount
+		if _, err := o.Update(&user); err != nil {
+			o.Rollback()
+			logs.Error("[DoQuizzes] Failed to update user balance, ", err)
+			uq.json(Fail, "", nil)
+			return
+		}
+		_, err = smartcontract.BuyTicket(o, user.HashAddress, user.Passphrase, uint64(game.Id), uint8(choiceOpt.Id), 1, uint64(m.Money))
 		if err != nil {
 			logs.Error("[DoQuizzes] Failed to do quizzes on chain, ", err)
 			o.Rollback()
@@ -83,7 +108,7 @@ func (uq *UserQuizzesController) DoQuizzes() {
 			return
 		}
 		o.Commit()
-		uq.json(Success, "", nil)
+		uq.json(Success, "", user)
 	} else {
 		uq.json(Fail, NeedLoginErr, nil)
 	}
