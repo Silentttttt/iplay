@@ -114,6 +114,23 @@
         border: 1px solid gray;
         display: inline-block;
     }
+
+    .game-quizz-items{
+        padding-bottom: 0px;
+        padding-top: 5px;
+    }
+    .game-quizz-items .mui-table-view-cell{
+        padding-top: 10px;
+        padding-bottom: 2px;
+        font-size:20px;
+    }
+
+    .game-quizz-item {
+        width: 88px;
+        /* border-radius: 50%; */
+        border-left: 1px solid gray;
+        display: inline-block
+    }
 </style>
 
 <body>
@@ -159,81 +176,7 @@
                             <div class="tab-pane fade in active show" id="game-quizz">
                             </div>
                             <div class="tab-pane fade" id="myself">
-                                <!-- 记录1 -->
-                                <div class="mui-card-content game_1">
-                                    <div class="mui-content">
-                                        <div class="tittle">
-                                            <span class="zhuangtai wait">待开奖</span>
-                                            <span class="result"> 胜 负 平</span>&nbsp;
-                                            <i style="float:right;">06-12 11:00</i>
-                                        </div>
-                                        <div class="mui-row">
-                                            <div class="mui-col-sm-4 mui-col-xs-4">
-                                                <li class="mui-table-view-cell style_none">
-                                                    <span class="quizzes-choice-item">
-                                                        <p>我猜</p>
-                                                        <p>德国胜</p>
-                                                    </span>
-                                                </li>
-                                            </div>
-                                            <div class="mui-col-sm-4 mui-col-xs-4">
-                                                <li class="mui-table-view-cell style_none">
-                                                    <span class="quizzes-choice-item">
-                                                        <p>投注</p>
-                                                        <p>100QB</p>
-                                                    </span>
-                                                </li>
-                                            </div>
-                                            <div class="mui-col-sm-4 mui-col-xs-4">
-                                                <li class="mui-table-view-cell style_none">
-                                                    <span class="quizzes-choice-item">
-                                                        <p>赔率</p>
-                                                        <p>1.85</p>
-                                                    </span>
-                                                </li>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- 记录2 -->
-                                <div class="mui-card-content game_1">
-                                    <div class="mui-content">
-                                        <div class="tittle">
-                                            <span class="zhuangtai success">猜对</span>
-                                            <span class="result"> 胜 负 平</span>&nbsp;
-                                            <i style="float:right;">06-12 11:00</i>
-                                        </div>
-                                        <div class="mui-row">
-                                            <div class="mui-col-sm-4 mui-col-xs-4">
-                                                <li class="mui-table-view-cell style_none">
-                                                    <span class="quizzes-choice-item">
-                                                        <p>我猜</p>
-                                                        <p>德国胜</p>
-                                                    </span>
-                                                </li>
-                                            </div>
-                                            <div class="mui-col-sm-4 mui-col-xs-4">
-                                                <li class="mui-table-view-cell style_none">
-                                                    <span class="quizzes-choice-item">
-                                                        <p>投注</p>
-                                                        <p>100QB</p>
-                                                    </span>
-                                                </li>
-                                            </div>
-                                            <div class="mui-col-sm-4 mui-col-xs-4">
-                                                <li class="mui-table-view-cell style_none">
-                                                    <span class="quizzes-choice-item">
-                                                        <p>赔率</p>
-                                                        <p>1.85</p>
-                                                    </span>
-                                                </li>
-                                            </div>
-                                        </div>
-                                        <div class="win">
-                                            获得185QB
-                                        </div>
-                                    </div>
-                                </div>
+                                
                             </div>
                             <div class="tab-pane fade" id="friends">
                                 <!-- 记录1 -->
@@ -443,6 +386,48 @@
         </div>
     </script>
 
+
+    <script id="game-quizz-my-tpl" type="text/x-jQuery-tmpl">        
+        <!-- 记录1 -->
+        <div class="mui-card-content game_1 game-quizz-items">
+            <div class="mui-content" style="border-top: 1px solid #ccc; padding-top:5px;">
+                <div class="tittle">
+                    <span class="zhuangtai wait">待开奖</span>
+                    <span class="result">${quizzes.instruction}</span>&nbsp;
+                    <i style="float:right;"></i>
+                </div>
+                <div class="mui-row">
+                    <div class="mui-col-sm-4 mui-col-xs-4">
+                        <li class="mui-table-view-cell style_none">
+                            <span class="game-quizz-item" style="border-left:0px;">
+                                <p>我猜</p>
+                                <p>${choice_opt.name}</p>
+                            </span>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-4 mui-col-xs-4">
+                        <li class="mui-table-view-cell style_none">
+                            <span class="game-quizz-item">
+                                <p>投注</p>
+                                <p>${money}QB</p>
+                            </span>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-4 mui-col-xs-4">
+                        <li class="mui-table-view-cell style_none">
+                            <span class="game-quizz-item">
+                                <p>赔率</p>
+                                <p>${choice_opt.odds}</p>
+                            </span>
+                        </li>
+                    </div>
+                </div>
+                <!-- <div class="win">
+                        获得185QB
+                    </div>-->
+            </div>
+        </div>
+    </script>
     <script>
 
         var getUrlParameter = function getUrlParameter(sParam) {
@@ -470,6 +455,7 @@
         
 
             var game_id = getUrlParameter("game_id");
+            game_id = parseInt(game_id)
 
             var choice_opt = {
                 choice_id: 0,
@@ -512,7 +498,7 @@
             $("#game-quizz-bet").click(function(){
 
                 var user_id = parseInt($.cookie('user_id'));
-                if (!user_id){
+                if (user_id == 0){
                     alert("请登录");
                     window.location.href = "login.html";
                     return ;
@@ -539,11 +525,15 @@
 
                         if(res.code == 200){
                             alert('下注成功'); 
+
+                            showMyQuizzesChoice(game_id)
                             $('.theme-popover-mask').fadeOut(100);
                             $('.theme-popover').slideUp(200);
+                        }else if(res.code == 501){
+                            alert("请先登录");
+                            window.location.href = "login.html"
                         }else{
                             alert(res.msg);
-                            //window.location.href = "login.html"
                         }
                     }
                 });
@@ -571,6 +561,33 @@
             }
 
 
+            function showMyQuizzesChoice(game_id){
+                var user_id = parseInt($.cookie('user_id'));
+
+                var params = {
+                    "auth_token": $.cookie('auth_token'),
+                    "user_id": user_id,
+                    "game_id":game_id,
+                };
+                var url = "http://35.180.103.230:8080/v1/user/quizzes_list";
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: JSON.stringify(params),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (res) {
+                        console.log(res)
+
+                        if (res.code == 200 && res.data.length>0){
+                            $("#game-quizz-my-tpl").tmpl(res.data[0].quizzes).appendTo("#myself");
+                        }
+
+                    }
+                });
+            }
+
             function showGame(game) {
 
                 document.title = game.home_team.name + 'VS' + game.visit_team.name;
@@ -592,6 +609,7 @@
             })
 
             load()
+            showMyQuizzesChoice(game_id)
         })
 
 
