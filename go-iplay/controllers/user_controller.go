@@ -134,6 +134,6 @@ func (c *UserController) IDCardAuthentication() {
 			return
 		}
 	}
-	c.json(Fail, NeedLoginErr, nil)
+	c.json(NeedLogin, NeedLoginErr, nil)
 
 }

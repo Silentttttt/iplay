@@ -46,7 +46,7 @@ func (uq *UserQuizzesController) UserQuizzesList() {
 		uq.json(Success, "", userQuizzesDataList)
 
 	} else {
-		uq.json(Fail, NeedLoginErr, nil)
+		uq.json(NeedLogin, NeedLoginErr, nil)
 	}
 
 }
@@ -113,7 +113,7 @@ func (uq *UserQuizzesController) DoQuizzes() {
 		o.Commit()
 		uq.json(Success, "", user)
 	} else {
-		uq.json(Fail, NeedLoginErr, nil)
+		uq.json(NeedLogin, NeedLoginErr, nil)
 	}
 
 }

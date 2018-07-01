@@ -10,8 +10,9 @@ import (
 )
 
 const (
-	Success = 200
-	Fail    = 500
+	Success   = 200
+	Fail      = 500
+	NeedLogin = 501
 
 	FreeToken = 2018 * 1000
 
