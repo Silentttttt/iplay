@@ -107,6 +107,20 @@
             width: 100%;
             color: red;
         }
+
+    .icon_tab {
+        height: 22px;
+        width: 22px;
+        display: block;
+        margin: auto;
+        margin-top: 3px;
+    }
+
+    .icon_tab img{
+        width: 100%;
+        height: 100%;
+    }
+
     </style>
 </head>
 
@@ -120,32 +134,39 @@
         <!--<a class=" mui-icon mui-icon-chatbubble mui-pull-right" href="dope.html"></a>-->
     </header>
     <div class="mui-content" id="game-items">
-            
+
     </div>
 
 
     <div style="height:50px"></div>
     <nav class="mui-bar mui-bar-tab">
         <div class="t-line">
-            <a href="#" class="aui-tab-item mui-active">
-                <span class="mui-icon mui-icon-list"></span>
+            <a href="#" class="aui-tab-item  mui-active">
+                <span class="icon_tab">
+                    <img src="images/tabbar/guess@2x.png" alt="">
+                </span>
                 <span class="mui-tab-label">我猜</span>
             </a>
-            <a href="sports.html" class="aui-tab-item ">
-                <span class="mui-icon mui-icon-location"></span>
+            <a href="sports.html" class="aui-tab-item">
+                <span class="icon_tab">
+                    <img src="images/tabbar/event@2x.png" alt="">
+                </span>
                 <span class="mui-tab-label">赛事</span>
             </a>
             <!--
-            <a class="aui-tab-item" href="chapion.html">
-                <span class="mui-icon mui-icon-person"></span>
-                <span class="mui-tab-label">猜冠军</span>
-            </a>
-            -->
+                    <a class="aui-tab-item" href="chapion.html">
+                        <span class="mui-icon mui-icon-person"></span>
+                        <span class="mui-tab-label">猜冠军</span>
+                    </a>
+                    -->
             <a class="aui-tab-item" href="user.html" id="owner">
-                <span class="mui-icon mui-icon-person"></span>
+                <span class="icon_tab">
+                    <img src="images/tabbar/mine@2x.png" alt="">
+                </span>
                 <span class="mui-tab-label">我的</span>
             </a>
         </div>
+
 
     </nav>
     <script src="https://cdn.bootcss.com/mui/3.7.1/js/mui.min.js"></script>
@@ -304,7 +325,7 @@
 
             function load() {
                 var user_id = parseInt($.cookie('user_id'));
-                if (user_id == 0){
+                if (user_id == 0) {
                     showLogin()
                     return;
                 }
@@ -323,23 +344,23 @@
                     dataType: "json",
                     success: function (res) {
                         console.log(res)
-                        if (res.code == 501){
+                        if (res.code == 501) {
                             showLogin()
-                        }else if(res.code == 200){
+                        } else if (res.code == 200) {
                             showQuizzes(res.data)
                         }
                     }
                 });
             }
 
-            function showLogin(){
+            function showLogin() {
                 $("#game-noitem-tpl").tmpl().appendTo("#game-items");
             }
 
             function showQuizzes(datas) {
-                if (datas && datas.length > 0){
+                if (datas && datas.length > 0) {
                     $("#game-item-tpl").tmpl(datas).appendTo("#game-items");
-                }else{
+                } else {
                     $("#game-noitem-tpl").tmpl().appendTo("#game-items");
                 }
             }

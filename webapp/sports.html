@@ -33,6 +33,20 @@
         color: #ffc92d;
         font-weight: 500;
     }
+
+    .icon_tab {
+        height: 22px;
+        width: 22px;
+        display: block;
+        margin: auto;
+        margin-top: 3px;
+    }
+
+    .icon_tab img{
+        width: 100%;
+        height: 100%;
+    }
+
 </style>
 
 <body>
@@ -56,11 +70,15 @@
     <nav class="mui-bar mui-bar-tab">
         <div class="t-line">
             <a href="index.html" class="aui-tab-item ">
-                <span class="mui-icon mui-icon-list"></span>
+                <span class="icon_tab">
+                    <img src="images/tabbar/guess@2x.png" alt="">
+                </span>
                 <span class="mui-tab-label">我猜</span>
             </a>
             <a href="#" class="aui-tab-item mui-active">
-                <span class="mui-icon mui-icon-location"></span>
+                <span class="icon_tab">
+                    <img src="images/tabbar/event@2x.png" alt="">
+                </span>
                 <span class="mui-tab-label">赛事</span>
             </a>
             <!--
@@ -70,7 +88,9 @@
             </a>
             -->
             <a class="aui-tab-item" href="user.html" id="owner">
-                <span class="mui-icon mui-icon-person"></span>
+                <span class="icon_tab">
+                    <img src="images/tabbar/mine@2x.png" alt="">
+                </span>
                 <span class="mui-tab-label">我的</span>
             </a>
         </div>
