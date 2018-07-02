@@ -148,9 +148,10 @@
         </div>
 
     </nav>
-    <script src="js/mui.min.js"></script>
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="lib/jquery.cookie.js"></script>
+    <script src="https://cdn.bootcss.com/mui/3.7.1/js/mui.min.js"></script>
+    <!--<script src="js/jquery-3.3.1.min.js"></script>-->
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
 
     <script type="text/javascript" charset="utf-8">
@@ -332,14 +333,14 @@
             }
 
             function showLogin(){
-                $("#game-noitem-tpl").tmpl(datas).appendTo("#game-items");
+                $("#game-noitem-tpl").tmpl().appendTo("#game-items");
             }
 
             function showQuizzes(datas) {
                 if (datas && datas.length > 0){
                     $("#game-item-tpl").tmpl(datas).appendTo("#game-items");
                 }else{
-                    $("#game-noitem-tpl").tmpl(datas).appendTo("#game-items");
+                    $("#game-noitem-tpl").tmpl().appendTo("#game-items");
                 }
             }
             load();
