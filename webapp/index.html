@@ -120,7 +120,7 @@
         <!--<a class=" mui-icon mui-icon-chatbubble mui-pull-right" href="dope.html"></a>-->
     </header>
     <div class="mui-content" id="game-items">
-
+            
     </div>
 
 
@@ -135,12 +135,14 @@
                 <span class="mui-icon mui-icon-location"></span>
                 <span class="mui-tab-label">赛事</span>
             </a>
+            <!--
             <a class="aui-tab-item" href="chapion.html">
                 <span class="mui-icon mui-icon-person"></span>
                 <span class="mui-tab-label">猜冠军</span>
             </a>
+            -->
             <a class="aui-tab-item" href="user.html" id="owner">
-                <span class="mui-icon mui-icon-paperclip"></span>
+                <span class="mui-icon mui-icon-person"></span>
                 <span class="mui-tab-label">我的</span>
             </a>
         </div>
@@ -186,7 +188,18 @@
         })
 
     </script>
-
+    <script id="game-noitem-tpl" type="text/x-jQuery-tmpl">
+        <div class="mui-card mt16" id="sport">
+                    <!--页眉，放置标题-->
+                    <div class="mui-card-header">
+                            <div class="mui-card-header mui-card-media" style="padding-bottom:0px;padding-top:0px;">
+                                <div class="mui-media-body" style="line-height: 50px;">
+                                    暂无记录
+                                </div>
+                            </div>
+                    </div>
+            </div>
+    </script>
     <script id="game-item-tpl" type="text/x-jQuery-tmpl">
         <div class="aui-hot t-line">
         <div class="mui-card mt16" id="sport">
@@ -290,6 +303,10 @@
 
             function load() {
                 var user_id = parseInt($.cookie('user_id'));
+                if (user_id == 0){
+                    showLogin()
+                    return;
+                }
 
                 var params = {
                     "auth_token": $.cookie('auth_token'),
@@ -305,14 +322,25 @@
                     dataType: "json",
                     success: function (res) {
                         console.log(res)
-
-                        showQuizzes(res.data)
+                        if (res.code == 501){
+                            showLogin()
+                        }else if(res.code == 200){
+                            showQuizzes(res.data)
+                        }
                     }
                 });
             }
 
+            function showLogin(){
+                $("#game-noitem-tpl").tmpl(datas).appendTo("#game-items");
+            }
+
             function showQuizzes(datas) {
-                $("#game-item-tpl").tmpl(datas).appendTo("#game-items");
+                if (datas && datas.length > 0){
+                    $("#game-item-tpl").tmpl(datas).appendTo("#game-items");
+                }else{
+                    $("#game-noitem-tpl").tmpl(datas).appendTo("#game-items");
+                }
             }
             load();
         })
