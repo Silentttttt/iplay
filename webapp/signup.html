@@ -1,133 +1,93 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html class="ui-page-login">
 
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <link rel="stylesheet" href="css/mui.min.css">
-    <link rel="stylesheet" href="css/home.css">
-    <script src="https://cdn.bootcss.com/mui/3.7.1/js/mui.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
-</head>
-<style>
-    .row {
-        font-size: 12px;
-    }
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="https://cdn.bootcss.com/mui/3.7.1/css/mui.min.css" rel="stylesheet">
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			.mui-input-group label {
+				width: 22%;
+			}
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 78%;
+			}
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			.mui-btn {
+				padding: 10px;
+            }
+            
+            .err_msg {
+                color: red;
+            }
+			
+		</style>
+	</head>
 
-    .get_account {
-        font-size: 12px;
-        text-align: center;
-    }
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">注册</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>账号</label>
+					<input id='username' type="text" class="required mui-input-clear mui-input" placeholder="请输入账号">
+                </div>
+				<div class="mui-input-row">
+					<label>密码</label>
+					<input id='password' type="password" class="required mui-input-clear mui-input" placeholder="请输入密码">
+                </div>
+				<div class="mui-input-row">
+					<label>确认</label>
+					<input id='rePassword' type="password" class="required mui-input-clear mui-input" placeholder="请确认密码">
+                </div>
+            </form>
+            <span class='err_msg'></span>
 
-    .form-group {
-        text-align: center;
-    }
+			<div class="mui-content-padded">
+				<button id='reg' class="mui-btn mui-btn-block mui-btn-primary">注册</button>
+			</div>
+			<div class="mui-content-padded">
+				<p>注册送QB。</p>
+			</div>
+		</div>
+        <script src="https://cdn.bootcss.com/mui/3.7.1/js/mui.js"></script>
+        <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+		<script>
+			(function($, doc) {
+                $.init();
+            }(mui, document));
 
-    .mt100 {
-        margin-top: 100px;
-    }
-
-    .mt20 {
-        margin-top: 20px;
-    }
-
-    .fr {
-        float: right
-    }
-
-    .err_msg {
-        color: red;
-    }
-</style>
-
-<body>
-
-
-    <section class="mbr-section mbr-section-full  mbr-section__container--first">
-        <div class="mbr-table-cell setting">
-            <div class="container">
-                <form action="#" method="post">
-                    <div class="from-group" style=" margin-top: 20px;   text-align: center;">
-                        <h1>注册</h1>
-                    </div>
-                    <div class="form-group mt100">
-                        <label for="exampleInputEmail1">账号</label>
-                        <input type="email" name="username" id="email" class="required form-control" style="width: 80%;">
-                        <br>
-                        <span class='err_msg' id="email_errmsg"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">密码</label>
-                        <input type="password" class="required form-control" id="password" style="width: 80%;">
-                        <br>
-                        <span class='err_msg' id="password_errmsg"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">确认密码</label>
-                        <input type="password" class="required form-control" id="rePassword" style="width: 72%;">
-                        <br>
-                        <span class='err_msg' id="password_errmsg"></span>
-                    </div>
-                    <div class="form-group mt100">
-                        <button type="button" id="button" class="btn" >注册</button>
-                    </div>
-                    <div class="form-group get_account mt20">
-                        <span>
-                            <a href="login.html">登录 </a>
-                        </span>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-    <div style="height:50px"></div>
-    <nav class="mui-bar mui-bar-tab">
-        <div class="t-line">
-            <a href="index.html" class="aui-tab-item ">
-                <span class="mui-icon mui-icon-list"></span>
-                <span class="mui-tab-label">我猜</span>
-            </a>
-            <a href="sports.html" class="aui-tab-item">
-                <span class="mui-icon mui-icon-location"></span>
-                <span class="mui-tab-label">赛事</span>
-            </a>
-            <!--
-            <a class="aui-tab-item" href="chapion.html">
-                <span class="mui-icon mui-icon-person"></span>
-                <span class="mui-tab-label">猜冠军</span>
-            </a>
-            -->
-            <a class="aui-tab-item  mui-active" href="#" >
-                <span class="mui-icon mui-icon-paperclip"></span>
-                <span class="mui-tab-label">我的</span>
-            </a>
-        </div>
-
-    </nav>
-
-
-
-    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="https://cdn.bootcss.com/mui/3.7.1/js/mui.min.js"></script>
-    <script type="text/javascript"> 
-
-
-        // 前端表单验证
-        $(":input.required").each(function () {
+                    // 前端表单验证
+            $(":input.required").each(function () {
                 var $required = $(" ");
                 $(this).parent().append($required);
             });
             $(":input.required").blur(function () {
-                
                 if ($(this).is("#password")) {
-                    $(".err_msg").remove();
+                    $(".err_msg").html('');
                     var $email = $("#password").val();
                     if (this.value.length < 6 || this.value.length > 20) {
-                        var errMsg = "<span class='err_msg'>密码的长度应是6-20字符</span>";
-                        $(this).parent().append(errMsg);
+                        var errMsg = "密码的长度应是6-20字符"
+                        $(".err_msg").html(errMsg);
                     }
                     else {
                         var Msg = "<span></span>";
@@ -135,92 +95,53 @@
                     }
                 }
                 if ($(this).is("#rePassword")) {
-                    $(".err_msg").remove();
+                    $(".err_msg").html();
                     var a = $("#password").val();
                     var b = $("#rePassword").val();
+                    console.log(a,b)
                     if (a != b) {
-                        var errMsg = "<span class='err_msg'>两次密码不一致，请再次尝试.</span>";
-                        $(this).parent().append(errMsg);
+                        var errMsg = "两次密码不一致，请再次尝试.";
+                        $(".err_msg").html(errMsg);
                     }
                     else {
-                        var Msg = "<span></span>";
-                        $(this).parent().append(Msg);
+                        $(".err_msg").html('');
                         $("#button").removeClass("disabled");
                     }
                 }
             })
 
-
-        //用户注册
-        $('#button').on('click', function (e) {
-            var loginData = {
-                "username": $('#email').val(),
-                "password": $('#password').val(),
-            }
-            loginData = JSON.stringify(loginData);
-
-            $.ajax({
-                type: 'POST',
-                url: 'http://35.180.103.230:8080/v1/user/reg',
-                dataType: 'json',
-                contentType: 'application/json;charset=utf-8',
-                data: loginData,
-                /*
-                xhrFields: {
-                    withCredentials: true
-                },
-                crossDomain: true,
-                
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("x-neb-language", "EN");
-                    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-                },
-                */
-                success: function (data) {
-                    console.log(data)
-                    if (res.code == 200){
-                        window.location.href = 'login.html';
-                    }else{
-                        alert(res.msg)
-                    }
-                },
-                error: function (err) {
-                    alert(err.msg);
-
-
+            //用户注册
+            $('#reg').on('click', function (e) {
+                var loginData = {
+                    "username": $('#username').val(),
+                    "password": $('#password').val(),
                 }
+
+                loginData = JSON.stringify(loginData);
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://35.180.103.230:8080/v1/user/reg',
+                    dataType: 'json',
+                    contentType: 'application/json;charset=utf-8',
+                    data: loginData,
+                    success: function (res) {
+                        console.log(res)
+                        if (res.code == 200){
+                            window.location.href = 'login.html';
+                        }else{
+                            alert(res.msg)
+                        }
+                    },
+                    error: function (err) {
+                        alert(err.msg);
+
+
+                    }
+                })
             })
-        })
 
-
-        // 前端表单验证
-        // $(function () {
-        //     $(":input.required").each(function () {
-        //         var $required = $(" ");
-        //         $(this).parent().append($required);
-        //     });
-        //     $(":input.required").blur(function () {
-        //         if ($(this).is("#email")) {
-        //             $(".err_msg").remove();
-        //             var reg = /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/;
-        //             var $email = $("#email").val();
-        //             if (!reg.test($email)) {
-        //                 var errMsg = "<span class='err_msg'>The email format is incorrect, please try again</span>";
-        //                 $(this).parent().append(errMsg);
-        //                 // $("#email_errmsg").text("邮箱格式不正确");
-        //             }
-        //             else {
-        //                 var Msg = "<span></span>";
-        //                 $(this).parent().append(Msg);
-        //             }
-        //         }
-
-        //     })
-
-        // })
-
-
-    </script>
-</body>
+		</script>
+	</body>
 
 </html>

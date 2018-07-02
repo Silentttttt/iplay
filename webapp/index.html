@@ -141,15 +141,15 @@
     <div style="height:50px"></div>
     <nav class="mui-bar mui-bar-tab">
         <div class="t-line">
-            <a href="#" class="aui-tab-item  mui-active">
+            <a href="#" class="aui-tab-item mui-active">
                 <span class="icon_tab">
-                    <img src="images/tabbar/guess@2x.png" alt="">
+                    <img src="images/tabbar/guess_press@3x.png" alt="">
                 </span>
                 <span class="mui-tab-label">我猜</span>
             </a>
             <a href="sports.html" class="aui-tab-item">
                 <span class="icon_tab">
-                    <img src="images/tabbar/event@2x.png" alt="">
+                    <img src="images/tabbar/event@3x.png" alt="">
                 </span>
                 <span class="mui-tab-label">赛事</span>
             </a>
@@ -161,7 +161,7 @@
                     -->
             <a class="aui-tab-item" href="user.html" id="owner">
                 <span class="icon_tab">
-                    <img src="images/tabbar/mine@2x.png" alt="">
+                    <img src="images/tabbar/mine@3x.png" alt="">
                 </span>
                 <span class="mui-tab-label">我的</span>
             </a>
@@ -169,10 +169,10 @@
 
 
     </nav>
-    <script src="https://cdn.bootcss.com/mui/3.7.1/js/mui.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/mui/3.7.1/js/mui.min.js"></script>
     <!--<script src="js/jquery-3.3.1.min.js"></script>-->
-    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
-    <script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
 
     <script type="text/javascript" charset="utf-8">
@@ -211,7 +211,7 @@
 
     </script>
     <script id="game-noitem-tpl" type="text/x-jQuery-tmpl">
-        <div class="mui-card mt16" id="sport">
+        <div class="mui-card mt16 sport-item">
                     <!--页眉，放置标题-->
                     <div class="mui-card-header">
                             <div class="mui-card-header mui-card-media" style="padding-bottom:0px;padding-top:0px;">
@@ -224,7 +224,7 @@
     </script>
     <script id="game-item-tpl" type="text/x-jQuery-tmpl">
         <div class="aui-hot t-line">
-        <div class="mui-card mt16" id="sport">
+        <div class="mui-card mt16 sport-item" game_id="${game.id}">
             <!--页眉，放置标题-->
             <div class="mui-card-header">
                     <div class="mui-card-header mui-card-media" style="padding-bottom:0px;padding-top:0px;">
@@ -318,10 +318,6 @@
     <script>
 
         $(function () {
-            $("#sport").click(function () {
-                $(location).attr('href', 'game.html');
-            })
-
 
             function load() {
                 var user_id = parseInt($.cookie('user_id'));
@@ -364,6 +360,13 @@
                     $("#game-noitem-tpl").tmpl().appendTo("#game-items");
                 }
             }
+
+            $("#game-items").on("click", ".sport-item", function () {
+                var game_id = $(this).attr("game_id");
+                console.log(game_id)
+
+                $(location).attr('href', 'game.html?game_id=' + game_id);
+            })
             load();
         })
 

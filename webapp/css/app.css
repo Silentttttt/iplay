@@ -19,3 +19,14 @@
 	font-size: 14px;
 	color: #8f8f94;
 }
+
+.mui-bar-tab{
+	background-color: #ffffff;
+}
+
+.mui-active .mui-tab-label{
+	color: #4a90e2;
+}
+.mui-tab-label{
+	color: #000000;
+}
