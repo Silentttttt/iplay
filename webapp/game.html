@@ -245,7 +245,7 @@
             <div class="theme-popbod dform">
                 <div class="mui-row">
                     <div class="mui-col-sm-4 mui-col-xs-4">
-                        <li class="mui-table-view-cell style_none p0 mui-active" quizzes-choice-item-bet="100">
+                        <li class="mui-table-view-cell style_none p0" quizzes-choice-item-bet="100">
                             <span class="money">
                                 <p>100QB</p>
                             </span>
@@ -483,9 +483,8 @@
 
                 choice_opt.quizzes_id = $(this).parents(".quizzes-choice-items").attr("quizzes-id");
 
-
                 console.log($(this).parents(".quizzes-choice-items"))
-                choice_opt.bet = 100;
+                choice_opt.bet = 0;
                 console.log(name, odds, choice_opt)
 
                 $('#game-quizz-item-name').html("投注: " + choice_opt.name);
@@ -500,6 +499,8 @@
 
                 choice_opt.bet = $(this).attr("quizzes-choice-item-bet");
 
+                $(this).addClass("mui-active");
+
                 $('#game-quizz-item-reward').html(choice_opt.odds * choice_opt.bet + 'QB');
             })
 
@@ -510,6 +511,10 @@
                 if (user_id == 0) {
                     alert("请登录");
                     window.location.href = "login.html";
+                    return;
+                }
+                if (choice_opt.bet<=0){
+                    alert("请选择下注额度");
                     return;
                 }
                 var params = {
