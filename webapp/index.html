@@ -61,14 +61,15 @@
             padding: 18px;
         }
 
-        .game-quizz-items{
+        .game-quizz-items {
             padding-bottom: 0px;
             padding-top: 5px;
         }
-        .game-quizz-items .mui-table-view-cell{
+
+        .game-quizz-items .mui-table-view-cell {
             padding-top: 10px;
             padding-bottom: 2px;
-            font-size:20px;
+            font-size: 20px;
         }
 
         .game-quizz-item {
@@ -138,7 +139,7 @@
                 <span class="mui-icon mui-icon-person"></span>
                 <span class="mui-tab-label">猜冠军</span>
             </a>
-            <a class="aui-tab-item" href="user.html">
+            <a class="aui-tab-item" href="user.html" id="owner">
                 <span class="mui-icon mui-icon-paperclip"></span>
                 <span class="mui-tab-label">我的</span>
             </a>
@@ -176,6 +177,14 @@
     </script>
     <script>
         mui.init();
+        $("#owner").click(function () {
+            var user_id = parseInt($.cookie('user_id'));
+            if (user_id == 0) {
+                window.location.href = "login.html";
+                return;
+            }
+        })
+
     </script>
 
     <script id="game-item-tpl" type="text/x-jQuery-tmpl">
@@ -279,7 +288,7 @@
             })
 
 
-            function load(){
+            function load() {
                 var user_id = parseInt($.cookie('user_id'));
 
                 var params = {
@@ -302,7 +311,7 @@
                 });
             }
 
-            function showQuizzes(datas){
+            function showQuizzes(datas) {
                 $("#game-item-tpl").tmpl(datas).appendTo("#game-items");
             }
             load();

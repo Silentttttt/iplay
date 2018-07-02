@@ -47,7 +47,7 @@
                 <span class="mui-icon mui-icon-person"></span>
                 <span class="mui-tab-label">猜冠军</span>
             </a>
-            <a class="aui-tab-item" href="user.html">
+            <a class="aui-tab-item" href="user.html" id="owner">
                 <span class="mui-icon mui-icon-paperclip"></span>
                 <span class="mui-tab-label">我的</span>
             </a>
@@ -144,6 +144,13 @@
     </script>
     <script>
         mui.init();
+        $("#owner").click(function () {
+            var user_id = parseInt($.cookie('user_id'));
+            if (user_id == 0) {
+                window.location.href = "login.html";
+                return;
+            }
+        })
     </script>
     <script>
 
