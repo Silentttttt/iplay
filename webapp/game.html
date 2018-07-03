@@ -31,6 +31,10 @@
         color: #333;
     }
 
+    #myTab li a.active{
+        color: #007bff;
+    }
+
     .game_1 {
         padding: 18px;
     }
@@ -157,6 +161,21 @@
         outline:none;  
         border:0px;
     }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    .game-quizz-items .mui-content{
+        border-top: 1px solid #ccc; 
+        padding-top:5px;
+    }
+    /*
+    .game-quizz-items .mui-content:first-child{
+        border-top: 0px;
+        padding-top:5px;
+    }
+    */
 </style>
 
 <body>
@@ -186,14 +205,14 @@
                                 <span class="mui-badge mui-badge-primary" style="width: 19px;height: 21px;padding:0px;">
                                     <img src="images/button/quiz_press@2x.png"></img>
                                 </span>
-                                <a href="#game-quizz" data-toggle="tab" class="active show">竞猜</a>
+                                <a href="#game-quizz" data-toggle="tab" class="active show" id="game-quizz-item">竞猜</a>
                             </li>
 
                             <li>
                                 <span class="mui-badge mui-badge-primary" style="width: 19px;height: 21px;padding:0px;">
                                     <img src="images/button/mine_press@2x.png"></img>
                                 </span>
-                                <a href="#myself" data-toggle="tab">我的</a>
+                                <a href="#myself" data-toggle="tab" id="myself-item">我的</a>
                             </li>
                             <li class="dropdown">
                                 <span class="mui-badge mui-badge-primary" style="width: 19px;height: 21px;padding:0px;">
@@ -455,8 +474,9 @@
 
     <script id="game-quizz-my-tpl" type="text/x-jQuery-tmpl">        
         <!-- 记录1 -->
+
         <div class="mui-card-content game_1 game-quizz-items">
-            <div class="mui-content" style="border-top: 1px solid #ccc; padding-top:5px;">
+            <div class="mui-content">
                 <div class="tittle">
                     <span class="zhuangtai wait">待开奖</span>
                     <span class="result">${quizzes.instruction}</span>&nbsp;
@@ -590,7 +610,7 @@
                 var params = {
                     game_id: game_id ? parseInt(game_id) : 0,
                     "auth_token": $.cookie('auth_token'),
-                    "bet_amount": choice_opt.bet,
+                    "bet_amount": parseInt(choice_opt.bet),
                     "choice_opt_id": parseInt(choice_opt.choice_id),
                     "quizzes_id": parseInt(choice_opt.quizzes_id),
                     "user_id": user_id
@@ -610,9 +630,13 @@
                         if (res.code == 200) {
                             alert('下注成功');
 
+                            $("#myself-item").addClass("active show")
+                            $("#game-quizz-item").removeClass("active show")
+
                             showMyQuizzesChoice(game_id)
                             $('.theme-popover-mask').fadeOut(100);
                             $('.theme-popover').slideUp(200);
+                           
                         } else if (res.code == 501) {
                             alert("请先登录");
                             window.location.href = "login.html"
@@ -665,6 +689,7 @@
                         console.log(res)
 
                         if (res.code == 200 && res.data.length > 0) {
+                            $("#myself").html("");
                             $("#game-quizz-my-tpl").tmpl(res.data[0].quizzes).appendTo("#myself");
                         }
 

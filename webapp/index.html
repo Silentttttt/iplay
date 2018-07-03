@@ -40,6 +40,7 @@
         .ing {
             display: inherit;
             font-size: 12px;
+            width: 
         }
 
         .faqizhe {
@@ -87,6 +88,7 @@
             width: 50px;
             text-align: center;
             color: #fff;
+            padding-top:5px;
         }
 
         .wait {
@@ -254,7 +256,7 @@
                             </li>
                         </div>
                         <div class="mui-col-sm-2 mui-col-xs-2">
-                            <li class="mui-table-view-cell style_none p0 mt40">
+                            <li class="mui-table-view-cell style_none p0 mt40" style="padding:0px 0px;">
                                 <span class="ing">竞猜中</span>
                             </li>
                         </div>
@@ -343,6 +345,9 @@
                         if (res.code == 501) {
                             showLogin()
                         } else if (res.code == 200) {
+                            for(var i in res.data){
+                                res.data[i].game.begin = res.data[i].game.begin.slice(5,16)
+                            }
                             showQuizzes(res.data)
                         }
                     }
