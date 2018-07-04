@@ -1,8 +1,7 @@
 package smartcontract
 
 const (
-	contractAddress = "n1tGZiX9AxaMQLU72QYQKTK1feVedLNnMTE"
-	//new contract: n1hU5vq1mro7YtvwxemyFxUuLxZNJXbR8bN
+	contractAddress = "n1vfYC9kryS45fdCASCF2eJasU94x4Hhpop"
 	// old:n1vRY4NHBDyQ8hKTXQbbWfPEK5odtRnqRNm
 	adminAddress = "n1GskdDtrSAaLoR9Beg5sakKfXwyqgPDbft"
 	adminPasswd  = "123456"

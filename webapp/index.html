@@ -40,6 +40,7 @@
         .ing {
             display: inherit;
             font-size: 12px;
+            width: 
         }
 
         .faqizhe {
@@ -61,14 +62,15 @@
             padding: 18px;
         }
 
-        .game-quizz-items{
+        .game-quizz-items {
             padding-bottom: 0px;
             padding-top: 5px;
         }
-        .game-quizz-items .mui-table-view-cell{
+
+        .game-quizz-items .mui-table-view-cell {
             padding-top: 10px;
             padding-bottom: 2px;
-            font-size:20px;
+            font-size: 20px;
         }
 
         .game-quizz-item {
@@ -86,6 +88,7 @@
             width: 50px;
             text-align: center;
             color: #fff;
+            padding-top:5px;
         }
 
         .wait {
@@ -106,6 +109,20 @@
             width: 100%;
             color: red;
         }
+
+    .icon_tab {
+        height: 22px;
+        width: 22px;
+        display: block;
+        margin: auto;
+        margin-top: 3px;
+    }
+
+    .icon_tab img{
+        width: 100%;
+        height: 100%;
+    }
+
     </style>
 </head>
 
@@ -127,27 +144,37 @@
     <nav class="mui-bar mui-bar-tab">
         <div class="t-line">
             <a href="#" class="aui-tab-item mui-active">
-                <span class="mui-icon mui-icon-list"></span>
+                <span class="icon_tab">
+                    <img src="images/tabbar/guess_press@3x.png" alt="">
+                </span>
                 <span class="mui-tab-label">我猜</span>
             </a>
-            <a href="sports.html" class="aui-tab-item ">
-                <span class="mui-icon mui-icon-location"></span>
+            <a href="sports.html" class="aui-tab-item">
+                <span class="icon_tab">
+                    <img src="images/tabbar/event@3x.png" alt="">
+                </span>
                 <span class="mui-tab-label">赛事</span>
             </a>
-            <a class="aui-tab-item" href="chapion.html">
-                <span class="mui-icon mui-icon-person"></span>
-                <span class="mui-tab-label">猜冠军</span>
-            </a>
-            <a class="aui-tab-item" href="user.html">
-                <span class="mui-icon mui-icon-paperclip"></span>
+            <!--
+                    <a class="aui-tab-item" href="chapion.html">
+                        <span class="mui-icon mui-icon-person"></span>
+                        <span class="mui-tab-label">猜冠军</span>
+                    </a>
+                    -->
+            <a class="aui-tab-item" href="user.html" id="owner">
+                <span class="icon_tab">
+                    <img src="images/tabbar/mine@3x.png" alt="">
+                </span>
                 <span class="mui-tab-label">我的</span>
             </a>
         </div>
 
+
     </nav>
-    <script src="js/mui.min.js"></script>
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/mui/3.7.1/js/mui.min.js"></script>
+    <!--<script src="js/jquery-3.3.1.min.js"></script>-->
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
 
     <script type="text/javascript" charset="utf-8">
@@ -176,11 +203,30 @@
     </script>
     <script>
         mui.init();
-    </script>
+        $("#owner").click(function () {
+            var user_id = parseInt($.cookie('user_id'));
+            if (user_id == 0) {
+                window.location.href = "login.html";
+                return;
+            }
+        })
 
+    </script>
+    <script id="game-noitem-tpl" type="text/x-jQuery-tmpl">
+        <div class="mui-card mt16 sport-item">
+                    <!--页眉，放置标题-->
+                    <div class="mui-card-header">
+                            <div class="mui-card-header mui-card-media" style="padding-bottom:0px;padding-top:0px;">
+                                <div class="mui-media-body" style="line-height: 50px;">
+                                    暂无记录
+                                </div>
+                            </div>
+                    </div>
+            </div>
+    </script>
     <script id="game-item-tpl" type="text/x-jQuery-tmpl">
         <div class="aui-hot t-line">
-        <div class="mui-card mt16" id="sport">
+        <div class="mui-card mt16 sport-item" game_id="${game.id}">
             <!--页眉，放置标题-->
             <div class="mui-card-header">
                     <div class="mui-card-header mui-card-media" style="padding-bottom:0px;padding-top:0px;">
@@ -210,7 +256,7 @@
                             </li>
                         </div>
                         <div class="mui-col-sm-2 mui-col-xs-2">
-                            <li class="mui-table-view-cell style_none p0 mt40">
+                            <li class="mui-table-view-cell style_none p0 mt40" style="padding:0px 0px;">
                                 <span class="ing">竞猜中</span>
                             </li>
                         </div>
@@ -274,13 +320,13 @@
     <script>
 
         $(function () {
-            $("#sport").click(function () {
-                $(location).attr('href', 'game.html');
-            })
 
-
-            function load(){
+            function load() {
                 var user_id = parseInt($.cookie('user_id'));
+                if (user_id == 0) {
+                    showLogin()
+                    return;
+                }
 
                 var params = {
                     "auth_token": $.cookie('auth_token'),
@@ -296,15 +342,36 @@
                     dataType: "json",
                     success: function (res) {
                         console.log(res)
-
-                        showQuizzes(res.data)
+                        if (res.code == 501) {
+                            showLogin()
+                        } else if (res.code == 200) {
+                            for(var i in res.data){
+                                res.data[i].game.begin = res.data[i].game.begin.slice(5,16)
+                            }
+                            showQuizzes(res.data)
+                        }
                     }
                 });
             }
 
-            function showQuizzes(datas){
-                $("#game-item-tpl").tmpl(datas).appendTo("#game-items");
+            function showLogin() {
+                $("#game-noitem-tpl").tmpl().appendTo("#game-items");
             }
+
+            function showQuizzes(datas) {
+                if (datas && datas.length > 0) {
+                    $("#game-item-tpl").tmpl(datas).appendTo("#game-items");
+                } else {
+                    $("#game-noitem-tpl").tmpl().appendTo("#game-items");
+                }
+            }
+
+            $("#game-items").on("click", ".sport-item", function () {
+                var game_id = $(this).attr("game_id");
+                console.log(game_id)
+
+                $(location).attr('href', 'game.html?game_id=' + game_id);
+            })
             load();
         })
 

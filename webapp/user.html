@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="css/icons-extra.css" />
     <link rel="stylesheet" type="text/css" href="css/app.css" />
     <link rel="stylesheet" type="text/css" href="css/sports.css" />
-    <link rel="stylesheet" href="lib/bootstrap.min.css">
+    <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
     <title>我的</title>
 </head>
 <style>
@@ -38,73 +38,143 @@
         text-align: center;
         padding-top: 70px;
     }
+
+    .mui-content-padded {
+        margin-top: 125px;
+    }
+
+    .mui-btn-blue, .mui-btn-primary, input[type=submit] {
+        color: #fff;
+        border: 1px solid #007aff;
+        background-color: #007aff;
+    }
+
+    .mui-btn-block {
+        font-size: 18px;
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 15px 0;
+    }
+
+    .mui-btn {
+        padding: 10px;
+        margin-left: 0px;
+    }
+
+    .icon_tab {
+        height: 22px;
+        width: 22px;
+        display: block;
+        margin: auto;
+        margin-top: 3px;
+    }
+
+    .icon_tab img{
+        width: 100%;
+        height: 100%;
+    }
+
+
+
 </style>
 
 <body>
 
     <header class="mui-bar mui-bar-nav aui-header b-line">
         <!--<a class=" mui-icon mui-icon-search mui-pull-left" href="search.html"></a>-->
-        <a href="sports.html" class="a" style="line-height: 44px;"> < </a>
         <h1 class="mui-title">我的</h1>
         <!--<a class=" mui-icon mui-icon-chatbubble mui-pull-right" href="dope.html"></a>-->
     </header>
 
-    <div class="mui-content">
-        <div class="account">
-            <span class="username">Hi kurry</span>
-            <br>
-            <span class="money">3000</span>
-            <div class="words">钱包余额/QB</div>
-        </div>
-        <div class="wallet">
-                <span class="address">n1SVNbBqySbyx4uFz8LDQn6xGFx7NKNt7m8</span>
-                <div class="words">钱包地址</div>
-            </div>
-    </div>
 
+    <div class="mui-content" id="user-info">
+       
+        
+    </div>
 
     <div style="height:50px"></div>
     <nav class="mui-bar mui-bar-tab">
-        <div class="t-line">
-            <a href="index.html" class="aui-tab-item ">
-                <span class="mui-icon mui-icon-list"></span>
-                <span class="mui-tab-label">我猜</span>
-            </a>
-            <a href="sports.html" class="aui-tab-item">
-                <span class="mui-icon mui-icon-location"></span>
-                <span class="mui-tab-label">赛事</span>
-            </a>
-            <a class="aui-tab-item" href="chapion.html">
-                <span class="mui-icon mui-icon-person"></span>
-                <span class="mui-tab-label">猜冠军</span>
-            </a>
-            <a class="aui-tab-item  mui-active" href="#">
-                <span class="mui-icon mui-icon-paperclip"></span>
-                <span class="mui-tab-label">我的</span>
-            </a>
-        </div>
+            <div class="t-line">
+                    <a href="index.html" class="aui-tab-item ">
+                        <span class="icon_tab">
+                            <img src="images/tabbar/guess@3x.png" alt="">
+                        </span>
+                        <span class="mui-tab-label">我猜</span>
+                    </a>
+                    <a href="sports.html" class="aui-tab-item">
+                        <span class="icon_tab">
+                            <img src="images/tabbar/event@3x.png" alt="">
+                        </span>
+                        <span class="mui-tab-label">赛事</span>
+                    </a>
+                    <!--
+                    <a class="aui-tab-item" href="chapion.html">
+                        <span class="mui-icon mui-icon-person"></span>
+                        <span class="mui-tab-label">猜冠军</span>
+                    </a>
+                    -->
+                    <a class="aui-tab-item mui-active" href="#" id="owner">
+                        <span class="icon_tab">
+                            <img src="images/tabbar/mine_press@3x.png" alt="">
+                        </span>
+                        <span class="mui-tab-label">我的</span>
+                    </a>
+                </div>
 
     </nav>
 
 
-    <script src="lib/jquery-3.3.1.min.js"></script>
-    <script src="lib/jquery.cookie.js"></script>
-    <script src="lib/bootstrap.min.js"></script>
-    <script src="js/mui.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/mui/3.7.1/js/mui.min.js"></script>
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
 
+
+    <script id="user-info-tpl" type="text/x-jQuery-tmpl">
+        {{if user_id == 0}} 
+        <div class="mui-content-padded">
+            <div class="form-group get_account mt20" style="text-align: center;">
+                <span>还未登录
+                    <a href="login.html"> 请点击登录  </a>
+                </span>
+            </div>
+        </div>
+        {{else}}
+        <div class="account">
+            <span class="username">Hi ${username}</span>
+            <br>
+            <span class="money">${balance}</span>
+            <div class="words">钱包余额/QB</div>
+        </div>
+        <div class="wallet">
+            <span class="address">${hash_address}</span>
+            <div class="words">钱包地址</div>
+        </div>
+        {{/if}}
+        </script>
+    
     <script>
         var username = $.cookie('username');
+        var user_id = $.cookie('user_id');
+        user_id = user_id?parseInt(user_id):0;
+
         var balance = $.cookie('balance');
         var hash_address = $.cookie('hash_address');
         console.log(username);
         console.log(balance);
         console.log(hash_address);
 
-        $(".username").text(username);
-        $(".money").text(balance);
-        $(".address").text(hash_address);
-
+        var user = {
+            user_id:user_id,
+            username:username,
+            balance:balance,
+            hash_address:hash_address
+        }
+        
+        console.log(user)
+        $("#user-info-tpl").tmpl(user).appendTo("#user-info");
     </script>
 
     </body>

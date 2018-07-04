@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="css/icons-extra.css" />
     <link rel="stylesheet" type="text/css" href="css/app.css" />
     <link rel="stylesheet" type="text/css" href="css/sports.css" />
-    <link rel="stylesheet" href="lib/bootstrap.min.css">
+    <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
     <title>俄罗斯VS沙特阿拉伯</title>
 </head>
 <style>
@@ -31,6 +31,10 @@
         color: #333;
     }
 
+    #myTab li a.active{
+        color: #007bff;
+    }
+
     .game_1 {
         padding: 18px;
     }
@@ -38,10 +42,10 @@
     .quizzes-choice-item {
         width: 88px;
         height: 46px;
-        border:1px solid #93b76a;
+        border: 1px solid #93b76a;
         display: inline-block;
         background-color: #e4f3d5;
-        border-radius:8px;
+        border-radius: 8px;
     }
 
     .mt40 {
@@ -115,14 +119,15 @@
         display: inline-block;
     }
 
-    .game-quizz-items{
+    .game-quizz-items {
         padding-bottom: 0px;
         padding-top: 5px;
     }
-    .game-quizz-items .mui-table-view-cell{
+
+    .game-quizz-items .mui-table-view-cell {
         padding-top: 10px;
         padding-bottom: 2px;
-        font-size:20px;
+        font-size: 20px;
     }
 
     .game-quizz-item {
@@ -131,13 +136,53 @@
         border-left: 1px solid gray;
         display: inline-block
     }
+
+    .price {
+        width: 80%;
+        height: 66px;
+        margin: auto;
+        padding: 10px;
+        background: #f1f7ff;
+        border: 1px solid #81b5f2;
+        border-radius: 8px;
+        width: 332px;
+        height: 55px;
+        margin-top: 22px;
+        margin-bottom: 20px;
+    }
+    #instruction{
+        font-size: 20px;
+        font-weight: 500;
+        margin-left: 38px;
+    }
+
+    .price input{
+        background:none;  
+        outline:none;  
+        border:0px;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    .game-quizz-items .mui-content{
+        border-top: 1px solid #ccc; 
+        padding-top:5px;
+    }
+    /*
+    .game-quizz-items .mui-content:first-child{
+        border-top: 0px;
+        padding-top:5px;
+    }
+    */
 </style>
 
 <body>
 
     <header class="mui-bar mui-bar-nav aui-header b-line">
         <!--<a class=" mui-icon mui-icon-search mui-pull-left" href="search.html"></a>-->
-        <a href="sports.html" class="a" style="line-height: 44px;" >
+        <a href="sports.html" class="a" style="line-height: 44px;">
             < </a>
                 <h1 class="mui-title">赛事</h1>
     </header>
@@ -145,7 +190,7 @@
     <div class="mui-content">
 
         <div class="aui-hot t-line sports-line game-item">
-            
+
         </div>
 
         <!--内容区-->
@@ -153,20 +198,26 @@
             <div class="mui-card mt16">
                 <div class="mui-card-content">
                     <div class="mui-content " id="sport">
-                        
+
                         <!-- tab标签 -->
                         <ul id="myTab" class="nav nav-tabs" style="line-height: 20px; padding-bottom: 10px; padding-top:10px;">
-                            <li >
-                                    <span class="mui-badge mui-badge-primary" style="width: 19px;height: 21px;padding:0px;"> <img src="images/button/quiz_press@2x.png"></img> </span>
-                                    <a href="#game-quizz" data-toggle="tab" class="active show">竞猜</a>
+                            <li>
+                                <span class="mui-badge mui-badge-primary" style="width: 19px;height: 21px;padding:0px;">
+                                    <img src="images/button/quiz_press@2x.png"></img>
+                                </span>
+                                <a href="#game-quizz" data-toggle="tab" class="active show" id="game-quizz-item">竞猜</a>
                             </li>
 
                             <li>
-                                <span class="mui-badge mui-badge-primary" style="width: 19px;height: 21px;padding:0px;"> <img src="images/button/mine_press@2x.png"></img> </span>
-                                <a href="#myself" data-toggle="tab">我的</a>
+                                <span class="mui-badge mui-badge-primary" style="width: 19px;height: 21px;padding:0px;">
+                                    <img src="images/button/mine_press@2x.png"></img>
+                                </span>
+                                <a href="#myself" data-toggle="tab" id="myself-item">我的</a>
                             </li>
                             <li class="dropdown">
-                                    <span class="mui-badge mui-badge-primary" style="width: 19px;height: 21px;padding:0px;"> <img src="images/button/friends@2x.png"></img> </span>
+                                <span class="mui-badge mui-badge-primary" style="width: 19px;height: 21px;padding:0px;">
+                                    <img src="images/button/friends@2x.png"></img>
+                                </span>
                                 <a href="#friends" data-toggle="tab">好友的</a>
                             </li>
                         </ul>
@@ -176,11 +227,11 @@
                             <div class="tab-pane fade in active show" id="game-quizz">
                             </div>
                             <div class="tab-pane fade" id="myself">
-                                
+
                             </div>
                             <div class="tab-pane fade" id="friends">
                                 <!-- 记录1 -->
-                              <!--  
+                                <!--  
                                 <div class="mui-card-content game_1">
                                     <div class="mui-content">
                                         <div class="tittle">
@@ -217,19 +268,21 @@
                                     </div>
                                 </div>
                             -->
-                                
+
                             </div>
 
-                            
+
                         </div>
 
                     </div>
                 </div>
 
             </div>
-          
+
         </div>
-        <div class="theme-popover">
+
+        <!-- 投注 -->
+        <div class="theme-popover" id="touzhu_banner">
             <div class="theme-poptit">
                 <a href="javascript:void(0);" title="关闭" class="close">×</a>
                 <h5 id="game-quizz-item-name"></h5>
@@ -238,7 +291,7 @@
             <div class="theme-popbod dform">
                 <div class="mui-row">
                     <div class="mui-col-sm-4 mui-col-xs-4">
-                        <li class="mui-table-view-cell style_none p0 mui-active" quizzes-choice-item-bet="100">
+                        <li class="mui-table-view-cell style_none p0" quizzes-choice-item-bet="100">
                             <span class="money">
                                 <p>100QB</p>
                             </span>
@@ -290,18 +343,48 @@
                 <button type="button" class="mui-btn mui-btn-danger" style="width: 100%;border-radius: 0;" id="game-quizz-bet">立刻投注</button>
             </div>
         </div>
-        <div class="theme-popover-mask"></div>
+        <div class="theme-popover-mask" id="touzhu_bgc"></div>
 
-        <div class="mui-content">
-            <button type="button" class="mui-btn mui-btn-danger" style="width: 49%;border-radius: 0;">与好友PK</button>
+        <div class="mui-content" style="margin-top: 103px;">
+            <button type="button" class="mui-btn mui-btn-danger" style="width: 49%;border-radius: 0;" id="friend_play">与好友PK</button>
             <button type="button" class="mui-btn mui-btn-success " style="width: 49%;">分享给好友</button>
         </div>
+
+        <!-- 好友pk -->
+        <div class="theme-popover" id="haoyoupk_banner">
+            <div class="theme-poptit">
+                <a href="javascript:void(0);" title="关闭" class="close">×</a>
+                <h5 id="game-quizz-item-name"></h5>
+                <!-- <span style="float: right">投注规则 > </span> -->
+            </div>
+            <div class="theme-popbod dform">
+                <div class="mui-row">
+                    <h5>选择玩法</h5>
+                    <div class="price">
+                        <span class="mui-badge mui-badge-primary" style="width: 30px;height: 36px;padding:0px;">
+                            <img src="images/icon/ranking@2x.png" style="width: 100%;"></img>
+                        </span>
+                        <span id="instruction">胜负平</span>
+                    </div>
+                </div>
+                <h5>设定金额：</h5>
+                    <span id="game-quizz-item-odds">
+                        <div class="price">
+                            <input type="text" placeholder="200 QB">
+                        </div>
+                    </span>
+                
+
+                <button type="button" class="mui-btn mui-btn-danger" style="width: 100%;border-radius: 0;margin-top: 36px;" id="game-quizz-bet">立刻投注</button>
+            </div>
+        </div>
+        <div class="theme-popover-mask" id="haoyoupk_bgc"></div>
     </div>
 
-    <script src="lib/jquery-3.3.1.min.js"></script>
-    <script src="lib/jquery.cookie.js"></script>
-    <script src="lib/bootstrap.min.js"></script>
-    <script src="js/mui.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/mui/3.7.1/js/mui.min.js"></script>
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
 
 
@@ -391,8 +474,9 @@
 
     <script id="game-quizz-my-tpl" type="text/x-jQuery-tmpl">        
         <!-- 记录1 -->
+
         <div class="mui-card-content game_1 game-quizz-items">
-            <div class="mui-content" style="border-top: 1px solid #ccc; padding-top:5px;">
+            <div class="mui-content">
                 <div class="tittle">
                     <span class="zhuangtai wait">待开奖</span>
                     <span class="result">${quizzes.instruction}</span>&nbsp;
@@ -448,13 +532,26 @@
         };
 
         jQuery(document).ready(function ($) {
-            
-            $('.theme-poptit .close').click(function () {
-                $('.theme-popover-mask').fadeOut(100);
-                $('.theme-popover').slideUp(200);
+
+            // 打开  好友pk
+            $("#friend_play").click(function () {
+                $("#haoyoupk_bgc").fadeIn(100);
+                $('#haoyoupk_banner').slideDown(200);
             })
 
-        
+            // 关闭 好友pk
+            $('#friend_play .close').click(function () {
+                $('#haoyoupk_bgc').fadeOut(100);
+                $('#haoyoupk_banner').slideUp(200);
+            })
+
+            // 关闭下注
+            $('#touzhu_banner .close').click(function () {
+                $('#touzhu_bgc').fadeOut(100);
+                $('#touzhu_banner').slideUp(200);
+            })
+
+
 
             var game_id = getUrlParameter("game_id");
             game_id = parseInt(game_id)
@@ -462,9 +559,9 @@
             var choice_opt = {
                 choice_id: 0,
                 quizzes_id: 0,
-                odds:1,
-                name:"",
-                bet:0,
+                odds: 1,
+                name: "",
+                bet: 0,
             }
 
             var odds = 1;
@@ -476,39 +573,44 @@
 
                 choice_opt.quizzes_id = $(this).parents(".quizzes-choice-items").attr("quizzes-id");
 
-
                 console.log($(this).parents(".quizzes-choice-items"))
-                choice_opt.bet = 100;
+                choice_opt.bet = 0;
                 console.log(name, odds, choice_opt)
 
-                $('#game-quizz-item-name').html("投注: "+choice_opt.name);
+                $('#game-quizz-item-name').html("投注: " + choice_opt.name);
                 $('#game-quizz-item-odds').html(choice_opt.odds);
                 $('#game-quizz-item-reward').html(choice_opt.odds * choice_opt.bet + 'QB');
 
-                $('.theme-popover-mask').fadeIn(100);
-                $('.theme-popover').slideDown(200);
+                $('#touzhu_bgc').fadeIn(100);
+                $('#touzhu_banner').slideDown(200);
             })
 
-            $(".mui-table-view-cell").click(function(){
+            $(".mui-table-view-cell").click(function () {
 
                 choice_opt.bet = $(this).attr("quizzes-choice-item-bet");
 
-                $('#game-quizz-item-reward').html(choice_opt.odds * choice_opt.bet +'QB');
+                $(this).addClass("mui-active");
+
+                $('#game-quizz-item-reward').html(choice_opt.odds * choice_opt.bet + 'QB');
             })
 
 
-            $("#game-quizz-bet").click(function(){
+            $("#game-quizz-bet").click(function () {
 
                 var user_id = parseInt($.cookie('user_id'));
-                if (user_id == 0){
+                if (user_id == 0) {
                     alert("请登录");
                     window.location.href = "login.html";
-                    return ;
+                    return;
+                }
+                if (choice_opt.bet<=0){
+                    alert("请选择下注额度");
+                    return;
                 }
                 var params = {
                     game_id: game_id ? parseInt(game_id) : 0,
                     "auth_token": $.cookie('auth_token'),
-                    "bet_amount": choice_opt.bet,
+                    "bet_amount": parseInt(choice_opt.bet),
                     "choice_opt_id": parseInt(choice_opt.choice_id),
                     "quizzes_id": parseInt(choice_opt.quizzes_id),
                     "user_id": user_id
@@ -525,23 +627,27 @@
                     success: function (res) {
                         console.log(res)
 
-                        if(res.code == 200){
-                            alert('下注成功'); 
+                        if (res.code == 200) {
+                            alert('下注成功');
+
+                            $("#myself-item").addClass("active show")
+                            $("#game-quizz-item").removeClass("active show")
 
                             showMyQuizzesChoice(game_id)
                             $('.theme-popover-mask').fadeOut(100);
                             $('.theme-popover').slideUp(200);
-                        }else if(res.code == 501){
+                           
+                        } else if (res.code == 501) {
                             alert("请先登录");
                             window.location.href = "login.html"
-                        }else{
+                        } else {
                             alert(res.msg);
                         }
                     }
                 });
             })
 
-            function load(){
+            function load() {
                 var params = {
                     game_id: game_id ? parseInt(game_id) : 1
                 };
@@ -563,13 +669,13 @@
             }
 
 
-            function showMyQuizzesChoice(game_id){
+            function showMyQuizzesChoice(game_id) {
                 var user_id = parseInt($.cookie('user_id'));
 
                 var params = {
                     "auth_token": $.cookie('auth_token'),
                     "user_id": user_id,
-                    "game_id":game_id,
+                    "game_id": game_id,
                 };
                 var url = "http://35.180.103.230:8080/v1/user/quizzes_list";
 
@@ -582,7 +688,8 @@
                     success: function (res) {
                         console.log(res)
 
-                        if (res.code == 200 && res.data.length>0){
+                        if (res.code == 200 && res.data.length > 0) {
+                            $("#myself").html("");
                             $("#game-quizz-my-tpl").tmpl(res.data[0].quizzes).appendTo("#myself");
                         }
 

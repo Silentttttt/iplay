@@ -17,6 +17,37 @@
     .hide {
         display: none;
     }
+
+    .banner {
+        width: 100%;
+        height: 180px;
+        /* background-color: gray; */
+        background: url(./images/Artboard2.png)center no-repeat;
+    }
+
+    .bannerWords {
+        width: 100%;
+        text-align: center;
+        font-size: 30px;
+        margin: auto;
+        margin-top: 60px;
+        color: #ffc92d;
+        font-weight: 500;
+    }
+
+    .icon_tab {
+        height: 22px;
+        width: 22px;
+        display: block;
+        margin: auto;
+        margin-top: 3px;
+    }
+
+    .icon_tab img{
+        width: 100%;
+        height: 100%;
+    }
+
 </style>
 
 <body>
@@ -27,7 +58,11 @@
         <!--<a class=" mui-icon mui-icon-chatbubble mui-pull-right" href="dope.html"></a>-->
     </header>
 
-    <div class="mui-content" id="game-items">
+    <div class="mui-content banner">
+        <div class="bannerWords">竞猜即挖矿</div>
+    </div>
+
+    <div class="mui-content" id="game-items" style="padding-top: 0px;">
 
     </div>
 
@@ -36,19 +71,27 @@
     <nav class="mui-bar mui-bar-tab">
         <div class="t-line">
             <a href="index.html" class="aui-tab-item ">
-                <span class="mui-icon mui-icon-list"></span>
+                <span class="icon_tab">
+                    <img src="images/tabbar/guess@3x.png" alt="">
+                </span>
                 <span class="mui-tab-label">我猜</span>
             </a>
             <a href="#" class="aui-tab-item mui-active">
-                <span class="mui-icon mui-icon-location"></span>
+                <span class="icon_tab">
+                    <img src="images/tabbar/event_press@3x.png" alt="">
+                </span>
                 <span class="mui-tab-label">赛事</span>
             </a>
+            <!--
             <a class="aui-tab-item" href="chapion.html">
                 <span class="mui-icon mui-icon-person"></span>
                 <span class="mui-tab-label">猜冠军</span>
             </a>
-            <a class="aui-tab-item" href="user.html">
-                <span class="mui-icon mui-icon-paperclip"></span>
+            -->
+            <a class="aui-tab-item" href="user.html" id="owner">
+                <span class="icon_tab">
+                    <img src="images/tabbar/mine@3x.png" alt="">
+                </span>
                 <span class="mui-tab-label">我的</span>
             </a>
         </div>
@@ -59,7 +102,7 @@
         <div class="aui-hot t-line sports-line sport-item" game_id="${id}">
             <div class="mui-card mt16">
                 <!--页眉，放置标题-->
-                <div class="mui-card-header">
+                <div class="mui-card-header" style="padding-bottom:0px;padding-top:0px;">
                     <div class="mui-card-header mui-card-media" >
                         <span class="mui-badge mui-badge-primary" style="width: 78px;height: 50px;padding:0px;"> <img src="images/icon/67@2x.png"></img> </span>
                         <div class="mui-media-body" style="line-height: 50px;">
@@ -112,16 +155,16 @@
             </div>
         </div>
     </script>
-    <script src="js/mui.min.js"></script>
-    <script src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/mui/3.7.1/js/mui.min.js"></script>
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
 
-    
+
     <script type="text/javascript" charset="utf-8">
         mui.init({
             swipeBack: true //启用右滑关闭功能
         });
-     
+
         var slider = mui("#slider");
         document.getElementById("switch").addEventListener('toggle', function (e) {
             if (e.detail.isActive) {
@@ -134,7 +177,7 @@
                 });
             }
         });
-        
+
         mui(document.body).on('tap', '.mui-btn', function (e) {
             mui(this).button('loading');
             setTimeout(function () {
@@ -144,18 +187,25 @@
     </script>
     <script>
         mui.init();
+        $("#owner").click(function () {
+            var user_id = parseInt($.cookie('user_id'));
+            if (user_id == 0) {
+                window.location.href = "login.html";
+                return;
+            }
+        })
     </script>
     <script>
 
         $(function () {
-            $("#game-items").on("click",".sport-item", function () {
+            $("#game-items").on("click", ".sport-item", function () {
                 var game_id = $(this).attr("game_id");
                 console.log(game_id)
 
-                $(location).attr('href', 'game.html?game_id='+game_id);
+                $(location).attr('href', 'game.html?game_id=' + game_id);
             })
         })
-        
+
         var url = "http://35.180.103.230:8080/v1/game/list";
         var data = {};
         $.ajax({
@@ -163,7 +213,7 @@
             url: url,
             data: data,
             dataType: "json",
-            success: function(res){
+            success: function (res) {
                 console.log(res)
 
 
@@ -172,15 +222,15 @@
         });
 
 
-        function showSports(datas){
-            
+        function showSports(datas) {
+
             $("#game-item-tpl").tmpl(datas).appendTo("#game-items");
         }
     </script>
 
 
 
-</script>
+    </script>
 
 
 </body>
