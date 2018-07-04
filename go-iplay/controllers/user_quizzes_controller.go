@@ -155,6 +155,7 @@ func (uq *UserQuizzesController) EndQuizzes() {
 				return
 			}
 			singleUserQuizzes.Status = 1
+			singleUserQuizzes.Result = 1
 			if _, err := o.Update(&singleUserQuizzes); err != nil {
 				o.Rollback()
 				logs.Error("[EndQuizzes] Failed to update user quizzes status, ", err)
