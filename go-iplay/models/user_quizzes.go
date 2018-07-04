@@ -13,6 +13,7 @@ type UserQuizzes struct {
 	Result    int        `json:"result"`  // 投注结果{0 待开奖 1 猜对 2 猜错}
 	Money     int64      `json:"money"`   // 下注金额
 	Reward    int64      `json:"reward"`  // 竞猜奖励
+	Status    int64      `json:"status"`  // 结算状态{0 未结算 1 已结算}
 	Created   string     `json:"created"` //下注时间
 }
 
@@ -54,4 +55,13 @@ func GetUserQuizzesGroupByGame(userID int64, gameId int64) (*[]GameUserQuizzes, 
 		return nil, err
 	}
 	return &gameUserQuizzes, err
+}
+
+func GetUserQuizzesByQuizzesAndChoiceOpt(quizzesID int64, choiceOptID int64) (*[]UserQuizzes, error) {
+	quizzes := []UserQuizzes{}
+	_, err := orm.NewOrm().QueryTable(UserQuizzesTBName()).Filter("quizzes_id", quizzesID).Filter("choice_opt_id", choiceOptID).Filter("status", 0).RelatedSel().All(&quizzes)
+	if err != nil {
+		return nil, err
+	}
+	return &quizzes, nil
 }

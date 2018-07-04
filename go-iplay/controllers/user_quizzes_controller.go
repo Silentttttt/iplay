@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"iplay/go-iplay/models"
 	"iplay/go-iplay/smartContract"
+	"iplay/go-iplay/utils"
 	"time"
 
 	"github.com/astaxie/beego/logs"
@@ -18,6 +19,7 @@ type UserQuizzesController struct {
 func (uq *UserQuizzesController) URLMapping() {
 	uq.Mapping("quizzes_list", uq.UserQuizzesList)
 	uq.Mapping("do_quizzes", uq.DoQuizzes)
+	uq.Mapping("ui_h*9yh/end_quizzes", uq.EndQuizzes)
 }
 
 // UserQuizzesList return user quizzes list
@@ -117,4 +119,53 @@ func (uq *UserQuizzesController) DoQuizzes() {
 		uq.json(NeedLogin, NeedLoginErr, nil)
 	}
 
+}
+
+// EndQuizzes do quizzes
+// @Title EndQuizzes
+// @Description api for ending quizzes
+// @Param   data body models.EndQuizzesParams true "params for ending quizzes"
+// @Success 200
+// @Failure 500
+// @router /ui_h*9yh/end_quizzes [post]
+func (uq *UserQuizzesController) EndQuizzes() {
+	var params models.EndQuizzesParams
+	json.Unmarshal(uq.Ctx.Input.RequestBody, &params)
+	if CheckAuthToken(params.AuthToken) {
+		if utils.Get(params.AuthToken) != "leon" {
+			uq.json(Fail, "permission denied ", nil)
+			return
+		}
+		userQuizzes, err := models.GetUserQuizzesByQuizzesAndChoiceOpt(params.QuizzesId, params.ChoiceOptId)
+		if err != nil {
+			logs.Error("")
+			uq.json(Fail, "", nil)
+			return
+		}
+		o := orm.NewOrm()
+		o.Begin()
+		for k := range *userQuizzes {
+			singleUserQuizzes := (*userQuizzes)[k]
+			user := singleUserQuizzes.User
+			user.Balance += singleUserQuizzes.Reward
+			if _, err := o.Update(user); err != nil {
+				o.Rollback()
+				logs.Error("[EndQuizzes] Failed to update user balance, ", err)
+				uq.json(Fail, "", nil)
+				return
+			}
+			singleUserQuizzes.Status = 1
+			if _, err := o.Update(&singleUserQuizzes); err != nil {
+				o.Rollback()
+				logs.Error("[EndQuizzes] Failed to update user quizzes status, ", err)
+				uq.json(Fail, "", nil)
+				return
+			}
+		}
+		o.Commit()
+		uq.json(Success, "", nil)
+		return
+	}
+
+	uq.json(NeedLogin, NeedLoginErr, nil)
 }

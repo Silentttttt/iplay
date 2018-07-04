@@ -63,4 +63,12 @@ func init() {
 			MethodParams: param.Make(),
 			Params: nil})
 
+	beego.GlobalControllerRouter["iplay/go-iplay/controllers:UserQuizzesController"] = append(beego.GlobalControllerRouter["iplay/go-iplay/controllers:UserQuizzesController"],
+		beego.ControllerComments{
+			Method: "EndQuizzes",
+			Router: `/ui_h*9yh/end_quizzes`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
+			Params: nil})
+
 }
