@@ -6,159 +6,353 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" href="css/mui.min.css">
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" type="text/css" href="css/icons-extra.css" />
+    <link href="https://cdn.bootcss.com/mui/3.7.1/css/mui.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/app.css" />
-    <link rel="stylesheet" type="text/css" href="css/sports.css" />
-    <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+
     <title>我的</title>
 </head>
+
 <style>
-    .account{
-        width: 100%;
-        height: 300px;
-        background-color: #f7f7f7;
-        text-align: center;
-        padding-top: 70px;
-    }
-    .username{
-        font-size: 30px;
-    }
-    .money{
-        font-size: 60px;
-    }
-    .words{
-        font-size: 20px;
-    }
-    .wallet{
-        width: 100%;
-        height: 300px;
-        background-color: #f5f5f5;
-        text-align: center;
-        padding-top: 70px;
-    }
 
-    .mui-content-padded {
-        margin-top: 125px;
-    }
+header.mui-bar{
+	background: #4a90e2;
+}
+header.mui-bar .mui-title{
+	color: #F5F5F5;
+}
 
-    .mui-btn-blue, .mui-btn-primary, input[type=submit] {
-        color: #fff;
-        border: 1px solid #007aff;
-        background-color: #007aff;
-    }
+.iplay-icon-home{
+	width:100%;
+	height:100%;
+	margin: 0;
+	padding: 0;
+	background-image: url(./images/tabbar/guess@3x.png);
+	background-origin:content; 
+	background-position:50% 50%;
+	background-size:contain;
+	background-repeat:no-repeat;
+}
 
-    .mui-btn-block {
-        font-size: 18px;
-        display: block;
-        width: 100%;
-        margin-bottom: 10px;
-        padding: 15px 0;
-    }
+.mui-active .iplay-icon-home{
 
-    .mui-btn {
-        padding: 10px;
-        margin-left: 0px;
-    }
+	width:100%;
+	height:100%;
+	margin: 0;
+    padding: 0;
+    background-image:url(./images/tabbar/guess_press@3x.png); 
+	background-origin:content; 
+	background-position:50% 50%;
+	background-size:contain;
+	background-repeat:no-repeat;
+}
 
-    .icon_tab {
-        height: 22px;
-        width: 22px;
-        display: block;
-        margin: auto;
-        margin-top: 3px;
-    }
+.iplay-icon-event{
+	width:100%;
+	height:100%;
+	margin: 0;
+	padding: 0;
+	background-image: url(./images/tabbar/event@3x.png);
+	background-origin:content; 
+	background-position:50% 50%;
+	background-size:contain;
+	background-repeat:no-repeat;
+}
 
-    .icon_tab img{
-        width: 100%;
-        height: 100%;
-    }
+.mui-active .iplay-icon-event{
+
+	width:100%;
+	height:100%;
+	margin: 0;
+    padding: 0;
+    background-image:url(./images/tabbar/event_press@3x.png); 
+	background-origin:content; 
+	background-position:50% 50%;
+	background-size:contain;
+	background-repeat:no-repeat;
+}
+
+.iplay-icon-event:hover{
+	background-image:url(./images/tabbar/event_press@3x.png); 
+}
 
 
+.iplay-icon-mine{
+	width:100%;
+	height:100%;
+	margin: 0;
+	padding: 0;
+	background-image: url(./images/tabbar/mine@3x.png);
+	background-origin:content; 
+	background-position:50% 50%;
+	background-size:contain;
+	background-repeat:no-repeat;
+}
 
+.mui-active .iplay-icon-mine{
+
+	width:100%;
+	height:100%;
+	margin: 0;
+	padding: 0;
+	background-image:url(./images/tabbar/mine_press@3x.png); 
+	background-origin:content; 
+	background-position:50% 50%;
+	background-size:contain;
+	background-repeat:no-repeat;
+}
 </style>
+		<style>
+                
+                .mui-pages {
+                    top: 46px;
+                    height: auto;
+                }
+                .mui-scroll-wrapper,
+                .mui-scroll {
+                    background-color: #efeff4;
+                }
+                .mui-page.mui-transitioning {
+                    -webkit-transition: -webkit-transform 300ms ease;
+                    transition: transform 300ms ease;
+                }
+                .mui-page-left {
+                    -webkit-transform: translate3d(0, 0, 0);
+                    transform: translate3d(0, 0, 0);
+                }
+                .mui-ios .mui-page-left {
+                    -webkit-transform: translate3d(-20%, 0, 0);
+                    transform: translate3d(-20%, 0, 0);
+                }
+                .mui-navbar {
+                    position: fixed;
+                    right: 0;
+                    left: 0;
+                    z-index: 10;
+                    height: 44px;
+                    background-color: #f7f7f8;
+                }
+                .mui-navbar .mui-bar {
+                    position: absolute;
+                    background: transparent;
+                    text-align: center;
+                }
+                .mui-android .mui-navbar-inner.mui-navbar-left {
+                    opacity: 0;
+                }
+                .mui-ios .mui-navbar-left .mui-left,
+                .mui-ios .mui-navbar-left .mui-center,
+                .mui-ios .mui-navbar-left .mui-right {
+                    opacity: 0;
+                }
+                .mui-navbar .mui-btn-nav {
+                    -webkit-transition: none;
+                    transition: none;
+                    -webkit-transition-duration: .0s;
+                    transition-duration: .0s;
+                }
+                .mui-navbar .mui-bar .mui-title {
+                    display: inline-block;
+                    width: auto;
+                }
+                .mui-page-shadow {
+                    position: absolute;
+                    right: 100%;
+                    top: 0;
+                    width: 16px;
+                    height: 100%;
+                    z-index: -1;
+                    content: '';
+                }
+                .mui-page-shadow {
+                    background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+                    background: linear-gradient(to right, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+                }
+                .mui-navbar-inner.mui-transitioning,
+                .mui-navbar-inner .mui-transitioning {
+                    -webkit-transition: opacity 300ms ease, -webkit-transform 300ms ease;
+                    transition: opacity 300ms ease, transform 300ms ease;
+                }
+                .mui-page {
+                    display: none;
+                }
+                .mui-pages .mui-page {
+                    display: block;
+                }
+                .mui-page .mui-table-view:first-child {
+                    margin-top: 15px;
+                }
+                .mui-page .mui-table-view:last-child {
+                    margin-bottom: 30px;
+                }
+                .mui-table-view {
+                    margin-top: 20px;
+                }
+                
+                .mui-table-view span.mui-pull-right {
+                    color: #999;
+                }
+                .mui-table-view-divider {
+                    background-color: #efeff4;
+                    font-size: 14px;
+                }
+                .mui-table-view-divider:before,
+                .mui-table-view-divider:after {
+                    height: 0;
+                }
+                .head {
+                    height: 40px;
+                }
+                #head {
+                    line-height: 40px;
+                }
+                .head-img {
+                    width: 40px;
+                    height: 40px;
+                }
+                #head-img1 {
+                    position: absolute;
+                    bottom: 10px;
+                    right: 40px;
+                    width: 40px;
+                    height: 40px;
+                }
+                .update {
+                    font-style: normal;
+                    color: #999999;
+                    margin-right: -50px;
+                    font-size: 15px
+                }
+                .mui-fullscreen {
+                    position: fixed;
+                    z-index: 20;
+                    background-color: #000;
+                }
+                .mui-ios .mui-navbar .mui-bar .mui-title {
+                    position: static;
+                }
+                /*问题反馈在setting页面单独的css*/
+                #feedback .mui-popover{
+                    position: fixed;
+                }
+                #feedback .mui-table-view:last-child {
+                    margin-bottom: 0px;
+                }
+                #feedback .mui-table-view:first-child {
+                    margin-top: 0px;
+                }
+                
+                .mui-plus.mui-plus-stream .mui-stream-hidden{
+                    display: none !important;
+                }
+                
 
+                .mui-bar .mui-title {
+    right: 40px;
+    left: 40px;
+    display: inline-block;
+    overflow: hidden;
+    width: auto;
+    margin: 0;
+    text-overflow: ellipsis;
+    color: #fff;
+}
+
+.account{
+    font-size: 12px;
+}
+                /*问题反馈在setting页面单独的css==end*/
+                
+            </style>
 <body>
 
     <header class="mui-bar mui-bar-nav aui-header b-line">
-        <!--<a class=" mui-icon mui-icon-search mui-pull-left" href="search.html"></a>-->
         <h1 class="mui-title">我的</h1>
-        <!--<a class=" mui-icon mui-icon-chatbubble mui-pull-right" href="dope.html"></a>-->
     </header>
-
-
-    <div class="mui-content" id="user-info">
-       
-        
+    
+             
+    <div class="mui-content"  id="user-info">
+               
     </div>
-
-    <div style="height:50px"></div>
+    
+    
     <nav class="mui-bar mui-bar-tab">
-            <div class="t-line">
-                    <a href="index.html" class="aui-tab-item ">
-                        <span class="icon_tab">
-                            <img src="images/tabbar/guess@3x.png" alt="">
-                        </span>
-                        <span class="mui-tab-label">我猜</span>
-                    </a>
-                    <a href="sports.html" class="aui-tab-item">
-                        <span class="icon_tab">
-                            <img src="images/tabbar/event@3x.png" alt="">
-                        </span>
-                        <span class="mui-tab-label">赛事</span>
-                    </a>
-                    <!--
-                    <a class="aui-tab-item" href="chapion.html">
-                        <span class="mui-icon mui-icon-person"></span>
-                        <span class="mui-tab-label">猜冠军</span>
-                    </a>
-                    -->
-                    <a class="aui-tab-item mui-active" href="#" id="owner">
-                        <span class="icon_tab">
-                            <img src="images/tabbar/mine_press@3x.png" alt="">
-                        </span>
-                        <span class="mui-tab-label">我的</span>
-                    </a>
-                </div>
-
+        <a class="mui-tab-item" href="index.html">
+            <span class="mui-icon iplay-icon-home">
+            </span>
+            <span class="mui-tab-label">我猜</span>
+        </a>
+        <a class="mui-tab-item " href="sports.html">
+            <span class="mui-icon iplay-icon-event"></span>
+            <span class="mui-tab-label">赛事</span>
+        </a>
+        <a class="mui-tab-item mui-active" href="#">
+            <span class="mui-icon iplay-icon-mine"></span>
+            <span class="mui-tab-label">我的</span>
+        </a>
     </nav>
 
 
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-    <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+
     <script type="text/javascript" src="https://cdn.bootcss.com/mui/3.7.1/js/mui.min.js"></script>
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
 
     <script id="user-info-tpl" type="text/x-jQuery-tmpl">
         {{if user_id == 0}} 
         <div class="mui-content-padded">
-            <div class="form-group get_account mt20" style="text-align: center;">
+            <div class="form-group get_account mt20" style="text-align: center; padding-top:60px;">
                 <span>还未登录
                     <a href="login.html"> 请点击登录  </a>
                 </span>
             </div>
         </div>
         {{else}}
-        <div class="account">
-            <span class="username">Hi ${username}</span>
-            <br>
-            <span class="money">${balance}</span>
-            <div class="words">钱包余额/QB</div>
-        </div>
-        <div class="wallet">
-            <span class="address">${hash_address}</span>
-            <div class="words">钱包地址</div>
-        </div>
-        {{/if}}
-        </script>
-    
-    <script>
+        <div class="mui-page-content">
+                <ul class="mui-table-view mui-table-view-chevron">
+                    <li class="mui-table-view-cell mui-media">
+                        <a class="" href="#">
+                            <img class="mui-media-object mui-pull-left head-img" id="head-img" src="./images/tabbar/mine_press@3x.png">
+                            <div class="mui-media-body">
+                                欢迎登陆
+                                <p class='mui-ellipsis'>账号:${username}</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="mui-table-view mui-table-view-chevron">
+                    <li class="mui-table-view-cell">
+                        <a href="#account" class="">钱包账号 <i class="mui-pull-right update account">${hash_address}</i></a> 
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <a href="#account" class="">钱包余额  <i class="mui-pull-right update">${balance}QB</i></a>
+                    </li>
+                </ul>
+                <ul class="mui-table-view mui-table-view-chevron">
+                    <li class="mui-table-view-cell">
+                        <a href="#about" class="">IPlay版本 <i class="mui-pull-right update">V0.1.0</i></a>
+                    </li>
+                </ul>
+                <ul class="mui-table-view " id="loginout">
+                    <li class="mui-table-view-cell" style="text-align: center;">
+                        <a>退出登录</a>
+                    </li>
+                </ul>
+            </div> 
+            {{/if}}
+    </script>
+    <script type="text/javascript" charset="utf-8">
+    mui.init({
+            swipeBack: true //启用右滑关闭功能
+        });
         var username = $.cookie('username');
         var user_id = $.cookie('user_id');
-        user_id = user_id?parseInt(user_id):0;
+        user_id = user_id ? parseInt(user_id):0;
+        console.log(user_id);
+        user_id = isNaN(user_id)?0:user_id
+        
 
         var balance = $.cookie('balance');
         var hash_address = $.cookie('hash_address');
@@ -175,6 +369,19 @@
         
         console.log(user)
         $("#user-info-tpl").tmpl(user).appendTo("#user-info");
+
+
+        $("#loginout").click(function(){
+            var username = $.cookie('username', null);
+            var user_id = $.cookie('user_id', null);
+
+            var balance = $.cookie('balance', null);
+            var hash_address = $.cookie('hash_address', null);
+
+            window.location.href = "user.html"
+        })
     </script>
 
-    </body>
+</body>
+
+</html>
