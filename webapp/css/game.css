@@ -1,0 +1,219 @@
+/**--------- game item ---------**/
+
+.game-item-desc{
+    padding-left: 10px;
+}
+.sport-game-item-desc{
+    padding-left:10px;
+}
+
+.mui-card-content .team-item-header {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 1px solid gray;
+    display: inline-block;
+}
+
+.mui-card-content .team-item-header img{
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: none;
+    border-radius: 1px;
+}
+
+.team-item-body{
+    display: block;
+    font-size: 13px;
+    text-align: center;
+}
+
+.mui-card-content .mui-row{
+    text-align: center;
+    padding:10px 0px;
+}
+
+.mui-table-view-cell {
+    color: #666;
+    font-size: 13px;
+}
+
+
+/**--------- game tab ---------**/
+
+.game-card-tab .mui-table-view-cell{
+    text-align: center;
+    font-size:16px;
+    padding: 5px 15px;
+}
+
+.game-card-tab .mui-table-view-cell img{
+    width: 20px;
+    height: 20px;
+}
+
+.game-card-tab .mui-table-view-cell.mui-active {
+    background-color: #ffffff;
+    color: #4a90e2;
+}
+
+.game-card-content{
+    padding: 18px;
+}
+
+.game-card-content img{
+    width: 19px;
+    height: 21px;
+}
+
+.game-quizz-header-title{
+    font-size: 18px;
+}
+
+.game-quizz-header-desc{
+    color: #666;
+}
+
+.game-quizz-header-time{
+    float:right;
+    padding-right: 5px;
+    color: #8f8f94;
+}
+
+.quizzes-choice-item {
+    width: 88px;
+    height: 44px;
+    border: 1px solid #93b76a;
+    display: inline-block;
+    background-color: #e4f3d5;
+}
+
+
+/**------- game-quizz-my-item ------**/
+
+
+.game-quizz-my-item{
+    border-top: 1px solid #ccc;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.game-quizz-my-item:first-child{
+    border-top: 0px;
+    margin-top: -15px;
+}
+
+.game-quizz-my-status {
+    width: 50px;
+    display: inline-block;
+    text-align: center;
+    color: #fff;
+}
+
+.wait {
+    background-color: green;
+
+}
+
+.success {
+    background-color: red;
+}
+
+.failed {
+    background-color: blue;
+}
+
+.win {
+    text-align: center;
+    font-size: 20px;
+    width: 100%;
+    color: red;
+}
+
+
+.game-quizz-my-choice-item{
+    border-left: 1px solid #ccc;
+}
+
+.game-quizz-my-choice-item:first-child{
+    border-left: 0px;
+}
+
+.show{
+    display: block;
+}
+
+.hide{
+    display: none;
+}
+
+
+
+/* 遮罩 下注金额 */
+
+.theme-popover-mask {
+    z-index: 9998;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+    display: none;
+}
+
+.bet-theme-popover {
+    z-index: 9999;
+    position: absolute;
+    top: 67%;
+    /* left: 89%; */
+    width: 100%;
+    height: 200px;
+    /* margin: -180px 0 0 -330px; */
+    border: solid 1px #ccc;
+    background-color: #fff;
+    display: none;
+    /*box-shadow: 0 0 10px #666;*/
+}
+
+.game-bet-header{
+    border-bottom: 1px solid #ccc;
+    padding: 2px 5px;
+}
+
+#game-bet-name{
+    font-size: 16px;
+}
+
+.game-bet-rule{
+    font-size: 13px;
+    float: right;
+    color: #666;
+}
+
+.game-bet-body{
+    padding-top:12px;
+    margin-top: 2px;
+}
+
+.game-bet-money {
+    width: 100%;
+    height: 26px;
+    border: 1px solid gray;
+    display: inline-block;
+}
+
+.bet-theme-popover button{
+    padding-top: 5px;
+    height: 45px;
+    width: 100%;
+    border-radius: 0;
+}
+
+.game-bet-item{
+    padding: 2px 5px;
+    font-size: 16px;
+}
