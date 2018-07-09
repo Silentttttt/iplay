@@ -147,6 +147,7 @@
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
     <script type="text/javascript" src="https://cdn.bootcss.com/mui/3.7.1/js/mui.js"></script>
+    <script type="text/javascript" src="./js/user.js"></script>
     <script type="text/javascript" src="./js/game.js"></script>
 
 
@@ -270,6 +271,16 @@
 
     <script>
 		
+        jQuery(document).ready(function ($) {
+            
+            mui.init({})
+            var userObj = new User();
+
+            var gameObj = new Game(userObj);
+
+            gameObj.onLoad()
+
+        })
 	</script>
 </body>
 
