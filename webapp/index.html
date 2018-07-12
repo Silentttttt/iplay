@@ -42,6 +42,7 @@
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+    <script type="text/javascript" src="./js/dialog.js"></script>
 
     <script type="text/javascript" charset="utf-8">
         mui.init({
@@ -207,6 +208,7 @@
         $(function () {
 
             function load() {
+                mui.showLoading("正在加载..","div"); 
                 var user_id = parseInt($.cookie('user_id'));
                 if (user_id == 0) {
                     showLogin()
@@ -226,6 +228,7 @@
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (res) {
+                        mui.hideLoading(function(){});
                         console.log(res)
                         if (res.code == 501) {
                             showLogin()

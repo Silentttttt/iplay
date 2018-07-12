@@ -17,7 +17,6 @@
         <h1 class="mui-title">我的</h1>
     </header>
     
-                
     <div class="mui-content"  id="user-info">
                 
     </div>
@@ -91,6 +90,10 @@
     mui.init({
             swipeBack: true //启用右滑关闭功能
         });
+
+        if (window.location.search == "?login=success"){
+            mui.toast('登陆成功',{ duration:'short', type:'div' }) 
+        }
         var username = $.cookie('username');
         var user_id = $.cookie('user_id');
         user_id = user_id ? parseInt(user_id):0;

@@ -139,6 +139,7 @@ class Game{
             mui.toast('请选择下注额度',{ duration:'long', type:'div' });
             return;
         }
+        mui.showLoading("下注中..","div"); 
         var params = {
             game_id: this.game_id,
             "auth_token": this.userObj.getAuthToken(),
@@ -149,6 +150,7 @@ class Game{
         };
         var url = "http://35.180.103.230:8080/v1/user/do_quizzes";
 
+        var that =this 
         console.log(params)
         $.ajax({
             type: "POST",
@@ -158,7 +160,7 @@ class Game{
             dataType: "json",
             success: function (res) {
                 console.log(res)
-
+                mui.hideLoading(function(){});
                 if (res.code == 200) {
                     alert('下注成功');
                     
@@ -167,6 +169,8 @@ class Game{
 
                     $(".game-card-content-item").addClass("hide")
                     $("#myself-items").removeClass("hide")
+
+                    that.showMyQuizzesChoice();
 
                     //showMyQuizzesChoice(game_id)
                     $('.theme-popover-mask').fadeOut(100);
@@ -184,6 +188,7 @@ class Game{
 
 
     getGameInfo() {
+        mui.showLoading("正在加载..","div"); 
         var params = {
             game_id: this.game_id
         };
@@ -197,6 +202,7 @@ class Game{
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
+                mui.hideLoading(function(){});
                 console.log(res)
                 that.showGame(res.data.game)
 
@@ -212,6 +218,8 @@ class Game{
             "user_id": this.user_id,
             "game_id": this.game_id,
         };
+
+        console.log("test", params)
         var url = "http://35.180.103.230:8080/v1/user/quizzes_list";
 
         $.ajax({

@@ -66,6 +66,7 @@ class Sports{
 
 
     getGameList(){
+        mui.showLoading("正在加载..","div"); 
         var that = this
         var url = "http://35.180.103.230:8080/v1/game/list";
         var data = {};
@@ -75,6 +76,7 @@ class Sports{
             data: data,
             dataType: "json",
             success: function (res) {
+                mui.hideLoading(function(){});
                 console.log(res)
                 //mui('#game-items-main').pullRefresh().endPulldownToRefresh(true);
                 that.showGameHtml(res.data)

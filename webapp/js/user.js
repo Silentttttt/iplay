@@ -80,6 +80,6 @@ class User{
         this.user_name = user_name;
         this.balance = auth_token;
         this.hash_address = balance;
-        this.auth_token = hash_address;
+        this.auth_token = auth_token;
     }
 }

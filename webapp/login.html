@@ -6,6 +6,8 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
 		<link href="https://cdn.bootcss.com/mui/3.7.1/css/mui.min.css" rel="stylesheet">
+		<link href="css/app.css" rel="stylesheet">
+
 		<style>
 			.area {
 				margin: 20px auto 0px auto;
@@ -122,6 +124,8 @@
         <script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
         <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="https://cdn.bootcss.com/mui/3.7.1/js/mui.min.js"></script>
+		<script type="text/javascript" src="./js/dialog.js"></script>
+
 		<script>
 			(function($, doc) {
 				$.init({
@@ -131,6 +135,8 @@
             
             //用户登录
             $('#login').on('click', function (e) {
+				mui.showLoading("登录中..","div"); 
+
                 var loginData = {
                     "password": $('#password').val(),
                     "username": $('#username').val(),
@@ -162,9 +168,10 @@
                         $.cookie('user_id', data.user.Id)
 
                         console.log("##cookie", $.cookie('username'), $.cookie('user_id'), data);
-                        
-                        window.location.href = 'user.html';
-
+						
+						mui.hideLoading(function(){	
+							window.location.href = 'user.html?login=success';
+						});	
                     },
                         error: function (err) {
                             alert(err.msg);
