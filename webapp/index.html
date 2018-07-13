@@ -116,13 +116,13 @@
             <div class="game-quizz-my-item">
                 <!-- 记录1 -->
                 <div class="game-quizz-my-header">
-                    {{if result == 0}}
+                    {{if status == 0}}
                     <span class="game-quizz-my-status wait">待开奖</span>
                     {{/if}}
-                    {{if result == 1}}
+                    {{if status == 1}}
                     <span class="game-quizz-my-status success">猜对</span>
                     {{/if}}
-                    {{if result == 2}}
+                    {{if status == 2}}
                     <span class="game-quizz-my-status failed">猜错</span>
                     {{/if}}
                     <span class="game-quizz-header-title">${quizzes.instruction}</span>
@@ -258,7 +258,7 @@
                 var game_id = $(this).attr("game_id");
                 console.log(game_id)
 
-                $(location).attr('href', 'game.html?game_id=' + game_id);
+                $(location).attr('href', 'game.html?game_id=' + game_id+"#me");
             })
             load();
         })

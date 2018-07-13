@@ -24,6 +24,14 @@ class Game{
         this.getGameInfo();
         this.showMyQuizzesChoice();
         this.onEvent()
+
+        if(window.location.href.indexOf('me')>0){
+            $(".game-card-tab-item").removeClass("mui-active");
+            $(".game-card-tab-item-myself").addClass("mui-active");
+
+            $(".game-card-content-item").addClass("hide")
+            $("#myself-items").removeClass("hide")
+        }
     }
 
     getUrlParameter(sParam) {
