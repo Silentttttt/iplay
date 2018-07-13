@@ -14,6 +14,7 @@ class Game{
             quizzes_id: 0,
             odds: 1,
             name: "",
+            desc: "",
             bet: 0,
         }
     }
@@ -86,19 +87,20 @@ class Game{
         var name = "";
         $("#guess-items").on("click", ".quizzes-choice-item", function () {
             that.choice_opt.name = $(this).attr("quizzes-choice-item-name");
+            that.choice_opt.desc = $(this).attr("quizzes-choice-item-desc");
             that.choice_opt.odds = $(this).attr("quizzes-choice-item-odds");
             that.choice_opt.choice_id = $(this).attr("quizzes-choice-item-id");
     
             that.choice_opt.quizzes_id = $(this).parents(".quizzes-choice-items").attr("quizzes-id");
     
-            console.log($(this).parents(".quizzes-choice-items"))
             that.choice_opt.bet = 0;
             console.log(name, odds, that.choice_opt)
     
-            $('#game-bet-name').html("投注: " + that.choice_opt.name);
+            $('#game-bet-name').html(that.choice_opt.name+'('+ that.choice_opt.desc +')');
             $('#game-bet-odds').html(that.choice_opt.odds);
             $('#game-bet-reward').html(that.choice_opt.odds * that.choice_opt.bet + 'QB');
     
+            $('#game-bet-balance').html(that.userObj.getBalance()+'QB');
             $('#bet_bgc').fadeIn(100);
             $('#bet_banner').slideDown(100);
         })
@@ -206,7 +208,13 @@ class Game{
                 console.log(res)
                 that.showGame(res.data.game)
 
-                that.showQuizzes(res.data.quizzes)
+                var quizzes = res.data.quizzes
+
+                for(var i in quizzes){
+                    quizzes[i].choice_len = (12/quizzes[i].choice_opt.length)
+                }
+                
+                that.showQuizzes(quizzes)
             }
         });
     }

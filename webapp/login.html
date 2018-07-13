@@ -151,6 +151,7 @@
                     dataType: "json",
                     success: function(res){
                         if(res.code != 200 ){
+							mui.hideLoading(function(){	});
                             alert(res.msg)
                             return
                         }
@@ -174,7 +175,8 @@
 						});	
                     },
                         error: function (err) {
-                            alert(err.msg);
+							mui.hideLoading(function(){	});
+							alert(err.msg);
                         }
                     })
             })

@@ -55,3 +55,23 @@
     color: #666;
     font-size: 13px;
 }
+
+/*------- game type --------*/
+.mui-card-type{
+    margin: 10px 10px 0px;
+    box-shadow:0 0px 0px;
+}
+.mui-card-content-type{
+    height: 30px;
+    margin: 15px 0px 10px;
+}
+.mui-checkbox label, .mui-radio label {
+    display: inline;
+    height: 20px;
+    padding-right: 28px;
+}
+
+.mui-checkbox input[type=checkbox], .mui-radio input[type=radio]{
+    top:-5px;
+    right: 0px;
+}

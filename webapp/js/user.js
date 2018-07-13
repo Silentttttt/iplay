@@ -78,8 +78,8 @@ class User{
     _setUser(user_id, user_name, auth_token, balance, hash_address){
         this.user_id = user_id;
         this.user_name = user_name;
-        this.balance = auth_token;
-        this.hash_address = balance;
+        this.balance = balance;
+        this.hash_address = hash_address;
         this.auth_token = auth_token;
     }
 }

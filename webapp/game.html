@@ -79,6 +79,7 @@
         <div class="bet-theme-popover" id="bet_banner">
             <div class="game-bet-header">
                 <!--<a href="javascript:void(0);" title="关闭" class="close">×</a>-->
+                <span>投注:</span>
                 <span id="game-bet-name"></span>
                 <span class="game-bet-rule">投注规则 > </span>
             </div>
@@ -88,21 +89,21 @@
                     <div class="mui-col-sm-4 mui-col-xs-4">
                         <li class="mui-table-view-cell game-bet-change-money" bet-money="100">
                             <span class="game-bet-money">
-                                <p>100QB</p>
+                                100QB
                             </span>
                         </li>
                     </div>
                     <div class="mui-col-sm-4 mui-col-xs-4">
                         <li class="mui-table-view-cell game-bet-change-money" bet-money="200">
                             <span class="game-bet-money">
-                                <p>200QB</p>
+                                200QB
                             </span>
                         </li>
                     </div>
                     <div class="mui-col-sm-4 mui-col-xs-4">
                         <li class="mui-table-view-cell game-bet-change-money" bet-money="300">
                             <span class="game-bet-money">
-                                <p>300QB</p>
+                                300QB
                             </span>
                         </li>
                     </div>
@@ -110,33 +111,49 @@
                     <div class="mui-col-sm-4 mui-col-xs-4">
                         <li class="mui-table-view-cell game-bet-change-money" bet-money="500">
                             <span class="game-bet-money">
-                                <p>500QB</p>
+                                500QB
                             </span>
                         </li>
                     </div>
                     <div class="mui-col-sm-4 mui-col-xs-4">
                         <li class="mui-table-view-cell game-bet-change-money" bet-money="1000">
                             <span class="game-bet-money">
-                                <p>1000QB</p>
+                                1000QB
                             </span>
                         </li>
                     </div>
                     <div class="mui-col-sm-4 mui-col-xs-4">
                         <li class="mui-table-view-cell game-bet-change-money" bet-money="2000">
                             <span class="game-bet-money">
-                                <p>2000QB</p>
+                                2000QB
                             </span>
                         </li>
                     </div>
                 </div>
-                
-                <div class="game-bet-item">赔率：
-                    <span id="game-bet-odds"></span>
+                <div class="mui-row mui-bet-row">
+                    <div class="mui-col-sm-6 mui-col-xs-6">
+                        <li class="mui-table-view-cell">
+                                实时赔率：
+                                <span id="game-bet-odds" class="bet-item-yellow"></span>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-6 mui-col-xs-6">
+                        <li class="mui-table-view-cell">
+                                猜对获得：
+                                <span id="game-bet-reward" class="bet-item-yellow"></span>
+                        </li>
+                    </div>
                 </div>
-                <div class="game-bet-item">猜对获得：
-                    <span id="game-bet-reward"></span>
+                <div class="mui-row mui-bet-row">
+                    <div class="mui-col-sm-6 mui-col-xs-6">
+                        <li class="mui-table-view-cell">
+                                钱包余额:
+                                <span id="game-bet-balance" class="bet-item-yellow"></span>
+                        </li>
+                    </div>
                 </div>
-                <button type="button" class="mui-btn mui-btn-primary" id="game-quizz-bet">立刻投注</button>
+
+                <button type="button" class="mui-btn mui-btn-bet" id="game-quizz-bet">立刻投注</button>
             </div>
         </div>
         <div class="theme-popover-mask" id="bet_bgc"></div>
@@ -200,16 +217,20 @@
     <script id="game-quizz-tpl" type="text/x-jQuery-tmpl">
         <div class="game-quizz-header">
             <span> <img src="images/icon/ranking@2x.png"></img></span>
-            <span class="game-quizz-header-title">${instruction}</span>&nbsp;
-            <span class="game-quizz-header-desc">(90分钟内的赛果)</span>
+            <span class="game-quizz-header-title">${instruction}</span>
+            {{if instruction == "胜平负"}}
+            <span class="game-quizz-header-desc">(90分钟内结果)</span>
+            {{else}}
+            <span class="game-quizz-header-desc">(最终比赛结果)</span>
+            {{/if}}
         </div>
         <div class="mui-row quizzes-choice-items" quizzes-id="${id}">
             
             {{each choice_opt}} 
-            <div class="mui-col-sm-4 mui-col-xs-4">
+            <div class="mui-col-sm-${choice_len} mui-col-xs-${choice_len}">
                 <li class="mui-table-view-cell style_none" style="padding-top:2px;padding-bottom:2px;">
                     <span class="quizzes-choice-item" quizzes-choice-item-name="${name}" 
-                    quizzes-choice-item-odds="${odds}" quizzes-choice-item-id="${id}">
+                    quizzes-choice-item-odds="${odds}" quizzes-choice-item-id="${id}" quizzes-choice-item-desc="${instruction}">
                         <p>${name}</p>
                         <p>${odds}</p>
                     </span>

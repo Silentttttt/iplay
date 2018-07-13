@@ -140,9 +140,8 @@
                         }
                     },
                     error: function (err) {
+                        mui.hideLoading(function(){});
                         alert(err.msg);
-
-
                     }
                 })
             })
