@@ -1,0 +1,134 @@
+/* pages/game/index.wxss */
+
+.page__bd {
+  padding-top: 10px;
+}
+
+.weui-panel:before {
+  border-top: 0px;
+}
+
+.weui-panel:after {
+  border-bottom: 0px;
+}
+
+.weui-badge {
+  font-size: 14px;
+}
+
+.event-item-desc {
+  padding-left: 10px;
+  padding: 0.15em 0.4em;
+  line-height: 1.2;
+  vertical-align: middle;
+}
+
+.placeholder {
+  margin: 5px;
+  padding: 0 10px;
+  text-align: center;
+  line-height: 2.3em;
+}
+
+.team-item-header {
+  width: 64px;
+  height: 64px;
+  display: inline-block;
+}
+
+.team-item-header image {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1px solid gray;
+}
+
+.game-item-quizz {
+  padding: 2px 0px 3px;
+}
+
+.game-item-quizz .weui-flex__item {
+  position: relative;
+  color: #8f8f94;
+  font-size: 14px;
+  text-align: center;
+  vertical-align: middle;
+  justify-content: center;
+}
+
+.game-item-quizz .game-item-quizz-title:before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 5px;
+  right: 0;
+  padding-top: 20px;
+  height: 12px;
+  border-left: 1rpx solid #d9d9d9;
+  color: #e5e5e5;
+  left: 15px;
+}
+
+.game-item-quizz .game-item-quizz-title-first-child {
+  border-left: 0px;
+}
+
+.game-item-quizz-time {
+  font-size: 14px;
+}
+
+.game-item-quizz .weui-media-box__title_in-text {
+  margin-bottom: 5px;
+}
+
+.game-item-quizz .weui-cell {
+  padding: 5px 15px 5px;
+}
+
+.game-item-quizz-badge {
+  border-radius: 0px;
+  font-size: 14px;
+}
+
+.game-item-quizz-choice {
+  display: inline-block;
+  padding: 0.15em 0.4em;
+  line-height: 1.2;
+  text-align: left;
+  font-size: 14px;
+  vertical-align: middle;
+  border-radius: 0px;
+}
+
+.game-item-guess-tab .weui-panel__hd {
+  padding:14px 15px 0px;
+}
+.game-item-guess-tab .weui-panel__hd:after {
+  border-bottom: 0rpx;
+}
+
+
+.game-item-guess-tab .game-item-guess-title{
+  font-size: 14px;
+  color: #000;
+}
+
+.game-item-guess-tab .game-item-guess-placeholder {
+  margin: 5px;
+  padding: 0 5px;
+  text-align: center;
+  line-height: 2em;
+}
+
+.game-item-guess-tab .game-item-guess-choice-item {
+  width: 100%;
+  height: 50px;
+  border: 1px solid #93b76a;
+  display: inline-block;
+  background-color: #e4f3d5;
+  font-size: 14px;
+}
+
+.game-item-guess-tab .game-item-guess-choice-item view {
+  height: 20px;
+}

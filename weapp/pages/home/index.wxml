@@ -1,0 +1,80 @@
+<!--index.wxml-->
+<view class="page">
+  <view class="page__bd page__bd_spacing">
+
+    <navigator url="../game/view" class="weui-panel weui-panel_access event-game-panel" wx:for="{{[1, 2, 3]}}" wx:for-item="i">
+      <view class="weui-panel__hd">
+        <text class="weui-badge">世界杯</text>
+        <text class="event-item-desc">决赛</text>
+      </view>
+      <view class="weui-panel__bd">
+        <view url="" class="weui-media-box weui-media-box_appmsg event-item">
+          <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+            <view class="weui-flex">
+              <view class="event-item-hd">
+                <view class="event-item-hd-time">07-14 10:00</view>
+                <view class="event-item-hd-time-who">
+                  我发起的
+                </view>
+              </view>
+              <view class="weui-flex__item">
+                <view class="team-item-header">
+                  <image src="https://static.abcoin.pro/imgs/logo/football/368.png"></image>
+                </view>
+                <view class="team-item-hd-name">法国</view>
+              </view>
+              <view class="weui-flex__item">
+                <view class="event-item-status">竞猜中</view>
+              </view>
+              <view class="weui-flex__item">
+                <view class="team-item-header">
+                  <image src="https://static.abcoin.pro/imgs/logo/football/535.png"></image>
+                </view>
+                <view class="team-item-hd-name">克罗地亚</view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view url="" class="weui-media-box weui-media-box_text event-item-quizz" wx:for="{{[1, 2, 3]}}" wx:for-item="i">
+          <view class="weui-media-box__title weui-media-box__title_in-text">
+            <navigator url="" class="weui-cell weui-cell_access">
+              <view class="weui-cell__hd">
+                <text class="weui-badge event-item-quizz-badge">待开奖</text>
+              </view>
+              <view class="weui-cell__bd">
+                <view class="event-item-quizz-choice">猜冠军</view>
+              </view>
+              <view class="weui-cell__ft event-item-quizz-time">07-15 08:00</view>
+            </navigator>
+          </view>
+          <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+            <view class="weui-flex">
+              <view class="weui-flex__item">
+                <view class=".event-item-quizz-title-first-child">我猜</view>
+                <view>法国胜</view>
+              </view>
+              <view class="weui-flex__item">
+                <view class="event-item-quizz-title">投注</view>
+                <view>200QB</view>
+              </view>
+              <view class="weui-flex__item">
+                <view class="event-item-quizz-title">赔率</view>
+                <view>1.2</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="weui-panel__ft">
+        <view class="weui-cell weui-cell_access weui-cell_link">
+          <view class="weui-cell__bd"></view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">查看更多</view>
+        </view>
+      </view>
+
+    </navigator>
+
+  </view>
+</view>

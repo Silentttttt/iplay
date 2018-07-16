@@ -1,0 +1,42 @@
+{
+  "pages": [
+        "pages/game/view",
+        
+    "pages/home/index",        
+    "pages/event/view",  
+    "pages/profile/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#4a90e2",
+    "navigationBarTitleText": "iPlay",
+    "navigationBarTextStyle": "#fff",
+    "backgroundColor": "#4a90e2"
+  },
+  "tabBar": {
+    "color": "#929292",
+    "selectedColor": "#007aff",
+    "borderStyle": "black",
+    "backgroundColor": "#f7f7f7",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "iconPath": "images/tabbar/guess@2x.png",
+        "selectedIconPath": "images/tabbar/guess_press@2x.png",
+        "text": "我猜"
+      },
+      {
+        "pagePath": "pages/event/view",
+        "iconPath": "images/tabbar/event@3x.png",
+        "selectedIconPath": "images/tabbar/event_press@3x.png",
+        "text": "赛事"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "iconPath": "images/tabbar/mine@3x.png",
+        "selectedIconPath": "images/tabbar/mine_press@3x.png",
+        "text": "我的"
+      }
+    ]
+  }
+}

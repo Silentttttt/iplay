@@ -1,0 +1,44 @@
+<view class="page">
+  <view class="page__bd page__bd_spacing">
+
+    <view class="weui-panel weui-panel_access"  wx:for="{{[1, 2, 3]}}" wx:for-item="i">
+      <view class="weui-panel__hd">
+        <text class="weui-badge">世界杯</text>
+        <text class="event-item-desc">决赛</text>
+      </view>
+      <view class="weui-panel__bd">
+        <navigator url="../game/view" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+
+          <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+            <view class="weui-flex">
+              <view class="weui-flex__item">
+                <view class="placeholder">
+                <view class="team-item-header">
+                <image src="https://static.abcoin.pro/imgs/logo/football/368.png"></image>
+                </view>
+                  <view>比利时</view>
+                </view>
+              </view>
+              <view class="weui-flex__item">
+                <view class="placeholder">
+                  <view>07-14 10:00</view>
+                  <view>竞猜中</view>
+                </view>
+              </view>
+              <view class="weui-flex__item">
+                <view class="placeholder">
+                 <view class="team-item-header">
+                <image src="https://static.abcoin.pro/imgs/logo/football/535.png"></image>
+                </view>
+                 <view>克罗地亚</view>
+                 </view>
+                
+              </view>
+            </view>
+          </view>
+        </navigator>
+      </view>
+    </view>
+
+  </view>
+</view>

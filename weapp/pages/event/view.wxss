@@ -1,0 +1,40 @@
+/* pages/event/index.wxss */
+
+.page__bd{
+  padding-top: 10px;
+}
+
+.weui-panel:before {
+  border-top: 0px;
+}
+
+.weui-panel:after {
+  border-bottom: 0px;
+}
+
+.event-item-desc {
+  padding-left: 10px;
+  padding: 0.15em 0.4em;
+  line-height: 1.2;
+  vertical-align: middle;
+}
+
+.placeholder{
+    margin: 5px;
+    padding: 0 10px;
+    text-align: center;
+    line-height: 2.3em;
+}
+
+.team-item-header {
+    width: 64px;
+    height: 64px;
+    display: inline-block;
+}
+
+.team-item-header image {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 1px solid gray;
+}
