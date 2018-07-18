@@ -12,6 +12,18 @@
   border-bottom: 0px;
 }
 
+.event-list-panel{
+  margin-top:20px;
+}
+
+.event-list-panel .weui-panel__bd{
+  padding: 15px 10px;
+}
+
+.event-list-panel radio{
+  padding: 0px 5px;
+}
+
 .event-item-desc {
   padding-left: 10px;
   padding: 0.15em 0.4em;

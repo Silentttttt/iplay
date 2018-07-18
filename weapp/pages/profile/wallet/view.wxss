@@ -1,0 +1,17 @@
+/* pages/profile/wallet/view.wxss */
+
+/**index.wxss**/
+
+.page__hd{
+  height: 128rpx;
+  background-color: #4a90e2;
+}
+.wallet-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wallet-item-value {
+  color: #fff;
+}

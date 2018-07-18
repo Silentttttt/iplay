@@ -11,7 +11,9 @@ Page({
     tabs: ["竞猜", "我的", "好友"],
     activeIndex: 0,
     sliderOffset: 0,
-    sliderLeft: 0
+    sliderLeft: 0,
+    beting:'hidden',
+    betdata:{}
   },
 
   /**
@@ -84,5 +86,42 @@ Page({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id
     });
+  },
+
+  onBetEventTap:function(e){
+    console.log(e)
+
+    var betdata = this.data.betdata
+    betdata.choiceId = e.currentTarget.dataset.choiceId
+    betdata.choiceName = e.currentTarget.dataset.choiceName
+    betdata.choiceDesc = e.currentTarget.dataset.choiceDesc
+    betdata.choiceOdds = e.currentTarget.dataset.choiceOdds
+    betdata.choiceType = e.currentTarget.dataset.choiceType
+    betdata.reward = "-"
+
+    this.setData({
+      beting:'show',
+      betdata: betdata
+    })
+  },
+
+  onHiddenBetEventTap:function(e){
+    this.setData({
+      beting: 'hidden'
+    })
+  },
+
+  onChangeBetEventTap:function(e){
+
+    var betdata = this.data.betdata
+
+    betdata.value = parseInt(e.currentTarget.dataset.value)
+    betdata.reward = parseInt(betdata.value * betdata.choiceOdds)+'QB'
+    
+    this.setData({
+      beting: 'show',
+      betdata: betdata
+    })
   }
+
 })

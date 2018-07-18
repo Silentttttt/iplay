@@ -2,9 +2,12 @@
   "pages": [
         "pages/game/view",
         
-    "pages/home/index",        
-    "pages/event/view",  
-    "pages/profile/index"
+    "pages/profile/index",
+    "pages/event/view",
+    "pages/home/index",
+    "pages/profile/wallet/view",
+    "pages/profile/wallet/token",
+    "pages/profile/setting/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -27,14 +30,14 @@
       },
       {
         "pagePath": "pages/event/view",
-        "iconPath": "images/tabbar/event@3x.png",
-        "selectedIconPath": "images/tabbar/event_press@3x.png",
+        "iconPath": "images/tabbar/event@2x.png",
+        "selectedIconPath": "images/tabbar/event_press@2x.png",
         "text": "赛事"
       },
       {
         "pagePath": "pages/profile/index",
-        "iconPath": "images/tabbar/mine@3x.png",
-        "selectedIconPath": "images/tabbar/mine_press@3x.png",
+        "iconPath": "images/tabbar/mine@2x.png",
+        "selectedIconPath": "images/tabbar/mine_press@2x.png",
         "text": "我的"
       }
     ]

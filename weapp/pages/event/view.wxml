@@ -1,7 +1,21 @@
 <view class="page">
   <view class="page__bd page__bd_spacing">
 
-    <view class="weui-panel weui-panel_access"  wx:for="{{[1, 2, 3]}}" wx:for-item="i">
+
+    <view class="weui-panel weui-panel_access event-list-panel">
+      <view class="weui-panel__bd">
+        <view class="weui-flex">
+          <radio-group class="radio-group" bindchange="radioChange">
+            <label class="radio" wx:for="{{['全部','电子竞技','中超']}}">
+              <text>{{item}}</text>
+              <radio value="{{item}}" checked />
+            </label>
+          </radio-group>
+        </view>
+      </view>
+    </view>
+
+    <view class="weui-panel weui-panel_access" wx:for="{{[1, 2, 3]}}" wx:for-item="i">
       <view class="weui-panel__hd">
         <text class="weui-badge">世界杯</text>
         <text class="event-item-desc">决赛</text>
@@ -13,9 +27,9 @@
             <view class="weui-flex">
               <view class="weui-flex__item">
                 <view class="placeholder">
-                <view class="team-item-header">
-                <image src="https://static.abcoin.pro/imgs/logo/football/368.png"></image>
-                </view>
+                  <view class="team-item-header">
+                    <image src="https://static.abcoin.pro/imgs/logo/football/368.png"></image>
+                  </view>
                   <view>比利时</view>
                 </view>
               </view>
@@ -27,12 +41,12 @@
               </view>
               <view class="weui-flex__item">
                 <view class="placeholder">
-                 <view class="team-item-header">
-                <image src="https://static.abcoin.pro/imgs/logo/football/535.png"></image>
+                  <view class="team-item-header">
+                    <image src="https://static.abcoin.pro/imgs/logo/football/535.png"></image>
+                  </view>
+                  <view>克罗地亚</view>
                 </view>
-                 <view>克罗地亚</view>
-                 </view>
-                
+
               </view>
             </view>
           </view>

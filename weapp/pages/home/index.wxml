@@ -2,13 +2,13 @@
 <view class="page">
   <view class="page__bd page__bd_spacing">
 
-    <navigator url="../game/view" class="weui-panel weui-panel_access event-game-panel" wx:for="{{[1, 2, 3]}}" wx:for-item="i">
+    <view url="../game/view" class="weui-panel weui-panel_access event-game-panel" wx:for="{{[1, 2, 3]}}" wx:for-item="i" bindtap='ontest'>
       <view class="weui-panel__hd">
         <text class="weui-badge">世界杯</text>
         <text class="event-item-desc">决赛</text>
       </view>
       <view class="weui-panel__bd">
-        <view url="" class="weui-media-box weui-media-box_appmsg event-item">
+        <view class="weui-media-box weui-media-box_appmsg event-item">
           <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
             <view class="weui-flex">
               <view class="event-item-hd">
@@ -36,9 +36,9 @@
           </view>
         </view>
 
-        <view url="" class="weui-media-box weui-media-box_text event-item-quizz" wx:for="{{[1, 2, 3]}}" wx:for-item="i">
+        <view class="weui-media-box weui-media-box_text event-item-quizz" wx:for="{{[1, 2, 3]}}" wx:for-item="i">
           <view class="weui-media-box__title weui-media-box__title_in-text">
-            <navigator url="" class="weui-cell weui-cell_access">
+            <view class="weui-cell weui-cell_access">
               <view class="weui-cell__hd">
                 <text class="weui-badge event-item-quizz-badge">待开奖</text>
               </view>
@@ -46,7 +46,7 @@
                 <view class="event-item-quizz-choice">猜冠军</view>
               </view>
               <view class="weui-cell__ft event-item-quizz-time">07-15 08:00</view>
-            </navigator>
+            </view>
           </view>
           <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
             <view class="weui-flex">
@@ -74,7 +74,7 @@
         </view>
       </view>
 
-    </navigator>
+    </view>
 
   </view>
 </view>

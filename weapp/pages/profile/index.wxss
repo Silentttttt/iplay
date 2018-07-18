@@ -4,7 +4,6 @@
   flex-direction: column;
   align-items: center;
   background-color: #4a90e2;
-  margin-bottom: 60px;
 }
 
 .userinfo-avatar {
@@ -16,9 +15,4 @@
 
 .userinfo-nickname {
   color: #fff;
-}
-
-.usermotto {
-  margin-top: 100px;
-  text-align: center;
 }

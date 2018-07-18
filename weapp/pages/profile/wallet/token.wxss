@@ -1,0 +1,15 @@
+/* pages/profile/wallet/token.wxss */
+
+.page__hd{
+  height: 128rpx;
+  background-color: #4a90e2;
+}
+.token-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.token-item-value {
+  color: #fff;
+}
