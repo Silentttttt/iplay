@@ -1,5 +1,9 @@
 package models
 
+const (
+	DefaultPageSize = 10
+)
+
 // LoginParams login params
 type LoginParams struct {
 	Username string `json:"username"`
@@ -15,6 +19,10 @@ type IDCardAuthenticationParams struct {
 
 type QuizzesListParams struct {
 	GameId int64 `json:"game_id"`
+}
+
+type PageListParams struct {
+	PageNo int `json:"page_no"`
 }
 
 type UserQuizzesListParams struct {

@@ -3,6 +3,8 @@ package models
 import (
 	"time"
 
+	"iplay/go-iplay/utils"
+
 	"github.com/astaxie/beego/orm"
 )
 
@@ -33,11 +35,14 @@ func GetGameById(id int64) (*Game, error) {
 	return &m, nil
 }
 
-func GetGameListFromNow() (*[]Game, error) {
+func GetGameListFromNow(pageNo int) (*utils.Page, error) {
 	games := []Game{}
-	_, err := orm.NewOrm().QueryTable(GameTBName()).Filter("begin__gt", time.Now()).OrderBy("begin").RelatedSel().All(&games)
+	begin := DefaultPageSize * (pageNo - 1)
+	number, err := orm.NewOrm().QueryTable(GameTBName()).OrderBy("begin").Limit(DefaultPageSize, begin).RelatedSel().All(&games)
 	if err != nil {
 		return nil, err
 	}
-	return &games, nil
+
+	page := utils.PageUtil(int(number), pageNo, DefaultPageSize, games)
+	return &page, nil
 }

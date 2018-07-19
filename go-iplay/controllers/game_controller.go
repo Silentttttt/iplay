@@ -29,12 +29,15 @@ func (q *QuizzesController) URLMapping() {
 // List return game list
 // @Title List
 // @Description football game list
+// @Param data body models.PageListParams true "get game list by pager"
 // @Success 200 {object} models.GameListResponse
 // @Failure 500
-// @router /list [get]
+// @router /list [post]
 func (game *GameController) List() {
-	games, _ := models.GetGameListFromNow()
-	game.json(Success, "", games)
+	var params models.PageListParams
+	json.Unmarshal(game.Ctx.Input.RequestBody, &params)
+	page, _ := models.GetGameListFromNow(params.PageNo)
+	game.json(Success, "", page)
 }
 
 // QuizzesList return quizzes list
