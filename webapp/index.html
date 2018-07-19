@@ -6,203 +6,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" href="css/mui.min.css">
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" type="text/css" href="css/icons-extra.css" />
+    <link href="https://cdn.bootcss.com/mui/3.7.1/css/mui.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/app.css" />
+    <link rel="stylesheet" type="text/css" href="css/home.css" />
     <title>我猜</title>
-    <style>
-        .style_none {
-            list-style: none;
-            padding: 15px 15px;
-        }
-
-        .contury {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            border: 1px solid gray;
-            display: inline-block;
-        }
-
-        .result {
-            font-size: 22px;
-        }
-
-        .mt16 {
-            margin-top: 16px;
-        }
-
-        .time {
-            font-size: 13px;
-        }
-
-        .ing {
-            display: inherit;
-            font-size: 12px;
-            width: 
-        }
-
-        .faqizhe {
-            display: inherit;
-            color: blue;
-            font-size: 12px;
-        }
-
-        .p0 {
-            padding-top: 0;
-        }
-
-        .banner {
-            height: 200px;
-        }
-
-
-        .game_1 {
-            padding: 18px;
-        }
-
-        .game-quizz-items {
-            padding-bottom: 0px;
-            padding-top: 5px;
-        }
-
-        .game-quizz-items .mui-table-view-cell {
-            padding-top: 10px;
-            padding-bottom: 2px;
-            font-size: 20px;
-        }
-
-        .game-quizz-item {
-            width: 88px;
-            /* border-radius: 50%; */
-            border-left: 1px solid gray;
-            display: inline-block
-        }
-
-        .mt40 {
-            margin-top: 40px;
-        }
-
-        .zhuangtai {
-            width: 50px;
-            text-align: center;
-            color: #fff;
-            padding-top:5px;
-        }
-
-        .wait {
-            background-color: red;
-        }
-
-        .success {
-            background-color: green;
-        }
-
-        .tittle {
-            line-height: 35px;
-        }
-
-        .win {
-            text-align: center;
-            font-size: 20px;
-            width: 100%;
-            color: red;
-        }
-
-    .icon_tab {
-        height: 22px;
-        width: 22px;
-        display: block;
-        margin: auto;
-        margin-top: 3px;
-    }
-
-    .icon_tab img{
-        width: 100%;
-        height: 100%;
-    }
-
-    </style>
 </head>
 
 <body>
-
-
-
     <header class="mui-bar mui-bar-nav aui-header b-line">
-        <!--<a class=" mui-icon mui-icon-search mui-pull-left" href="search.html"></a>-->
         <h1 class="mui-title">我猜</h1>
-        <!--<a class=" mui-icon mui-icon-chatbubble mui-pull-right" href="dope.html"></a>-->
     </header>
     <div class="mui-content" id="game-items">
 
     </div>
 
 
-    <div style="height:50px"></div>
     <nav class="mui-bar mui-bar-tab">
-        <div class="t-line">
-            <a href="#" class="aui-tab-item mui-active">
-                <span class="icon_tab">
-                    <img src="images/tabbar/guess_press@3x.png" alt="">
-                </span>
-                <span class="mui-tab-label">我猜</span>
-            </a>
-            <a href="sports.html" class="aui-tab-item">
-                <span class="icon_tab">
-                    <img src="images/tabbar/event@3x.png" alt="">
-                </span>
-                <span class="mui-tab-label">赛事</span>
-            </a>
-            <!--
-                    <a class="aui-tab-item" href="chapion.html">
-                        <span class="mui-icon mui-icon-person"></span>
-                        <span class="mui-tab-label">猜冠军</span>
-                    </a>
-                    -->
-            <a class="aui-tab-item" href="user.html" id="owner">
-                <span class="icon_tab">
-                    <img src="images/tabbar/mine@3x.png" alt="">
-                </span>
-                <span class="mui-tab-label">我的</span>
-            </a>
-        </div>
-
-
+        <a class="mui-tab-item mui-active" href="#">
+            <span class="mui-icon iplay-icon-home">
+            </span>
+            <span class="mui-tab-label">我猜</span>
+        </a>
+        <a class="mui-tab-item" href="sports.html">
+            <span class="mui-icon iplay-icon-event"></span>
+            <span class="mui-tab-label">赛事</span>
+        </a>
+        <a class="mui-tab-item" href="user.html">
+            <span class="mui-icon iplay-icon-mine"></span>
+            <span class="mui-tab-label">我的</span>
+        </a>
     </nav>
+
+
     <script type="text/javascript" src="https://cdn.bootcss.com/mui/3.7.1/js/mui.min.js"></script>
-    <!--<script src="js/jquery-3.3.1.min.js"></script>-->
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+    <script type="text/javascript" src="./js/dialog.js"></script>
 
     <script type="text/javascript" charset="utf-8">
         mui.init({
             swipeBack: true //启用右滑关闭功能
         });
-        var slider = mui("#slider");
-        document.getElementById("switch").addEventListener('toggle', function (e) {
-            if (e.detail.isActive) {
-                slider.slider({
-                    interval: 5000
-                });
-            } else {
-                slider.slider({
-                    interval: 0
-                });
-            }
-        });
-        mui(document.body).on('tap', '.mui-btn', function (e) {
-            mui(this).button('loading');
-            setTimeout(function () {
-                mui(this).button('reset');
-            }.bind(this), 2000);
-        });
-
-    </script>
-    <script>
-        mui.init();
         $("#owner").click(function () {
             var user_id = parseInt($.cookie('user_id'));
             if (user_id == 0) {
@@ -213,68 +58,109 @@
 
     </script>
     <script id="game-noitem-tpl" type="text/x-jQuery-tmpl">
-        <div class="mui-card mt16 sport-item">
-                    <!--页眉，放置标题-->
-                    <div class="mui-card-header">
-                            <div class="mui-card-header mui-card-media" style="padding-bottom:0px;padding-top:0px;">
-                                <div class="mui-media-body" style="line-height: 50px;">
-                                    暂无记录
-                                </div>
-                            </div>
-                    </div>
+        <div class="mui-card  sport-item">
+            <!--页眉，放置标题-->
+            <div class="mui-card-header mui-card-media">
+                <span class="mui-media-object mui-pull-left" style="color:black;">暂无记录</span>
             </div>
+        </div>
     </script>
     <script id="game-item-tpl" type="text/x-jQuery-tmpl">
-        <div class="aui-hot t-line">
-        <div class="mui-card mt16 sport-item" game_id="${game.id}">
+        <div class="mui-card sport-item" game_id="${game.id}">
             <!--页眉，放置标题-->
-            <div class="mui-card-header">
-                    <div class="mui-card-header mui-card-media" style="padding-bottom:0px;padding-top:0px;">
-                        <span class="mui-badge mui-badge-primary" style="width: 78px;height: 50px;padding:0px;"> <img src="images/icon/67@2x.png"></img> </span>
-                        <div class="mui-media-body" style="line-height: 50px;">
-                            ${game.description}
-                        </div>
-                    </div>
+            <div class="mui-card-header mui-card-media">
+                <span class="mui-media-object mui-pull-left mui-badge mui-badge-danger">世界杯</span>
+                <div class="mui-media-body game-item-desc">
+                    ${game.description}
+                </div>
             </div>
             <!--内容区-->
             <div class="mui-card-content">
-                <!-- <a href="#"><img src="images/thanos.png" alt=""></a> -->
-                <div class="mui-content" style="border-top: 1px solid #ccc;">
-                    <div class="mui-row">
-                        <div class="mui-col-sm-2 mui-col-xs-2">
-                            <li class="mui-table-view-cell style_none">
-                                <span class="ing">${game.begin}</span>
-                               <!-- <span class="faqizhe">我发起的</span>-->
-                            </li>
-                        </div>
-                        <div class="mui-col-sm-4 mui-col-xs-4">
-                            <li class="mui-table-view-cell style_none" style="padding-top:0px;padding-bottom:0px;">
-                                <span class="contury">
-                                    <img src="${game.home_team.logo}" alt="">
-                                </span>
-                                <span class="ing">${game.home_team.name}</span>
-                            </li>
-                        </div>
-                        <div class="mui-col-sm-2 mui-col-xs-2">
-                            <li class="mui-table-view-cell style_none p0 mt40" style="padding:0px 0px;">
-                                <span class="ing">竞猜中</span>
-                            </li>
-                        </div>
-                        <div class="mui-col-sm-4 mui-col-xs-4">
-                            <li class="mui-table-view-cell style_none" style="padding-top:0px;padding-bottom:0px;">
-                                <span class="contury">
-                                    <img src="${game.visit_team.logo}" alt="">
-                                </span>
-                                <span class="ing">${game.visit_team.name}</span>
-                            </li>
-                        </div>
+                <div class="mui-row">
+                    <div class="mui-col-sm-3 mui-col-xs-3">
+                        <li class="mui-table-view-cell style_none">
+                            <span class="ing">${game.begin}</span>
+                        <!-- <span class="faqizhe">我发起的</span>-->
+                        </li>
                     </div>
-
+                    <div class="mui-col-xs-3 mui-col-sm-3">
+                        <span class="team-item-header">
+                            <img src="${game.home_team.logo}" alt="">
+                        </span>
+                        <span class="team-item-body">${game.home_team.name}</span>
+                    </div>
+                    <div class="mui-col-sm-3 mui-col-xs-3">
+                        <ul class="mui-table-view">
+                            {{if game.status == 0}}
+                            <li class="mui-table-view-cell">竞猜中</li>
+                            {{/if}} {{if game.status == 1}}
+                            <li class="mui-table-view-cell">${game.home_score} : ${game.visit_score}</li>
+                            <li class="mui-table-view-cell">比赛中</li>
+                            {{/if}} {{if game.status == 2}}
+                            <li class="mui-table-view-cell">${game.home_score} : ${game.visit_score}</li>
+                            <li class="mui-table-view-cell">已结束</li>
+                            {{/if}}
+                        </ul>
+                    </div>
+                    <div class="mui-col-xs-3 mui-col-sm-3">
+                        <span class="team-item-header">
+                            <img src="${game.visit_team.logo}" alt="">
+                        </span>
+                        <span class="team-item-body">${game.visit_team.name}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- 记录1 -->
             {{each quizzes}} 
+            <div class="game-quizz-my-item">
+                <!-- 记录1 -->
+                <div class="game-quizz-my-header">
+                    {{if status == 0}}
+                    <span class="game-quizz-my-status wait">待开奖</span>
+                    {{/if}}
+                    {{if status == 1}}
+                    <span class="game-quizz-my-status success">猜对</span>
+                    {{/if}}
+                    {{if status == 2}}
+                    <span class="game-quizz-my-status failed">猜错</span>
+                    {{/if}}
+                    <span class="game-quizz-header-title">${quizzes.instruction}</span>
+                    <span class="game-quizz-header-time">${created}</span>
+                </div>
+                <div class="mui-row">
+                    <div class="mui-col-sm-4 mui-col-xs-4 game-quizz-my-choice-item">
+                        <li class="mui-table-view-cell style_none">
+                            <span class="game-quizz-item" style="border-left:0px;">
+                                <p>我猜</p>
+                                <p>${choice_opt.name}</p>
+                            </span>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-4 mui-col-xs-4 game-quizz-my-choice-item">
+                        <li class="mui-table-view-cell style_none">
+                            <span class="game-quizz-item">
+                                <p>投注</p>
+                                <p>${money}QB</p>
+                            </span>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-4 mui-col-xs-4 game-quizz-my-choice-item">
+                        <li class="mui-table-view-cell style_none">
+                            <span class="game-quizz-item">
+                                <p>赔率</p>
+                                <p>${choice_opt.odds}</p>
+                            </span>
+                        </li>
+                    </div>
+                </div>
+                {{if result == 1}}
+                <div class="win">
+                    获得${reward}QB
+                </div>
+                {{/if}}
+            </div>
+<!--
             <div class="mui-card-content game_1 game-quizz-items">
                 <div class="mui-content" style="border-top: 1px solid #ccc; padding-top:5px;">
                     <div class="tittle">
@@ -308,13 +194,13 @@
                             </li>
                         </div>
                     </div>
-                    <!-- <div class="win">
+                    <div class="win">
                             获得185QB
-                        </div>-->
+                        </div>
                 </div>
             </div>
+        -->
             {{/each}}
-        </div>
         </div>
     </script>
     <script>
@@ -322,6 +208,7 @@
         $(function () {
 
             function load() {
+                mui.showLoading("正在加载..","div"); 
                 var user_id = parseInt($.cookie('user_id'));
                 if (user_id == 0) {
                     showLogin()
@@ -341,6 +228,7 @@
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (res) {
+                        mui.hideLoading(function(){});
                         console.log(res)
                         if (res.code == 501) {
                             showLogin()
@@ -370,7 +258,7 @@
                 var game_id = $(this).attr("game_id");
                 console.log(game_id)
 
-                $(location).attr('href', 'game.html?game_id=' + game_id);
+                $(location).attr('href', 'game.html?game_id=' + game_id+"#me");
             })
             load();
         })

@@ -1,0 +1,222 @@
+<!--pages/game/index.wxml wx:for="{{[1, 2, 3]}}" wx:for-item="i"-->
+<view class="page">
+  <view class="page__bd page__bd_spacing">
+
+    <view class="weui-panel weui-panel_access">
+      <view class="weui-panel__hd">
+        <text class="weui-badge">世界杯</text>
+        <text class="event-item-desc">决赛</text>
+      </view>
+      <view class="weui-panel__bd">
+        <view url="" class="weui-media-box weui-media-box_appmsg">
+
+          <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+            <view class="weui-flex">
+              <view class="weui-flex__item">
+                <view class="placeholder">
+                  <view class="team-item-header">
+                    <image src="https://static.abcoin.pro/imgs/logo/football/368.png"></image>
+                  </view>
+                  <view>法国</view>
+                </view>
+              </view>
+              <view class="weui-flex__item">
+                <view class="placeholder">
+                  <view>07-14 10:00</view>
+                  <view>竞猜中</view>
+                </view>
+              </view>
+              <view class="weui-flex__item">
+                <view class="placeholder">
+                  <view class="team-item-header">
+                    <image src="https://static.abcoin.pro/imgs/logo/football/535.png"></image>
+                  </view>
+                  <view>克罗地亚</view>
+                </view>
+
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+
+    <view class="weui-panel weui-panel_access">
+
+      <view class="weui-tab">
+        <view class="weui-navbar">
+          <block wx:for="{{tabs}}" wx:key="*this">
+            <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+              <view class="weui-navbar__title">{{item}}</view>
+            </view>
+          </block>
+          <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+        </view>
+        <view class="weui-tab__panel">
+          <view class="weui-tab__content game-item-guess-tab" hidden="{{activeIndex != 0}}">
+
+            <view class="weui-panel weui-panel_access">
+              <view class="weui-panel__hd">
+                <text class="game-item-guess-title">猜冠军</text>
+                <text class="game-item-guess-desc">(90分钟结果)</text>
+              </view>
+              <view class="weui-panel__bd">
+                <view url="" class="weui-media-box weui-media-box_appmsg">
+
+                  <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                    <view class="weui-flex">
+                      <view class="weui-flex__item">
+                        <view class="game-item-guess-placeholder">
+
+                          <view class="game-item-guess-choice-item" data-choice-name="法国胜" data-choice-odds="1.2" data-choice-id="43" data-choice-desc="胜平负" bindtap="onBetEventTap">
+                            <view>法国胜</view>
+                            <view>1.2</view>
+                          </view>
+
+                        </view>
+                      </view>
+                      <view class="weui-flex__item">
+                        <view class="game-item-guess-placeholder">
+                          <view class="game-item-guess-choice-item" data-choice-name="平" data-choice-odds="2.8" data-choice-id="43" data-choice-desc="胜平负" bindtap="onBetEventTap">
+                            <view>平</view>
+                            <view>2.8</view>
+                          </view>
+                        </view>
+                      </view>
+                      <view class="weui-flex__item">
+                        <view class="game-item-guess-placeholder">
+                          <view class="game-item-guess-choice-item" data-choice-name="克罗地亚胜" data-choice-odds="3.3" data-choice-id="43" data-choice-desc="胜平负" bindtap="onBetEventTap">
+                            <view>克罗地亚胜</view>
+                            <view>3.3</view>
+                          </view>
+                        </view>
+
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+
+
+          </view>
+          <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+            <view url="../game/view" class="weui-panel weui-panel_access event-game-panel" wx:for="{{[1, 2, 3]}}" wx:for-item="i">
+
+              <view class="weui-panel__bd">
+
+                <view url="" class="weui-media-box weui-media-box_text game-item-quizz" wx:for="{{[1, 2, 3]}}" wx:for-item="i">
+                  <view class="weui-media-box__title weui-media-box__title_in-text">
+                    <view url="" class="weui-cell weui-cell_access">
+                      <view class="weui-cell__hd">
+                        <text class="weui-badge game-item-quizz-badge">待开奖</text>
+                      </view>
+                      <view class="weui-cell__bd">
+                        <view class="game-item-quizz-choice">猜冠军</view>
+                      </view>
+                      <view class="weui-cell__ft game-item-quizz-time">07-15 08:00</view>
+                    </view>
+                  </view>
+                  <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                    <view class="weui-flex">
+                      <view class="weui-flex__item">
+                        <view class="game-item-quizz-title-first-child">我猜</view>
+                        <view>法国胜</view>
+                      </view>
+                      <view class="weui-flex__item">
+                        <view class="game-item-quizz-title">投注</view>
+                        <view>200QB</view>
+                      </view>
+                      <view class="weui-flex__item">
+                        <view class="game-item-quizz-title">赔率</view>
+                        <view>1.2</view>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+
+          </view>
+          <view class="weui-tab__content" hidden="{{activeIndex != 2}}"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view hidden="{{beting=='hidden'}}" class="weui-panel weui-panel_access bet-panel">
+    <view class="weui-panel__hd">
+      <view class="weui-cell weui-cell_access">
+        <view class="weui-cell__bd">
+          <text class="bet-cell-hd">投注: </text>
+          <text class="bet-cell-bd">{{betdata.choiceName}}</text>
+        </view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">投注规则</view>
+      </view>
+    </view>
+    <view class="weui-panel__bd">
+
+      <view class="weui-flex">
+        <view class="weui-flex__item">
+          <view class="bet-value {{betdata.value ==100?'bet-vale-selected':''}}" bindtap="onChangeBetEventTap" data-value="100">100QB</view>
+        </view>
+        <view class="weui-flex__item">
+          <view class="bet-value {{betdata.value ==200?'bet-vale-selected':''}}" bindtap="onChangeBetEventTap" data-value="200">200QB</view>
+        </view>
+        <view class="weui-flex__item">
+          <view class="bet-value {{betdata.value ==500?'bet-vale-selected':''}}" bindtap="onChangeBetEventTap" data-value="500">500QB</view>
+        </view>
+      </view>
+
+      <view class="weui-flex">
+        <view class="weui-flex__item">
+          <view class="bet-value {{betdata.value ==1000?'bet-vale-selected':''}}" bindtap="onChangeBetEventTap" data-value="1000">1000QB</view>
+        </view>
+        <view class="weui-flex__item">
+          <view class="bet-value {{betdata.value ==2000?'bet-vale-selected':''}}" bindtap="onChangeBetEventTap" data-value="2000">2000QB</view>
+        </view>
+        <view class="weui-flex__item">
+          <view>
+            <input class="weui-input" type="number" bindfocus="" bindinput="" placeholder="100的整数倍" />
+          </view>
+        </view>
+      </view>
+
+      <view class="weui-flex">
+        <view class="weui-flex__item">
+          <text>实时赔率: </text>
+          <text class="text-yellow">{{betdata.choiceOdds}}</text>
+        </view>
+        <view class="weui-flex__item">
+          <text>猜对获得: </text>
+          <text class="text-yellow">{{betdata.reward}}</text>
+        </view>
+      </view>
+      <view class="weui-flex">
+        <view class="weui-flex__item">
+          <text>账户余额: </text>
+          <text class="text-yellow">1000QB</text>
+        </view>
+      </view>
+
+    </view>
+
+
+    <view class="weui-panel__ft">
+      <button class="weui-btn" type="primary">立即竞猜</button>
+    </view>
+
+  </view>
+
+
+  <view hidden="{{beting=='hidden'}}" class="bet-mask" bindtap="onHiddenBetEventTap"></view>
+
+
+  <view class="page__ft">
+    <view class="game-item__ft">
+      <view class="game-item__ft__btn game-item__ft__btn_default">辅助操作</view>
+      <view class="game-item__ft__btn game-item__ft__btn_primary">操作</view>
+    </view>
+  </view>
+</view>

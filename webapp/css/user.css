@@ -1,0 +1,38 @@
+.mui-page {
+    display: none;
+}
+.mui-pages .mui-page {
+    display: block;
+}
+.mui-page .mui-table-view:first-child {
+    margin-top: 15px;
+}
+.mui-page .mui-table-view:last-child {
+    margin-bottom: 30px;
+}
+.mui-table-view {
+    margin-top: 20px;
+}
+
+.mui-table-view span.mui-pull-right {
+    color: #999;
+}
+.mui-table-view-divider {
+    background-color: #efeff4;
+    font-size: 14px;
+}
+.mui-table-view-divider:before,
+.mui-table-view-divider:after {
+    height: 0;
+}
+
+.update {
+    font-style: normal;
+    color: #999999;
+    margin-right: -50px;
+    font-size: 15px
+}
+
+.account{
+    font-size: 12px;
+}

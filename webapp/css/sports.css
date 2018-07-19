@@ -1,63 +1,77 @@
-.style_none {
-    list-style: none;
-    padding: 15px 0px;
+
+.banner {
+    width: 100%;
+    height: 120px;
+    /* background-color: gray; */
+    background: url(../images/Artboard2.png)center no-repeat;
 }
 
-.p0{
-    padding: 0px;
+.banner-text {
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    margin: auto;
+    padding-top: 60px;
+    color: #ffc92d;
+    font-weight: 500;
 }
 
-.contury {
-    width: 80px;
-    height: 80px;
+.game-item-desc{
+    padding-left: 10px;
+}
+
+.sport-game-item-desc{
+    padding-left:10px;
+}
+
+.mui-card-content .team-item-header {
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
     border: 1px solid gray;
     display: inline-block;
 }
 
-.result {
-    font-size: 22px;
+.mui-card-content .team-item-header img{
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: none;
+    border-radius: 1px;
 }
 
-.mt16 {
-    margin-top: 16px;
-}
-
-.time {
+.team-item-body{
+    display: block;
     font-size: 13px;
-    color: #000000;
+    text-align: center;
 }
 
-.ing {
-    display: inherit;
+.mui-card-content .mui-row{
+    text-align: center;
+    padding:10px 0px;
+}
+
+.mui-table-view-cell {
+    color: #666;
     font-size: 13px;
 }
 
-.p0 {
-    padding-top: 0;
+/*------- game type --------*/
+.mui-card-type{
+    margin: 10px 10px 0px;
+    box-shadow:0 0px 0px;
+}
+.mui-card-content-type{
+    height: 30px;
+    margin: 15px 0px 10px;
+}
+.mui-checkbox label, .mui-radio label {
+    display: inline;
+    height: 20px;
+    padding-right: 28px;
 }
 
-.banner {
-    height: 200px;
-}
-
-
-.game_1 {
-    padding: 18px;
-}
-
-.quizzes-choice-item {
-    width: 88px;
-    height: 56px;
-    /* border-radius: 50%; */
-    border: 1px solid gray;
-    display: inline-block
-}
-
-.sports-line:before{
-    border-top:0px;
-}
-.sports-line{
-    /*border-bottom:0px;*/
-    padding-bottom: 0px;
+.mui-checkbox input[type=checkbox], .mui-radio input[type=radio]{
+    top:-5px;
+    right: 0px;
 }

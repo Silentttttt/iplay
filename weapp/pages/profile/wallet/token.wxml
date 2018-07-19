@@ -1,0 +1,14 @@
+<!--pages/profile/wallet/token.wxml-->
+
+<view class="page">
+  <view class="page__hd">
+    <view class="token-item">
+        <text class="token-item-value">200CNY</text>
+    </view>
+  </view>
+  <view class="page__bd">
+    <view class="userinfo">
+        <text class="userinfo-nickname">200CNY</text>
+    </view>
+  </view>
+  </view>
