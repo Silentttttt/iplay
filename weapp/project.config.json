@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -12,8 +12,8 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.1.3",
-	"appid": "wxc96b50e5210ab459",
-	"projectname": "weapp",
+	"appid": "wx9e72c1c6cab6f38f",
+	"projectname": "Iplay",
 	"isGameTourist": false,
 	"condition": {
 		"search": {

@@ -1,4 +1,5 @@
 // pages/game/index.js
+var wegame = require('../../models/wegame')
 
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 
@@ -21,6 +22,12 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+
+    var game_id = parseInt(options.game_id)
+    that.setData({
+      game_id:game_id
+    })
+
     wx.getSystemInfo({
       success: function (res) {
         console.log(res)
@@ -30,6 +37,8 @@ Page({
         });
       }
     });
+
+    this.getGameDetail(game_id);
   },
 
   /**
@@ -121,6 +130,24 @@ Page({
     this.setData({
       beting: 'show',
       betdata: betdata
+    })
+  },
+
+  getGameDetail(game_id) {
+
+    var that = this
+    var params = {
+      game_id: game_id
+    }
+    wegame.getGameDetail(params, function (code, msg, datas) {
+      if (code != 200) {
+
+      }
+      console.log(datas)
+      that.setData({
+        game: datas.game,
+        quizzes: datas.quizzes
+      })
     })
   }
 

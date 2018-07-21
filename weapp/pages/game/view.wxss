@@ -237,23 +237,29 @@
   border: 1px solid #f7bb23;
 }
 
-.page_ft{
+.page__ft{
   position: relative;
   color: #fff;
   font-size: 14px;
   text-align: center;
 }
 
+.game-item__ft-hd{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
 
 .game-item__ft {
 	position: relative;
 	line-height: 50px;
 	display: -webkit-box;
 	display: -webkit-flex;
-	display: flex
+	display: flex;
 }
 
 .game-item__ft:after {
+  /*
 	content: " ";
 	position: absolute;
 	left: 0;
@@ -261,6 +267,7 @@
 	right: 0;
 	height: 1px;
 	color: #d5d5d6
+  */
 }
 
 .game-item__ft__btn {

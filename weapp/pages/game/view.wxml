@@ -4,8 +4,8 @@
 
     <view class="weui-panel weui-panel_access">
       <view class="weui-panel__hd">
-        <text class="weui-badge">世界杯</text>
-        <text class="event-item-desc">决赛</text>
+        <text class="weui-badge">{{game.type.Name}}</text>
+        <text class="event-item-desc">{{game.description}}</text>
       </view>
       <view class="weui-panel__bd">
         <view url="" class="weui-media-box weui-media-box_appmsg">
@@ -15,23 +15,23 @@
               <view class="weui-flex__item">
                 <view class="placeholder">
                   <view class="team-item-header">
-                    <image src="https://static.abcoin.pro/imgs/logo/football/368.png"></image>
+                    <image src="{{game.home_team.logo}}"></image>
                   </view>
-                  <view>法国</view>
+                  <view>{{game.home_team.name}}</view>
                 </view>
               </view>
               <view class="weui-flex__item">
-                <view class="placeholder">
-                  <view>07-14 10:00</view>
+                <view wx::if="{{game.status == 0}}" class="placeholder">
+                  <view>{{game.begin}}</view>
                   <view>竞猜中</view>
                 </view>
               </view>
               <view class="weui-flex__item">
                 <view class="placeholder">
                   <view class="team-item-header">
-                    <image src="https://static.abcoin.pro/imgs/logo/football/535.png"></image>
+                    <image src="{{game.visit_team.logo}}"></image>
                   </view>
-                  <view>克罗地亚</view>
+                  <view>{{game.visit_team.name}}</view>
                 </view>
 
               </view>
@@ -56,42 +56,25 @@
         <view class="weui-tab__panel">
           <view class="weui-tab__content game-item-guess-tab" hidden="{{activeIndex != 0}}">
 
-            <view class="weui-panel weui-panel_access">
+            <view class="weui-panel weui-panel_access" wx:for="{{quizzes}}" wx:for-item="quizz">
               <view class="weui-panel__hd">
-                <text class="game-item-guess-title">猜冠军</text>
-                <text class="game-item-guess-desc">(90分钟结果)</text>
+                <text class="game-item-guess-title">{{quizz.instruction}}</text>
+                <text class="game-item-guess-desc">({{quize.desc}})</text>
               </view>
               <view class="weui-panel__bd">
                 <view url="" class="weui-media-box weui-media-box_appmsg">
 
                   <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
                     <view class="weui-flex">
-                      <view class="weui-flex__item">
+                      <view class="weui-flex__item" wx:for="{{quizz.choice_opt}}" wx:for-item="choice_opt">
                         <view class="game-item-guess-placeholder">
 
-                          <view class="game-item-guess-choice-item" data-choice-name="法国胜" data-choice-odds="1.2" data-choice-id="43" data-choice-desc="胜平负" bindtap="onBetEventTap">
-                            <view>法国胜</view>
-                            <view>1.2</view>
+                          <view class="game-item-guess-choice-item" data-choice-name="{{choice_opt.name}}" data-choice-odds="{{choice_opt.odds}}" data-choice-id="{{choice_opt.id}}" data-choice-desc="{{quizz.instruction}}" bindtap="onBetEventTap">
+                            <view>{{choice_opt.name}}</view>
+                            <view>{{choice_opt.odds}}</view>
                           </view>
 
                         </view>
-                      </view>
-                      <view class="weui-flex__item">
-                        <view class="game-item-guess-placeholder">
-                          <view class="game-item-guess-choice-item" data-choice-name="平" data-choice-odds="2.8" data-choice-id="43" data-choice-desc="胜平负" bindtap="onBetEventTap">
-                            <view>平</view>
-                            <view>2.8</view>
-                          </view>
-                        </view>
-                      </view>
-                      <view class="weui-flex__item">
-                        <view class="game-item-guess-placeholder">
-                          <view class="game-item-guess-choice-item" data-choice-name="克罗地亚胜" data-choice-odds="3.3" data-choice-id="43" data-choice-desc="胜平负" bindtap="onBetEventTap">
-                            <view>克罗地亚胜</view>
-                            <view>3.3</view>
-                          </view>
-                        </view>
-
                       </view>
                     </view>
                   </view>
@@ -214,9 +197,11 @@
 
 
   <view class="page__ft">
+    <view class="game-item__ft-hd">
+    </view>
     <view class="game-item__ft">
-      <view class="game-item__ft__btn game-item__ft__btn_default">辅助操作</view>
-      <view class="game-item__ft__btn game-item__ft__btn_primary">操作</view>
+      <view class="game-item__ft__btn game-item__ft__btn_default">创建房间与好友PK</view>
+      <view class="game-item__ft__btn game-item__ft__btn_primary">分享</view>
     </view>
   </view>
 </view>

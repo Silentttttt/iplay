@@ -2,7 +2,7 @@
 <view class="page">
   <view class="page__bd page__bd_spacing">
 
-    <view url="../game/view" class="weui-panel weui-panel_access event-game-panel" wx:for="{{[1, 2, 3]}}" wx:for-item="i" bindtap='ontest'>
+    <navigator url="../game/view" class="weui-panel weui-panel_access event-game-panel" wx:for="{{[1, 2, 3]}}" wx:for-item="i" bindtap='ontest'>
       <view class="weui-panel__hd">
         <text class="weui-badge">世界杯</text>
         <text class="event-item-desc">决赛</text>
@@ -74,7 +74,7 @@
         </view>
       </view>
 
-    </view>
+    </navigator>
 
   </view>
 </view>

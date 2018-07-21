@@ -1,4 +1,6 @@
 // pages/event/index.js
+var wegame = require('../../models/wegame')
+
 Page({
 
   /**
@@ -12,7 +14,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    this.getGameList();
   },
 
   /**
@@ -62,5 +64,19 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+
+  getGameList(){
+
+    var that = this
+    wegame.getGameList({}, function (code, msg, datas){
+      if (code != 200){
+
+      }
+
+      that.setData({
+        games:datas
+      })
+    })
   }
 })

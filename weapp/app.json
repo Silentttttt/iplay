@@ -1,10 +1,9 @@
 {
   "pages": [
-        "pages/game/view",
-        
+    "pages/home/index",
+    "pages/game/view",
     "pages/profile/index",
     "pages/event/view",
-    "pages/home/index",
     "pages/profile/wallet/view",
     "pages/profile/wallet/token",
     "pages/profile/setting/index"

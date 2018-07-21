@@ -15,36 +15,36 @@
       </view>
     </view>
 
-    <view class="weui-panel weui-panel_access" wx:for="{{[1, 2, 3]}}" wx:for-item="i">
+    <view class="weui-panel weui-panel_access" wx:for="{{games}}" wx:for-item="game">
       <view class="weui-panel__hd">
-        <text class="weui-badge">世界杯</text>
-        <text class="event-item-desc">决赛</text>
+        <text class="weui-badge">{{game.type.Name}}</text>
+        <text class="event-item-desc">{{game.description}}</text>
       </view>
       <view class="weui-panel__bd">
-        <navigator url="../game/view" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+        <navigator url="../game/view?game_id={{game.id}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
 
           <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
             <view class="weui-flex">
               <view class="weui-flex__item">
                 <view class="placeholder">
                   <view class="team-item-header">
-                    <image src="https://static.abcoin.pro/imgs/logo/football/368.png"></image>
+                    <image src="{{game.home_team.logo}}"></image>
                   </view>
-                  <view>比利时</view>
+                  <view>{{game.home_team.name}}</view>
                 </view>
               </view>
               <view class="weui-flex__item">
-                <view class="placeholder">
-                  <view>07-14 10:00</view>
+                <view wx::if="{{game.status == 0}}" class="placeholder">
+                  <view>{{game.begin}}</view>
                   <view>竞猜中</view>
                 </view>
               </view>
               <view class="weui-flex__item">
                 <view class="placeholder">
                   <view class="team-item-header">
-                    <image src="https://static.abcoin.pro/imgs/logo/football/535.png"></image>
+                    <image src="{{game.visit_team.logo}}"></image>
                   </view>
-                  <view>克罗地亚</view>
+                  <view>{{game.visit_team.name}}</view>
                 </view>
 
               </view>
