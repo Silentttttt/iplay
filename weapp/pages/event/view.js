@@ -75,7 +75,7 @@ Page({
       }
 
       that.setData({
-        games:datas
+        games:datas.List
       })
     })
   }

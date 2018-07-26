@@ -71,7 +71,7 @@ class Sports{
         var url = "http://35.180.103.230:8080/v1/game/list";
         var data = {};
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: url,
             data: data,
             dataType: "json",
@@ -79,7 +79,7 @@ class Sports{
                 mui.hideLoading(function(){});
                 console.log(res)
                 //mui('#game-items-main').pullRefresh().endPulldownToRefresh(true);
-                that.showGameHtml(res.data)
+                that.showGameHtml(res.data.List)
                 
                 //that.onShow();
             }

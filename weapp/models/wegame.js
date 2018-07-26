@@ -5,6 +5,7 @@ var config = require('../config');
 
 var _request = function (url, needLogin, data, cb) {
   var method = url.indexOf("list")>0?'GET':'POST'
+  method = 'POST'
   qcloud.request({
     url: url,
     login: needLogin,
