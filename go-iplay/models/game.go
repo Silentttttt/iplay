@@ -38,7 +38,7 @@ func GetGameById(id int64) (*Game, error) {
 func GetGameListFromNow(pageNo int) (*utils.Page, error) {
 	games := []Game{}
 	begin := DefaultPageSize * (pageNo - 1)
-	number, err := orm.NewOrm().QueryTable(GameTBName()).OrderBy("begin").Limit(DefaultPageSize, begin).RelatedSel().All(&games)
+	number, err := orm.NewOrm().QueryTable(GameTBName()).OrderBy("-begin").Limit(DefaultPageSize, begin).RelatedSel().All(&games)
 	if err != nil {
 		return nil, err
 	}
