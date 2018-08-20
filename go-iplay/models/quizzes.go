@@ -10,7 +10,7 @@ type Quizzes struct {
 	Id          int64        `json:"id"`
 	Game        *Game        `orm:"rel(fk)" json:"-"`             // 赛事ID
 	Instruction string       `orm:"size(512)" json:"instruction"` // 竞猜说明
-	Begin       string       `json:"begin"`                       // 竞猜开始时间
+	Begin       time.Time    `json:"begin"`                       // 竞猜开始时间
 	End         string       `json:"end"`                         // 竞猜结束时间
 	Created     time.Time    `orm:"auto_now_add;type(datetime)" json:"-"`
 	ChoiceOpt   []*ChoiceOpt `orm:"reverse(many)" json:"choice_opt"`
@@ -34,7 +34,7 @@ func GetQuizzesListFromNow(gameID int64) (*[]Quizzes, error) {
 
 	quizzes := []Quizzes{}
 	choiceOpts := []ChoiceOpt{}
-	_, err := orm.NewOrm().QueryTable(QuizzesTBName()).Filter("game_id", gameID).Filter("end__gt", time.Now()).RelatedSel().All(&quizzes)
+	_, err := orm.NewOrm().QueryTable(QuizzesTBName()).Filter("game_id", gameID).RelatedSel().All(&quizzes)
 	if err != nil {
 		return nil, err
 	}
